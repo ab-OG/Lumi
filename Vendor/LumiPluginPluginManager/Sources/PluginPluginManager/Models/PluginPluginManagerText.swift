@@ -1,64 +1,66 @@
 import KernelCore
 import Foundation
 
-/// 插件管理页用到的文案常量集中管理。
+/// User-facing string constants for the Plugin Manager screen.
 ///
-/// 与新版本其它插件包（PluginSettingGeneral / PluginThemePack）一致，
-/// 直接内联中文文案，不依赖 LumiLocalizationKit / xcstrings。
+/// All strings are resolved through `pluginLocalization` so that the
+/// existing `LumiLocalizationKit` / xcstrings pipeline handles language
+/// selection.  English is the source language; Chinese translations live
+/// in `Resources/Localizable.xcstrings`.
 enum PluginPluginManagerText {
-    static let plugins = "插件管理"
-    static let pluginsHint = "管理所有已注册插件"
-    static let aboutDescription = "列出并展示所有已注册插件。"
-    static let searchPlugins = "搜索插件"
-    static let noPluginsFound = "未找到插件"
-    static let selectPlugin = "选择一个插件"
-    static let pluginsCount = "%lld 个插件"
-    static let enabledCount = "%lld 已启用"
-    static let allCategories = "全部"
-    static let filterAll = "全部"
-    static let filterEnabled = "已启用"
-    static let filterDisabled = "未启用"
-    static let alwaysOn = "始终启用"
-    static let disabled = "已禁用"
-    static let disabledPermanently = "已停用"
-    static let enabled = "已启用"
-    static let noDetailsProvided = "无详细信息"
-    static let noDetailsHint = "插件作者未提供详情视图。"
-    static let enable = "启用"
-    static let disableAll = "停用所有"
-    static let disablingAll = "停用中…"
+    static var plugins: String { pluginLocalization.string("Plugin Manager") }
+    static var pluginsHint: String { pluginLocalization.string("Manage all registered plugins") }
+    static var aboutDescription: String { pluginLocalization.string("Browse all registered plugins.") }
+    static var searchPlugins: String { pluginLocalization.string("Search plugins") }
+    static var noPluginsFound: String { pluginLocalization.string("No plugins found") }
+    static var selectPlugin: String { pluginLocalization.string("Select a plugin") }
+    static var pluginsCount: String { pluginLocalization.string("%lld plugins") }
+    static var enabledCount: String { pluginLocalization.string("%lld enabled") }
+    static var allCategories: String { pluginLocalization.string("All") }
+    static var filterAll: String { pluginLocalization.string("All") }
+    static var filterEnabled: String { pluginLocalization.string("Enabled") }
+    static var filterDisabled: String { pluginLocalization.string("Disabled") }
+    static var alwaysOn: String { pluginLocalization.string("Always On") }
+    static var disabled: String { pluginLocalization.string("Disabled") }
+    static var disabledPermanently: String { pluginLocalization.string("Deactivated") }
+    static var enabled: String { pluginLocalization.string("Enabled") }
+    static var noDetailsProvided: String { pluginLocalization.string("No details provided") }
+    static var noDetailsHint: String { pluginLocalization.string("The plugin author did not provide a details view.") }
+    static var enable: String { pluginLocalization.string("Enable") }
+    static var disableAll: String { pluginLocalization.string("Disable All") }
+    static var disablingAll: String { pluginLocalization.string("Disabling All...") }
 
-    // 详情面板信息区
-    static let categoryLabel = "分类"
-    static let versionLabel = "版本"
-    static let policyLabel = "策略"
-    static let identifierLabel = "标识"
-    static let permissionsTitle = "权限"
+    // Detail panel info
+    static var categoryLabel: String { pluginLocalization.string("Category") }
+    static var versionLabel: String { pluginLocalization.string("Version") }
+    static var policyLabel: String { pluginLocalization.string("Policy") }
+    static var identifierLabel: String { pluginLocalization.string("Identifier") }
+    static var permissionsTitle: String { pluginLocalization.string("Permissions") }
+    static var stageLabel: String { pluginLocalization.string("Stage") }
+    static var aboutViewLabel: String { pluginLocalization.string("About View") }
+    static var dismiss: String { pluginLocalization.string("Dismiss") }
 
-    // 关于视图
-    static let browsePlugins = "浏览实用插件"
-    static let coreCapabilities = "核心能力"
-    static let whereToFindIt = "入口位置"
-    static let settingsEntry = "设置 → 插件管理"
-    static let capabilityCatalogTitle = "插件目录"
-    static let capabilityCatalogDescription = "一览所有已注册插件。"
-    static let capabilitySearchTitle = "搜索"
-    static let capabilitySearchDescription = "按名称即时查找插件。"
-    static let capabilityFilterTitle = "分类筛选"
-    static let capabilityFilterDescription = "按插件分类过滤。"
-    static let capabilityDetailTitle = "插件详情"
-    static let capabilityDetailDescription = "查看每个插件的描述与阶段。"
-    static let capabilityOrderTitle = "排序"
-    static let capabilityOrderDescription = "插件按注册顺序展示。"
+    // About view / landing page
+    static var browsePlugins: String { pluginLocalization.string("Browse Plugins") }
+    static var coreCapabilities: String { pluginLocalization.string("Core Capabilities") }
+    static var whereToFindIt: String { pluginLocalization.string("Where to Find It") }
+    static var settingsEntry: String { pluginLocalization.string("Settings → Plugin Manager") }
+    static var capabilityCatalogTitle: String { pluginLocalization.string("Plugin Catalog") }
+    static var capabilityCatalogDescription: String { pluginLocalization.string("Browse all registered plugins.") }
+    static var capabilitySearchTitle: String { pluginLocalization.string("Search") }
+    static var capabilitySearchDescription: String { pluginLocalization.string("Search by name instantly.") }
+    static var capabilityFilterTitle: String { pluginLocalization.string("Category Filter") }
+    static var capabilityFilterDescription: String { pluginLocalization.string("Filter by plugin category.") }
+    static var capabilityDetailTitle: String { pluginLocalization.string("Plugin Details") }
+    static var capabilityDetailDescription: String { pluginLocalization.string("View each plugin's description and stage.") }
+    static var capabilityOrderTitle: String { pluginLocalization.string("Order") }
+    static var capabilityOrderDescription: String { pluginLocalization.string("Plugins are listed in registration order.") }
 }
 
-// MARK: - 新版枚举的展示映射（对齐旧版 LumiPluginCategory / Stage / Policy 语义）
-
-// `PluginEnablePolicy.isConfigurable` 由 KernelCore 提供（对齐旧版 `LumiPluginPolicy.isConfigurable`），
-// 此处不再重复声明。
+// MARK: - Display names for KernelCore enums
 
 extension PluginCategory {
-    /// 展示顺序（用于分类筛选标签栏；`allCases` 缺失时作为排序依据）。
+    /// Display order for the category filter tab bar.
     static var displayOrder: [PluginCategory] {
         [
             .core, .chat, .llm, .system, .project, .feature, .editor,
@@ -68,16 +70,16 @@ extension PluginCategory {
 
     var displayName: String {
         switch self {
-        case .core: "核心"
-        case .chat: "聊天"
-        case .llm: "模型"
-        case .editor: "编辑器"
-        case .project: "项目"
-        case .feature: "功能"
-        case .system: "系统"
-        case .design: "设计"
-        case .integration: "集成"
-        case .general: "通用"
+        case .core: pluginLocalization.string("Core")
+        case .chat: pluginLocalization.string("Chat")
+        case .llm: pluginLocalization.string("Models")
+        case .editor: pluginLocalization.string("Editor")
+        case .project: pluginLocalization.string("Projects")
+        case .feature: pluginLocalization.string("Features")
+        case .system: pluginLocalization.string("System")
+        case .design: pluginLocalization.string("Design")
+        case .integration: pluginLocalization.string("Integrations")
+        case .general: pluginLocalization.string("General")
         }
     }
 
@@ -115,10 +117,10 @@ extension PluginCategory {
 extension PluginStage {
     var displayName: String {
         switch self {
-        case .experimental: "实验"
-        case .preview: "预览"
-        case .stable: "稳定"
-        case .deprecated: "已弃用"
+        case .experimental: pluginLocalization.string("Experimental")
+        case .preview: pluginLocalization.string("Preview")
+        case .stable: pluginLocalization.string("Stable")
+        case .deprecated: pluginLocalization.string("Deprecated")
         }
     }
 }
