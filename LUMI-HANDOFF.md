@@ -20,3 +20,7 @@
 2. Use a synthetic file with three facts to verify offline file summary and a follow-up grounded in that file. Bound the test duration and record time to first visible reply, correctness, and whether the next send works after cancellation.
 3. Integrate the English branch and check the plugin manager in the running app.
 4. Verify a release candidate with its own bundle identifier and storage directory before testing against production. Repeat the inference checks in that build and record which models pass.
+
+## Diagnostics review
+
+A separate check used an in-memory SwiftData store and synthetic HTTP exchanges to examine the diagnostics export. The formatter retained original fixture values in the report. Use synthetic values for further verification and review exported reports before sharing them. The review did not change the application source.
