@@ -72,10 +72,10 @@ struct ProviderSettingsPageContent: View {
                 systemImage: viewModel.headerSystemImage
             )
             .accessibilityIdentifier(ProviderSettingsAccessibility.providerCountLabel)
-            Text(String(format: pluginLocalization.string("%lld 个模型"), Int64(viewModel.selectedModelCount)))
+            Text(String(format: pluginLocalization.count("%lld model", "%lld models", for: viewModel.selectedModelCount), Int64(viewModel.selectedModelCount)))
             Spacer()
             if !viewModel.isLocal {
-                AppButton(pluginLocalization.string("添加供应商"), systemImage: "plus", style: .primary, size: .small) {
+                AppButton(pluginLocalization.string("Add Provider"), systemImage: "plus", style: .primary, size: .small) {
                     isCustomProviderEditorPresented = true
                 }
                 .accessibilityIdentifier(ProviderSettingsAccessibility.addProviderButton)
@@ -107,7 +107,7 @@ struct ProviderSettingsPageContent: View {
         VStack(spacing: 0) {
             AppSearchBar(
                 text: $viewModel.searchText,
-                placeholder: LocalizedStringKey(pluginLocalization.string("搜索供应商"))
+                placeholder: LocalizedStringKey(pluginLocalization.string("Search providers"))
             )
                 .accessibilityIdentifier(ProviderSettingsAccessibility.searchField)
                 .padding(12)
@@ -122,7 +122,7 @@ struct ProviderSettingsPageContent: View {
                     if viewModel.filteredProviders.isEmpty {
                         AppEmptyState(
                             icon: "magnifyingglass",
-                            title: pluginLocalization.string("未找到供应商")
+                            title: pluginLocalization.string("No providers found")
                         )
                             .padding(.vertical, 32)
                     }
@@ -177,7 +177,7 @@ struct ProviderSettingsPageContent: View {
         } else {
             AppEmptyState(
                 icon: viewModel.headerSystemImage,
-                title: pluginLocalization.string("选择一个供应商")
+                title: pluginLocalization.string("Select a provider")
             )
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .appSurface(style: .panel, cornerRadius: 0)

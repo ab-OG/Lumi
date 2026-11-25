@@ -22,7 +22,7 @@ final class GeneralSettingsDiagnosticsCapabilityAdapter: GeneralSettingsDiagnost
 
     func makeDiagnosticsArchive() async throws -> DiagnosticsArchive {
         guard let diagnosticsProvider else {
-            throw GeneralSettingsCapabilityError.unavailable("诊断日志服务暂不可用。")
+            throw GeneralSettingsCapabilityError.unavailable(pluginLocalization.string("Diagnostics log service unavailable."))
         }
         return try await diagnosticsProvider.makeDiagnosticsArchive()
     }

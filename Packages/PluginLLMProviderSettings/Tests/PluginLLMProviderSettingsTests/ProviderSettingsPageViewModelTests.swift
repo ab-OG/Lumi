@@ -112,8 +112,47 @@ struct ProviderSettingsPageViewModelTests {
 
     /// 计数标签跟随界面语言变化，断言时按当前语言现算，避免写死中文。
     private func providerCountLabel(_ count: Int, isLocal: Bool) -> String {
-        let key = isLocal ? "%lld 个本地供应商" : "%lld 个云端供应商"
+        let key: String
+        switch (isLocal, count) {
+        case (true, 1): key = "%lld local provider"
+        case (true, _): key = "%lld local providers"
+        case (false, 1): key = "%lld cloud provider"
+        case (false, _): key = "%lld cloud providers"
+        }
         return String(format: pluginLocalization.string(key), Int64(count))
+    }
+
+    @Test("供应商计数标签数量为 1 时用单数，多次时用复数")
+    func providerCountLabelUsesSingularAndPlural() throws {
+        let (manager, _, capability) = makeFixture()
+        try manager.register(MockRemoteProvider(id: "remote-1", displayName: "云端供应商"))
+        try manager.register(MockLocalProvider(id: "local-1", displayName: "本地供应商"))
+
+        let cloudViewModel = makeViewModel(capability: capability, isLocal: false)
+        cloudViewModel.synchronizeSelection()
+        #expect(cloudViewModel.filteredProviders.count == 1)
+        #expect(cloudViewModel.providerCountLabel == providerCountLabel(1, isLocal: false))
+
+        let localViewModel = makeViewModel(capability: capability, isLocal: true)
+        localViewModel.synchronizeSelection()
+        #expect(localViewModel.filteredProviders.count == 1)
+        #expect(localViewModel.providerCountLabel == providerCountLabel(1, isLocal: true))
+
+        try manager.register(MockRemoteProvider(id: "remote-2", displayName: "第二云端供应商"))
+        try manager.register(MockLocalProvider(id: "local-2", displayName: "第二本地供应商"))
+        cloudViewModel.synchronizeSelection()
+        localViewModel.synchronizeSelection()
+        #expect(cloudViewModel.filteredProviders.count == 2)
+        #expect(cloudViewModel.providerCountLabel == providerCountLabel(2, isLocal: false))
+        #expect(localViewModel.filteredProviders.count == 2)
+        #expect(localViewModel.providerCountLabel == providerCountLabel(2, isLocal: true))
+    }
+
+    @Test("计数辅助函数 按 1 与大于 1 选择单复数 key")
+    func countHelperSelectsSingularForOne() {
+        #expect(pluginLocalization.count("ctx-single", "ctx-many", for: 1) == "ctx-single")
+        #expect(pluginLocalization.count("ctx-single", "ctx-many", for: 0) == "ctx-many")
+        #expect(pluginLocalization.count("ctx-single", "ctx-many", for: 2) == "ctx-many")
     }
 
     // MARK: - 添加供应商的主链路
