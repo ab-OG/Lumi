@@ -37,7 +37,7 @@ struct RemoteModelListLoader: Sendable {
         let data = try await apiService.send(request: request)
         let models = try Self.parse(data: data)
         guard !models.isEmpty else {
-            throw VendorAPIError.decodingFailed("远程模型列表为空")
+            throw VendorAPIError.decodingFailed(pluginLocalization.string("Remote model list is empty"))
         }
         return models
     }
@@ -50,10 +50,10 @@ struct RemoteModelListLoader: Sendable {
         do {
             object = try JSONSerialization.jsonObject(with: data) as? [String: Any] ?? [:]
         } catch {
-            throw VendorAPIError.decodingFailed("JSON 解析失败：\(error.localizedDescription)")
+            throw VendorAPIError.decodingFailed(String(format: pluginLocalization.string("JSON parsing failed: %@"), error.localizedDescription))
         }
         guard let entries = object["data"] as? [[String: Any]], !entries.isEmpty else {
-            throw VendorAPIError.decodingFailed("缺少 data 字段或为空")
+            throw VendorAPIError.decodingFailed(pluginLocalization.string("Missing data field or it is empty"))
         }
 
         var result: [LLMModelInfo] = []

@@ -34,7 +34,7 @@ struct MiniMaxRemoteModelListLoader: Sendable {
         let data = try await apiService.send(request: request)
         let models = try Self.parse(data: data)
         guard !models.isEmpty else {
-            throw VendorAPIError.decodingFailed("远程模型列表为空")
+            throw VendorAPIError.decodingFailed(pluginLocalization.string("Remote model list is empty"))
         }
         return models
     }
@@ -52,10 +52,10 @@ struct MiniMaxRemoteModelListLoader: Sendable {
     /// 32K 兜底预算。
     static func parse(data: Data) throws -> [LLMModelInfo] {
         guard let object = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else {
-            throw VendorAPIError.decodingFailed("JSON 解析失败")
+            throw VendorAPIError.decodingFailed(pluginLocalization.string("JSON parsing failed"))
         }
         guard let entries = object["data"] as? [[String: Any]], !entries.isEmpty else {
-            throw VendorAPIError.decodingFailed("缺少 data 字段或为空")
+            throw VendorAPIError.decodingFailed(pluginLocalization.string("Missing data field or it is empty"))
         }
 
         return entries.compactMap { entry in

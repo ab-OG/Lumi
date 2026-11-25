@@ -3,6 +3,7 @@ import PackageDescription
 
 let package = Package(
     name: "PluginLLMProviderTencent",
+    defaultLocalization: "en",
     platforms: [
         .macOS("13.1"),
         .iOS(.v17)
@@ -23,7 +24,10 @@ let package = Package(
                 .product(name: "ProviderLLMManager", package: "ProviderLLMManager"),
                 .product(name: "KitLLM", package: "KitLLM"),
             ],
-            path: "Sources/PluginLLMProviderTencent"
+            path: "Sources/PluginLLMProviderTencent",
+            resources: [
+                .process("../../Resources/Localizable.xcstrings")
+            ]
         ),
         .testTarget(
             name: "PluginLLMProviderTencentTests",

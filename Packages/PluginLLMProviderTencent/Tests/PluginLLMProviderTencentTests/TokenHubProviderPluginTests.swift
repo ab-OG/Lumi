@@ -15,8 +15,8 @@ struct TokenHubProviderPluginTests {
         #expect(plugin.order == 100)
 
         #expect(plugin.metadata.id == "com.coffic.lumi.plugin.llm-provider.tencent")
-        #expect(plugin.metadata.name == "腾讯云供应商")
-        #expect(plugin.metadata.description == "注册 TokenHubProvider 到 LLM 管理器。")
+        #expect(plugin.metadata.name == "Tencent Cloud Providers")
+        #expect(plugin.metadata.description == "Registers TokenHubProvider with the LLM manager.")
         #expect(plugin.metadata.category.rawValue == "llm")
         #expect(plugin.metadata.stage.rawValue == "stable")
         #expect(plugin.metadata.policy.rawValue == "alwaysOn")
@@ -35,7 +35,7 @@ struct TokenHubProviderPluginTests {
 
         let info = try #require(manager.provider(id: "tencent")?.providerInfo)
         #expect(info.id == "tencent")
-        #expect(info.displayName == "腾讯云 TokenHub")
+        #expect(info.displayName == "Tencent Cloud TokenHub")
         #expect(info.description == "Tencent Cloud TokenHub")
         #expect(info.defaultModel == "hy4-preview")
         #expect(info.apiFormat.rawValue == "openAI")

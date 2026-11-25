@@ -49,7 +49,7 @@ public final class GoatPlanProvider: VendorLLMProvider {
             info: LLMProviderInfo(
                 id: "goatplan",
                 displayName: "CommandCode GoatPlan",
-                description: "CommandCode GoatPlan 多模型订阅服务",
+                description: pluginLocalization.string("CommandCode GoatPlan multi-model subscription service"),
                 defaultModel: "deepseek/deepseek-v4-flash",
                 models: [
                     // Claude

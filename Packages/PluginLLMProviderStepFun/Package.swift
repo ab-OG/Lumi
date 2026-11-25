@@ -3,6 +3,7 @@ import PackageDescription
 
 let package = Package(
     name: "PluginLLMProviderStepFun",
+    defaultLocalization: "en",
     platforms: [
         .macOS("13.1"),
         .iOS(.v17)
@@ -15,6 +16,7 @@ let package = Package(
         .package(path: "../ProviderLLMManager"),
         .package(path: "../KitLLM"),
         .package(path: "../../Vendor/LumiLogging"),
+        .package(path: "../../Vendor/LumiLocalization"),
     ],
     targets: [
         .target(
@@ -24,8 +26,12 @@ let package = Package(
                 .product(name: "ProviderLLMManager", package: "ProviderLLMManager"),
                 .product(name: "KitLLM", package: "KitLLM"),
                 .product(name: "LumiLoggingKit", package: "LumiLogging"),
+                .product(name: "LumiLocalizationKit", package: "LumiLocalization"),
             ],
-            path: "Sources/PluginLLMProviderStepFun"
+            path: "Sources/PluginLLMProviderStepFun",
+            resources: [
+                .process("../../Resources/Localizable.xcstrings")
+            ]
         ),
         .testTarget(
             name: "PluginLLMProviderStepFunTests",

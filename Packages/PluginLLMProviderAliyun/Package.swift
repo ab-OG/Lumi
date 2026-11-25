@@ -3,6 +3,7 @@ import PackageDescription
 
 let package = Package(
     name: "PluginLLMProviderAliyun",
+    defaultLocalization: "en",
     platforms: [
         .macOS("13.1"),
         .iOS(.v17)
@@ -16,6 +17,7 @@ let package = Package(
         .package(path: "../ProviderLLMManager"),
         .package(path: "../KitLLM"),
         .package(path: "../../Vendor/LumiLogging"),
+        .package(path: "../../Vendor/LumiLocalization"),
     ],
     targets: [
         .target(
@@ -26,8 +28,12 @@ let package = Package(
                 .product(name: "KitLLM", package: "KitLLM"),
                 .product(name: "ProviderNetwork", package: "LumiProviders"),
                 .product(name: "LumiLoggingKit", package: "LumiLogging"),
+                .product(name: "LumiLocalizationKit", package: "LumiLocalization"),
             ],
-            path: "Sources/PluginLLMProviderAliyun"
+            path: "Sources/PluginLLMProviderAliyun",
+            resources: [
+                .process("../../Resources/Localizable.xcstrings")
+            ]
         ),
         .testTarget(
             name: "PluginLLMProviderAliyunTests",

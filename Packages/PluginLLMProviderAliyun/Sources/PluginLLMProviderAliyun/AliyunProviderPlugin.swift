@@ -18,7 +18,7 @@ public final class AliyunProviderPlugin: SuperPlugin, SuperLog {
     public let order = 100
     public let metadata = PluginMetadata(
         id: "com.coffic.lumi.plugin.llm-provider.aliyun",
-        name: "Aliyun 供应商",
+        name: pluginLocalization.string("Aliyun Providers"),
         description: "",
         category: .llm,
         stage: .stable,

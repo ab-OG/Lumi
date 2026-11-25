@@ -98,13 +98,28 @@ struct TokenPlanModelDisplayConfigTests {
             "Updated at %@", "calls",
         ]
 
+        // 品牌名等专有名词的中文译文与英文 key 相同（刻意不翻译），
+        // 无法用「译文 != key」判断资源是否命中，改为断言译文与中文条目一致。
+        let keysUnchangedInChinese = [
+            "MiniMax Token Plan": "MiniMax Token Plan",
+            "MiniMax Token Plan Quota": "MiniMax Token Plan Quota",
+        ]
+
         for locale in ["zh-Hans", "zh-Hant", "zh-HK", "zh-TW"] {
             let loc = Locale(identifier: locale)
             for key in keys {
-                #expect(
-                    pluginLocalization.string(key, locale: loc) != key,
-                    "\(locale) 资源缺少 key：\(key)"
-                )
+                let localized = pluginLocalization.string(key, locale: loc)
+                if let unchanged = keysUnchangedInChinese[key] {
+                    #expect(
+                        localized == unchanged,
+                        "\(locale) 资源缺少 key：\(key)"
+                    )
+                } else {
+                    #expect(
+                        localized != key,
+                        "\(locale) 资源缺少 key：\(key)"
+                    )
+                }
             }
         }
     }

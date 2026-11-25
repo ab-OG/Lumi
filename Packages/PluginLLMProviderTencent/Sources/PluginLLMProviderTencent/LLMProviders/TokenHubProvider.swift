@@ -10,7 +10,7 @@ public final class TokenHubProvider: VendorLLMProvider {
         super.init(
             info: LLMProviderInfo(
                 id: "tencent",
-                displayName: "腾讯云 TokenHub",
+                displayName: pluginLocalization.string("Tencent Cloud TokenHub"),
                 description: "Tencent Cloud TokenHub",
                 defaultModel: "hy4-preview",
                 models: [
@@ -21,8 +21,8 @@ public final class TokenHubProvider: VendorLLMProvider {
                     LLMModelInfo(id: "kimi-k2.7-code", displayName: "Kimi K2.7 Code", contextWindowSize: 1_000_000),
                     LLMModelInfo(id: "kimi-k2.7-code-highspeed", displayName: "Kimi K2.7 Code Highspeed", contextWindowSize: 1_000_000),
                     LLMModelInfo(id: "kimi-k2.5", displayName: "Kimi K2.5", contextWindowSize: 1_000_000),
-                    LLMModelInfo(id: "deepseek-v4-pro-202606", displayName: "DeepSeek-V4-Pro 202606 正式版", contextWindowSize: 1_000_000),
-                    LLMModelInfo(id: "deepseek-v4-pro-0813", displayName: "DeepSeek-V4-Pro 0813 正式版", contextWindowSize: 1_000_000),
+                    LLMModelInfo(id: "deepseek-v4-pro-202606", displayName: pluginLocalization.string("DeepSeek-V4-Pro 202606 (Stable)"), contextWindowSize: 1_000_000),
+                    LLMModelInfo(id: "deepseek-v4-pro-0813", displayName: pluginLocalization.string("DeepSeek-V4-Pro 0813 (Stable)"), contextWindowSize: 1_000_000),
                     LLMModelInfo(id: "deepseek-v3.2", displayName: "DeepSeek-V3.2", contextWindowSize: 1_000_000),
                     LLMModelInfo(id: "glm-5.3", displayName: "GLM-5.3", contextWindowSize: 1_000_000),
                     LLMModelInfo(id: "glm-5.2", displayName: "GLM-5.2", contextWindowSize: 1_000_000),
@@ -33,7 +33,7 @@ public final class TokenHubProvider: VendorLLMProvider {
                     LLMModelInfo(id: "minimax-m2.7", displayName: "MiniMax-M2.7", contextWindowSize: 1_000_000),
                     LLMModelInfo(id: "qwen3.5-plus", displayName: "Qwen3.5-Plus", contextWindowSize: 1_000_000),
                     LLMModelInfo(id: "deepseek-v4-flash", displayName: "DeepSeek-V4-Flash", contextWindowSize: 1_000_000),
-                    LLMModelInfo(id: "deepseek-v4-flash-0731", displayName: "DeepSeek-V4-Flash 0731 正式版", contextWindowSize: 1_000_000),
+                    LLMModelInfo(id: "deepseek-v4-flash-0731", displayName: pluginLocalization.string("DeepSeek-V4-Flash 0731 (Stable)"), contextWindowSize: 1_000_000),
                     LLMModelInfo(id: "hy-mt2-pro", displayName: "HY-MT2-Pro", contextWindowSize: 1_000_000),
                     // 图像生成
                     LLMModelInfo(id: "hy-image-v3", displayName: "Hy-Image-3.0"),

@@ -11,8 +11,8 @@ public final class AliyunTokenPlanProvider: VendorLLMProvider {
         super.init(
             info: LLMProviderInfo(
                 id: "aliyun-tokenplan",
-                displayName: "阿里云 TokenPlan",
-                description: "阿里云 DashScope Token Plan (Anthropic-compatible)",
+                displayName: pluginLocalization.string("Aliyun TokenPlan"),
+                description: pluginLocalization.string("Aliyun DashScope Token Plan (Anthropic-compatible)"),
                 defaultModel: "qwen3.6-plus",
                 models: [
                     LLMModelInfo(id: "qwen3.6-flash", contextWindowSize: 1_000_000, supportsVision: true),

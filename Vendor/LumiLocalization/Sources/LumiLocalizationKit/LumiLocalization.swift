@@ -142,10 +142,13 @@ public enum LumiLocalization {
             }
         }
 
+        // 显式传入的 locale 优先于系统偏好语言：
+        // 否则当 catalog 同时存在 en 条目时，英文系统上的
+        // `locale: Locale(identifier: "zh-Hans")` 查询会先命中 en.lproj。
+        append(locale.identifier)
         for preferred in Locale.preferredLanguages {
             append(preferred)
         }
-        append(locale.identifier)
         append("en")
         return candidates
     }

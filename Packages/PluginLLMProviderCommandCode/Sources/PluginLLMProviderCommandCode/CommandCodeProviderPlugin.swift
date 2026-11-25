@@ -23,8 +23,8 @@ public final class CommandCodeProviderPlugin: SuperPlugin, SuperLog {
     public let order = 100
     public let metadata = PluginMetadata(
         id: CommandCodeProviderPlugin.pluginID,
-        name: "CommandCode 供应商",
-        description: "注册 GoatPlan 供应商到 LLM 管理器。",
+        name: pluginLocalization.string("CommandCode Providers"),
+        description: pluginLocalization.string("Registers the GoatPlan provider with the LLM manager."),
         category: .llm,
         stage: .stable,
         policy: .alwaysOn

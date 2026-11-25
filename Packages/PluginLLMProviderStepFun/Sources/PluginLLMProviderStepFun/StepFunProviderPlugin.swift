@@ -18,8 +18,8 @@ public final class StepFunProviderPlugin: SuperPlugin, SuperLog {
     public let order = 100
     public let metadata = PluginMetadata(
         id: "com.coffic.lumi.plugin.llm-provider.stepfun",
-        name: "阶跃星辰供应商",
-        description: "注册 Step Plan 与开放平台 Provider 到 LLM 管理器。",
+        name: pluginLocalization.string("StepFun Providers"),
+        description: pluginLocalization.string("Registers Step Plan and Open Platform providers with the LLM manager."),
         category: .llm,
         stage: .stable,
         policy: .alwaysOn
