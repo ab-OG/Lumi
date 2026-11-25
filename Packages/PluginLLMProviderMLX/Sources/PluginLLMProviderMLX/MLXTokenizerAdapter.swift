@@ -53,7 +53,7 @@ struct MLXTokenizerAdapter: MLXLMCommon.Tokenizer {
 /// 从本地模型目录加载 swift-transformers 的 `AutoTokenizer`。
 struct MLXTokenizerLoader: MLXLMCommon.TokenizerLoader {
     func load(from directory: URL) async throws -> any MLXLMCommon.Tokenizer {
-        let tokenizer = try await AutoTokenizer.from(pretrained: directory.absoluteString)
+        let tokenizer = try await AutoTokenizer.from(modelFolder: directory)
         return MLXTokenizerAdapter(inner: tokenizer)
     }
 }
