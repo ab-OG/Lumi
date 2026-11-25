@@ -10,6 +10,15 @@ final class MLXRuntime {
     private var modelContainer: ModelContainer?
     private var currentModelID: String?
 
+    // MARK: - Generation gate（串行化 MLX 推理）
+
+    // TitleService 与 agent loop 共用同一个 MLXRuntime。并发的 prepare/generate
+    // 曾被怀疑造成「标题请求完成而主回合永卡 .requestingLLM」的停滞（见
+    // LUMI-HANDOFF.md「Observed behavior」）。这里的门闩把每次 generate 串行化：
+    // 同一时刻只允许一个请求进入模型准备与流式生成；槽位在生成结束或取消
+    // 路径完成后才释放。详见 LUMI-HANDOFF.md「Resume and verify」第 1 条。
+    private let generationGate = MLXGenerationGate()
+
     func configure(rootDirectory: URL) {
         MLXModelPaths.configure(rootDirectory: rootDirectory)
         MLXDownloadManager.shared.configure(rootDirectory: rootDirectory)
@@ -26,6 +35,28 @@ final class MLXRuntime {
         onChunk: @escaping @Sendable (LLMStreamChunk) async -> Void
     ) async throws -> LLMResponse {
         guard isAppleSilicon else { throw MLXProviderError.unsupportedPlatform }
+        await generationGate.acquire()
+        do {
+            let response = try await performGenerate(
+                request: request,
+                modelID: modelID,
+                onChunk: onChunk
+            )
+            generationGate.release()
+            return response
+        } catch {
+            generationGate.release()
+            throw error
+        }
+    }
+
+    private func performGenerate(
+        request: LLMRequest,
+        modelID: String,
+        onChunk: @escaping @Sendable (LLMStreamChunk) async -> Void
+    ) async throws -> LLMResponse {
+        // 持有槽位后立即检查取消：排队等待期间被取消的请求不该占用槽位。
+        try Task.checkCancellation()
         try await ensureModelDownloaded(modelID)
         if currentModelID != modelID {
             modelContainer = nil

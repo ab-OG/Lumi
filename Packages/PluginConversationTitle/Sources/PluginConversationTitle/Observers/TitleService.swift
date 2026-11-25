@@ -8,6 +8,32 @@ import ProviderConversation
 import ProviderLLMManager
 import ProviderMessage
 
+/// 标题等待助手回合空闲的节奏参数；可注入以便测试。
+///
+/// 生产值见 ``TitleDeferralTiming/default``；测试用 ``TitleDeferralTiming/immediate``
+/// 把毫秒级的真实节奏换成零/微秒级，避免测试真睡几秒。
+struct TitleDeferralTiming: Sendable {
+    /// 发起 agent 回合前的启动窗口：首条用户消息落库与 `runTurn` 之间存在竞态，
+    /// 立即检查 `isRunning` 可能看到未开始的回合而提前放行。
+    let assistantTurnStartGrace: Duration
+    /// 回合运行期间的轮询间隔。
+    let agentTurnIdlePollInterval: Duration
+    /// 单次标题等待的总体上限：回合悬挂时不能无限把标题堵死。
+    let agentTurnIdleWaitTimeout: Duration
+
+    static let `default` = TitleDeferralTiming(
+        assistantTurnStartGrace: .seconds(2),
+        agentTurnIdlePollInterval: .milliseconds(500),
+        agentTurnIdleWaitTimeout: .seconds(600)
+    )
+
+    static let immediate = TitleDeferralTiming(
+        assistantTurnStartGrace: .zero,
+        agentTurnIdlePollInterval: .milliseconds(10),
+        agentTurnIdleWaitTimeout: .seconds(1)
+    )
+}
+
 /// 自动标题服务：监听 `lumiMessageSaved`，为「第一条用户消息」用 LLM 生成标题。
 ///
 /// 订阅消息 Provider 的插入回调，为第一条用户消息生成会话标题。
@@ -19,6 +45,7 @@ final class TitleService: SuperLog {
     private let conversations: any ConversationManaging
     private let messages: any MessageManaging
     private let llmProvider: any LLMManaging
+    private let deferTiming: TitleDeferralTiming
     private var messageObserver: (any MessageInsertedObserverHandle)?
     private var runningConversationIDs: Set<UUID> = []
     /// 是否启用自动标题（headless agent 进程应关闭，见 `isEnabled`）。
@@ -37,12 +64,14 @@ final class TitleService: SuperLog {
         kernel: KernelCoreContainer,
         conversations: any ConversationManaging,
         messages: any MessageManaging,
-        llmProvider: any LLMManaging
+        llmProvider: any LLMManaging,
+        deferTiming: TitleDeferralTiming = .default
     ) {
         self.kernel = kernel
         self.conversations = conversations
         self.messages = messages
         self.llmProvider = llmProvider
+        self.deferTiming = deferTiming
         self.isEnabled = Self.isEnabled
         guard isEnabled else {
             Self.logger.info("\(Self.t)自动标题已禁用（headless agent 进程）")
@@ -144,6 +173,19 @@ final class TitleService: SuperLog {
             return
         }
 
+        await deferTitleUntilAssistantTurnIdle(conversationID: conversationID)
+        if Task.isCancelled { return }
+
+        // 等待期间对话状态可能已变化（用户手动改标题、消息被删、服务停止）；
+        // 发起 LLM 请求前再次复核，避免旧上下文覆盖新状态（见 AGENTS.md「异步
+        // 写回共享状态必须带身份校验」）。
+        guard await shouldApplyGeneratedTitle(
+            conversationID: conversationID,
+            firstUserMessageContent: message.content
+        ) else {
+            return
+        }
+
         let generatedTitle: String
         do {
             generatedTitle = try await generateTitle(for: message.content, conversationID: conversationID)
@@ -177,6 +219,45 @@ final class TitleService: SuperLog {
         guard await conversations.updateConversationTitleAndWait(generatedTitle, for: conversationID) else {
             Self.logger.error("\(Self.t)Failed to persist generated title for conversation \(conversationID, privacy: .public)")
             return
+        }
+    }
+
+    /// 标题引发推理竞争的修复：助手回复优先于自动标题。
+    ///
+    /// ## 为什么要等
+    ///
+    /// 首条用户消息落库时机正是 agent 回合即将开始之时。此前 `handleMessageSaved`
+    /// 立即发起标题 LLM 请求，标题请求与主回合排队中的请求会同时打到同一个
+    /// `MLXRuntime`（本地推理时），并发的准备/生成被怀疑造成了主回合永卡
+    /// `.requestingLLM` 的停滞（见 `LUMI-HANDOFF.md`）。云端供应商不受影响，
+    /// 但统一等待不会引入额外延迟（回合空闲时第一个检查即通过）。
+    ///
+    /// ## 行为
+    ///
+    /// - 先给 agent loop 一个短暂的启动窗口（首条消息落库到 `runTurn` 之间有
+    ///   竞态），再轮询 `isRunning`；回合运行期间持续等待。
+    /// - 等 `Task`（即本服务）被取消或超时上限到达时退出，防止单个长回合把
+    ///   标题堵死；超时只记日志放行，标题生成自身的护栏（`shouldApplyGenerated-
+    ///   Title` 复核 + 兜底标题）仍在。
+    /// - agent loop 未注册（测试 / headless / 插件未启用）时直接放行，保持原行为。
+    /// - 轮询用间隔等待而非观察者回调，避免「注册前事件已发生」「句柄泄漏」两个
+    ///   边界；500ms 粒度对标题延迟不敏感。
+    private func deferTitleUntilAssistantTurnIdle(conversationID: UUID) async {
+        guard let agentLoop = kernel.resolveProvider((any AgentLoopProviding).self) else {
+            return
+        }
+        try? await Task.sleep(for: deferTiming.assistantTurnStartGrace)
+        let deadline = ContinuousClock.now + deferTiming.agentTurnIdleWaitTimeout
+        while agentLoop.isRunning(for: conversationID) {
+            if Task.isCancelled {
+                Self.logger.info("\(Self.t)标题等待被取消：\(conversationID, privacy: .public)")
+                return
+            }
+            if ContinuousClock.now >= deadline {
+                Self.logger.warning("\(Self.t)标题等待超时（回合仍在运行），放行标题请求：\(conversationID, privacy: .public)")
+                return
+            }
+            try? await Task.sleep(for: deferTiming.agentTurnIdlePollInterval)
         }
     }
 
