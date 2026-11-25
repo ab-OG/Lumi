@@ -327,7 +327,7 @@ struct GeneralSettingsDetailView: View {
                 .foregroundStyle(.secondary)
         } else {
             AppSettingSection(
-                title: String(format: pluginLocalization.string("Processing %lld Lumi data items, totaling %@."), summary.targets.count, formattedBytes(summary.totalSizeInBytes)),
+                title: String(format: pluginLocalization.count("Processing %lld Lumi data item, totaling %@.", "Processing %lld Lumi data items, totaling %@.", for: summary.targets.count), summary.targets.count, formattedBytes(summary.totalSizeInBytes)),
                 titleAlignment: .leading
             ) {
                 VStack(spacing: 0) {
@@ -347,7 +347,7 @@ struct GeneralSettingsDetailView: View {
                     }
 
                     if summary.targets.count > 8 {
-                        Text(String(format: pluginLocalization.string("Plus %lld more items, processed together after confirmation."), summary.targets.count - 8))
+                        Text(String(format: pluginLocalization.count("Plus %lld more item, processed together after confirmation.", "Plus %lld more items, processed together after confirmation.", for: summary.targets.count - 8), summary.targets.count - 8))
                             .font(.appCaption)
                             .foregroundStyle(.secondary)
                             .frame(maxWidth: .infinity, alignment: .leading)

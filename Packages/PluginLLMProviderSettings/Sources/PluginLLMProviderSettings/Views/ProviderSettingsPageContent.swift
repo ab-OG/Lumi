@@ -72,7 +72,7 @@ struct ProviderSettingsPageContent: View {
                 systemImage: viewModel.headerSystemImage
             )
             .accessibilityIdentifier(ProviderSettingsAccessibility.providerCountLabel)
-            Text(String(format: pluginLocalization.string("%lld models"), Int64(viewModel.selectedModelCount)))
+            Text(String(format: pluginLocalization.count("%lld model", "%lld models", for: viewModel.selectedModelCount), Int64(viewModel.selectedModelCount)))
             Spacer()
             if !viewModel.isLocal {
                 AppButton(pluginLocalization.string("Add Provider"), systemImage: "plus", style: .primary, size: .small) {

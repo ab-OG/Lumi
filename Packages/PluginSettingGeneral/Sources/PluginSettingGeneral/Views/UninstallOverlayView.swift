@@ -110,7 +110,7 @@ private struct SucceededView: View {
                     .font(.system(size: 40, weight: .bold, design: .rounded))
                     .foregroundStyle(.secondary)
                     .contentTransition(.numericText())
-                Text(pluginLocalization.string("seconds until automatic quit"))
+                Text(pluginLocalization.count("second until automatic quit", "seconds until automatic quit", for: countdown))
                     .font(.appCaption)
                     .foregroundStyle(.secondary)
             }
