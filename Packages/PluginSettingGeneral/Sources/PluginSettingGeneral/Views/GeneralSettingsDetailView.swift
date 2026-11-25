@@ -49,16 +49,16 @@ struct GeneralSettingsDetailView: View {
 
     private var manualsSection: some View {
         AppSettingSection(
-            title: "说明书",
+            title: pluginLocalization.string("User Manual"),
             titleAlignment: .leading
         ) {
             AppSettingRow(
-                title: "说明书",
-                description: "各功能的使用指南。",
+                title: pluginLocalization.string("User Manual"),
+                description: pluginLocalization.string("Usage guides for each feature."),
                 icon: "book"
             ) {
                 AppButton(
-                    "打开",
+                    pluginLocalization.string("Open"),
                     systemImage: "book.pages",
                     style: .secondary,
                     size: .small
@@ -114,12 +114,12 @@ struct GeneralSettingsDetailView: View {
                 Divider()
                     .padding(.vertical, 8)
                 AppSettingRow(
-                    title: "占用空间",
+                    title: pluginLocalization.string("Storage Size"),
                     description: viewModel.storageSizeDescription,
                     icon: "internaldrive"
                 ) {
                     AppButton(
-                        "打开数据库目录",
+                        pluginLocalization.string("Open Database Folder"),
                         systemImage: "folder",
                         style: .secondary,
                         size: .small
@@ -162,15 +162,15 @@ struct GeneralSettingsDetailView: View {
                         .padding(.vertical, 8)
 
                     AppSettingRow(
-                        title: "更新通道",
+                        title: pluginLocalization.string("Update Channel"),
                         description: viewModel.selectedUpdateChannel == .preview
-                            ? "获取 pre 分支发布的预览版本，可能包含未修复的问题。"
-                            : "获取 main 分支发布的稳定版本。",
+                            ? pluginLocalization.string("Get preview builds from the pre branch. They may contain unfixed issues.")
+                            : pluginLocalization.string("Get stable builds from the main branch."),
                         icon: viewModel.selectedUpdateChannel == .preview ? "flask" : "checkmark.seal"
                     ) {
-                        Picker("更新通道", selection: $viewModel.selectedUpdateChannel) {
-                            Text("稳定版").tag(AppUpdateChannel.stable)
-                            Text("预览版").tag(AppUpdateChannel.preview)
+                        Picker(pluginLocalization.string("Update Channel"), selection: $viewModel.selectedUpdateChannel) {
+                            Text(pluginLocalization.string("Stable")).tag(AppUpdateChannel.stable)
+                            Text(pluginLocalization.string("Preview")).tag(AppUpdateChannel.preview)
                         }
                         .labelsHidden()
                         .pickerStyle(.menu)
@@ -191,17 +191,17 @@ struct GeneralSettingsDetailView: View {
 
     private var diagnosticsSection: some View {
         AppSettingSection(
-            title: "诊断日志",
+            title: pluginLocalization.string("Diagnostic Logs"),
             titleAlignment: .leading
         ) {
             VStack(spacing: 0) {
                 AppSettingRow(
-                    title: "导出日志",
-                    description: "打包最近的运行日志，便于提交问题反馈。",
+                    title: pluginLocalization.string("Export Logs"),
+                    description: pluginLocalization.string("Package recent logs to attach to problem reports."),
                     icon: "doc.badge.arrow.up"
                 ) {
                     AppButton(
-                        viewModel.isExportingDiagnostics ? "导出中…" : "导出",
+                        viewModel.isExportingDiagnostics ? pluginLocalization.string("Exporting…") : pluginLocalization.string("Export"),
                         systemImage: viewModel.isExportingDiagnostics ? "hourglass" : "square.and.arrow.up",
                         style: .secondary,
                         size: .small
@@ -228,16 +228,16 @@ struct GeneralSettingsDetailView: View {
 
     private var uninstallSection: some View {
         AppSettingSection(
-            title: "卸载 Lumi",
+            title: pluginLocalization.string("Uninstall Lumi"),
             titleAlignment: .leading
         ) {
             AppSettingRow(
-                title: "彻底卸载 Lumi",
-                description: "清除 Lumi 的插件数据、偏好设置、扩展数据和可选凭据。",
+                title: pluginLocalization.string("Completely Uninstall Lumi"),
+                description: pluginLocalization.string("Remove Lumi's plugin data, preferences, extension data, and optional credentials."),
                 icon: "trash"
             ) {
                 AppButton(
-                    "卸载…",
+                    pluginLocalization.string("Uninstall Lumi"),
                     systemImage: "trash",
                     style: .destructive,
                     size: .small
@@ -251,15 +251,15 @@ struct GeneralSettingsDetailView: View {
 
     private var uninstallSheet: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("彻底卸载 Lumi")
+            Text(pluginLocalization.string("Completely Uninstall Lumi"))
                 .font(.appTitle)
 
-            Text("此操作会永久删除 Lumi 自己保存的数据。用户项目、源码和导出的文件不会被删除。")
+            Text(pluginLocalization.string("This permanently deletes data Lumi stored itself. Your projects, source code, and exported files are not deleted."))
                 .font(.appBody)
                 .foregroundStyle(.secondary)
 
             if viewModel.isScanningUninstall {
-                AppStatusBanner(kind: .loading, title: "正在检查 Lumi 数据…")
+                AppStatusBanner(kind: .loading, title: pluginLocalization.string("Checking Lumi data…"))
             } else if let uninstallScan = viewModel.uninstallScan {
                 uninstallSummary(scan: uninstallScan)
             }
@@ -273,14 +273,14 @@ struct GeneralSettingsDetailView: View {
 
             VStack(spacing: 0) {
                 AppSettingToggleRow(
-                    "同时将 Lumi 应用移到废纸篓",
+                    pluginLocalization.string("Also move the Lumi app to the Trash"),
                     icon: "trash",
                     isOn: $viewModel.removeApplication
                 )
 
                 if let uninstallScan = viewModel.uninstallScan, uninstallScan.keychainTargetCount > 0 {
                     AppSettingToggleRow(
-                        "同时删除 Keychain 中的 API Key、密码和凭据",
+                        pluginLocalization.string("Also delete API keys, passwords, and credentials from the Keychain"),
                         icon: "key.fill",
                         isOn: $viewModel.removeKeychainCredentials
                     )
@@ -289,13 +289,13 @@ struct GeneralSettingsDetailView: View {
 
             HStack {
                 Spacer()
-                AppButton("取消", style: .ghost, size: .small) {
+                AppButton(pluginLocalization.string("Cancel"), style: .ghost, size: .small) {
                     isPresentingUninstall = false
                 }
                 AppButton(
                     viewModel.isUninstalling
-                        ? "卸载中…"
-                        : (viewModel.removeApplication ? "永久删除并卸载" : "清除数据并退出"),
+                        ? pluginLocalization.string("Uninstalling…")
+                        : (viewModel.removeApplication ? pluginLocalization.string("Delete Permanently and Uninstall") : pluginLocalization.string("Clear Data and Quit")),
                     systemImage: viewModel.isUninstalling ? "hourglass" : "trash.fill",
                     style: .destructive,
                     size: .small
@@ -322,12 +322,12 @@ struct GeneralSettingsDetailView: View {
         )
 
         if summary.targets.isEmpty {
-            Text("当前选项不会删除任何项目。")
+            Text(pluginLocalization.string("The current options delete nothing."))
                 .font(.appBody)
                 .foregroundStyle(.secondary)
         } else {
             AppSettingSection(
-                title: "将处理 \(summary.targets.count) 项 Lumi 数据，总计 \(formattedBytes(summary.totalSizeInBytes))。",
+                title: String(format: pluginLocalization.string("Processing %lld Lumi data items, totaling %@."), summary.targets.count, formattedBytes(summary.totalSizeInBytes)),
                 titleAlignment: .leading
             ) {
                 VStack(spacing: 0) {
@@ -347,7 +347,7 @@ struct GeneralSettingsDetailView: View {
                     }
 
                     if summary.targets.count > 8 {
-                        Text("还有 \(summary.targets.count - 8) 项，将在确认后一起处理。")
+                        Text(String(format: pluginLocalization.string("Plus %lld more items, processed together after confirmation."), summary.targets.count - 8))
                             .font(.appCaption)
                             .foregroundStyle(.secondary)
                             .frame(maxWidth: .infinity, alignment: .leading)

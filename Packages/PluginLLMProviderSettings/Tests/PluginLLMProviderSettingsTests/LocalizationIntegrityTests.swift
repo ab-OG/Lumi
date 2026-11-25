@@ -4,71 +4,73 @@ import Testing
 
 /// 供应商设置页的英文文案契约。
 ///
-/// 这些 key 都会直接上屏（包含 `AppSettingSection` / `AppSettingRow` /
-/// `AppButton` 等只接受 String 的组件），所以缺 en 时英文界面会退化成
-/// 中文 key。单测无法渲染 SwiftUI 文案，只能读 xcstrings 本身兜底。
+/// 本包以英文为源语言：调用侧统一写 `pluginLocalization.string("<English>")`，
+/// 中文及其他语言在 xcstrings 中作为翻译提供。这些 key 都会直接上屏（包含
+/// `AppSettingSection` / `AppSettingRow` / `AppButton` 等只接受 String 的组件），
+/// 所以单测无法渲染 SwiftUI 文案，只能读 xcstrings 本身兜底：
+/// key 必须是英文、必须有非空 en 值。
 @Suite("本地化资源完整性")
 struct LocalizationIntegrityTests {
     /// #880 报告及本轮修复过的全部用户可见 key。
     private static let userFacingKeys = [
-        "API 密钥",
-        "配置访问凭证",
-        "输入 API Key",
-        "操作",
-        "尚未保存 API Key",
-        "已保存 API Key",
-        "隐藏 API Key",
-        "显示 API Key",
-        "复制 API Key",
-        "已复制",
-        "保存",
-        "删除",
-        "错误",
-        "可用模型",
-        "上下文 %@",
-        "视觉",
-        "当前",
-        "编辑",
-        "删除自定义供应商？",
-        "这会移除供应商配置和对应的 API Key。",
-        "访问官网",
-        "取消",
-        "%lld 个模型",
-        "%lld 个本地供应商",
-        "%lld 个云端供应商",
-        "添加供应商",
-        "未找到供应商",
-        "选择一个供应商",
-        "搜索供应商",
-        "添加云端供应商",
-        "编辑云端供应商",
-        "配置兼容的 API 端点和模型列表",
-        "基本信息",
-        "供应商名称",
-        "描述（可选）",
-        "官网（可选）",
-        "连接",
-        "模型",
-        "模型 ID（每行一个）",
-        "OpenAI 兼容",
-        "Anthropic 兼容",
-        "模型下载",
-        "缓存占用",
-        "下载限速",
-        "打开",
-        "不限速",
-        "自定义",
-        "正在下载...",
-        "已暂停",
-        "已下载",
-        "暂停下载",
-        "继续下载",
-        "取消下载",
-        "下载",
+        "API Key",
+        "Configure access credentials",
+        "Enter API Key",
+        "Actions",
+        "No API key saved",
+        "API key saved",
+        "Hide API Key",
+        "Show API Key",
+        "Copy API Key",
+        "Copied",
+        "Save",
+        "Delete",
+        "Error",
+        "Available Models",
+        "Context %@",
+        "Vision",
+        "Current",
+        "Edit",
+        "Delete custom provider?",
+        "This removes the provider configuration and its API key.",
+        "Visit Website",
+        "Cancel",
+        "%lld models",
+        "%lld local providers",
+        "%lld cloud providers",
+        "Add Provider",
+        "No providers found",
+        "Select a provider",
+        "Search providers",
+        "Add Cloud Provider",
+        "Edit Cloud Provider",
+        "Configure a compatible API endpoint and model list",
+        "General",
+        "Provider Name",
+        "Description (optional)",
+        "Website (optional)",
+        "Connection",
+        "Models",
+        "Model IDs (one per line)",
+        "OpenAI Compatible",
+        "Anthropic Compatible",
+        "Model Downloads",
+        "Cache Usage",
+        "Download Speed Limit",
+        "Open",
+        "No Limit",
+        "Custom",
+        "Downloading...",
+        "Paused",
+        "Downloaded",
+        "Pause Download",
+        "Resume Download",
+        "Cancel Download",
+        "Download",
     ]
 
-    @Test("供应商设置页的可见文案都有 en 翻译")
-    func userFacingKeysIncludeEnglish() throws {
+    @Test("供应商设置页的可见文案都是英文 key 且有 en 与 zh-Hans")
+    func userFacingKeysAreEnglish() throws {
         let catalog = try Self.loadCatalog()
 
         for key in Self.userFacingKeys {
@@ -81,14 +83,22 @@ struct LocalizationIntegrityTests {
                 "「\(key)」缺少 en 翻译，英文界面会把 key 直接显示出来"
             )
             #expect(!english.isEmpty, "「\(key)」的 en 翻译为空")
+            // 英文是源语言：key 本身就是英文文案，禁止再引入中文 key。
             #expect(
-                english != key,
-                "「\(key)」的 en 翻译仍是中文原文，英文界面不会生效"
+                english == key,
+                "「\(key)」的 en 翻译应与 key 一致（en 为源语言），实际为「\(english)」"
+            )
+            #expect(
+                key.rangeOfCharacter(from: Self.chineseCharacters) == nil,
+                "「\(key)」仍包含中文字符，英文界面会显示原文"
             )
         }
     }
 
     // MARK: - Helpers
+
+    /// 用于校验 key 不再包含中文的字符集。
+    private static let chineseCharacters = CharacterSet(charactersIn: "\u{4E00}"..."\u{9FFF}")
 
     private static func loadCatalog() throws -> [String: [String: String]] {
         let url = try #require(

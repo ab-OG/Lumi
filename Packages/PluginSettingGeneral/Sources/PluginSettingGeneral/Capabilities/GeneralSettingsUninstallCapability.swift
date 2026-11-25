@@ -37,7 +37,7 @@ final class GeneralSettingsUninstallCapabilityAdapter: GeneralSettingsUninstallC
 
     func uninstall(options: UninstallOptions) async throws -> UninstallResult {
         guard let uninstallProvider else {
-            throw GeneralSettingsCapabilityError.unavailable("卸载服务暂不可用。")
+            throw GeneralSettingsCapabilityError.unavailable(pluginLocalization.string("Uninstall service unavailable."))
         }
         return try await uninstallProvider.uninstall(options: options)
     }

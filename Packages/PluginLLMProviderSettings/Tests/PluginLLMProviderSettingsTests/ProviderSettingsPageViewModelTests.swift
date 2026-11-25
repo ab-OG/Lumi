@@ -112,7 +112,7 @@ struct ProviderSettingsPageViewModelTests {
 
     /// 计数标签跟随界面语言变化，断言时按当前语言现算，避免写死中文。
     private func providerCountLabel(_ count: Int, isLocal: Bool) -> String {
-        let key = isLocal ? "%lld 个本地供应商" : "%lld 个云端供应商"
+        let key = isLocal ? "%lld local providers" : "%lld cloud providers"
         return String(format: pluginLocalization.string(key), Int64(count))
     }
 

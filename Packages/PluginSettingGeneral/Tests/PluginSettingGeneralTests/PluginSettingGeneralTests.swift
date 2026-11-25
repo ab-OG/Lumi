@@ -21,7 +21,7 @@ struct SettingGeneralPluginTests {
         #expect(settings.entries.count == 1)
         let entry = settings.entries[0]
         #expect(entry.id == "general")
-        #expect(entry.title == "通用")
+        #expect(entry.title == "General")
         #expect(entry.systemImage == "gearshape")
 
         // 详情视图可渲染

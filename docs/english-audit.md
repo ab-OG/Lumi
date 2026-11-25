@@ -13,7 +13,7 @@ inventory, and the PR slicing plan. It is a baseline: counts move as slices land
 | MLX TitleService/agent-loop contention fix | PR #3 (draft, retargeted to main; merge after on-Mac verification) |
 | Tokenizer + Metal fixes | merged (PR #2) |
 | Project docs | merged (PR #1) |
-| Settings/General English | not started |
+| Settings/General English | **PluginSettingGeneral + PluginLLMProviderSettings → PR #6 (draft)** |
 | Provider settings/pickers English | not started |
 | Tools & permission prompts English | not started |
 | Errors & agent-loop UI English | not started |
@@ -44,8 +44,8 @@ Unify or distinctly name such keys.
 | PluginMessageRenderer | 117 |
 | ProjectRAGEngine | 71 |
 | KitCADDesigner | 69 |
-| PluginSettingGeneral | 64 |
-| PluginLLMProviderSettings | 61 |
+| PluginSettingGeneral | 64 → 18 non-comment (PR #6: all visible strings now `pluginLocalization.string("<English>")` with singular/plural pairs for count labels; remaining 18 are Logger lines, `run(label:)` log labels, and one verbose-only PATH hint) |
+| PluginLLMProviderSettings | 61 → 0 non-comment (PR #6: keys migrated zh → en source, count labels singular/plural, nested-ternary call sites unwrapped, plugin metadata name localized; Chinese preserved as zh-Hans) |
 | PluginDatabaseManager | 56 |
 | PluginNetworkManager | 55 |
 | ScreenRecorderPlugin | 55 |

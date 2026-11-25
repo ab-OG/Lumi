@@ -37,22 +37,22 @@ public struct CustomCloudProviderEditor: View {
             // MARK: Header
             HStack {
                 VStack(alignment: .leading, spacing: DesignTokens.Spacing.xs) {
-                    Text(pluginLocalization.string(
-                        existingConfiguration == nil ? "添加云端供应商" : "编辑云端供应商"
-                    ))
+                    Text(existingConfiguration == nil
+                        ? pluginLocalization.string("Add Cloud Provider")
+                        : pluginLocalization.string("Edit Cloud Provider"))
                         .font(DesignTokens.Typography.title2)
                         .foregroundColor(theme.textPrimary)
-                    Text(pluginLocalization.string("配置兼容的 API 端点和模型列表"))
+                    Text(pluginLocalization.string("Configure a compatible API endpoint and model list"))
                         .font(DesignTokens.Typography.caption1)
                         .foregroundColor(theme.textSecondary)
                 }
                 Spacer()
                 HStack(spacing: DesignTokens.Spacing.sm) {
-                    AppButton(pluginLocalization.string("取消"), style: .secondary, size: .small) {
+                    AppButton(pluginLocalization.string("Cancel"), style: .secondary, size: .small) {
                         dismiss()
                     }
                     .accessibilityIdentifier(ProviderSettingsAccessibility.cancelButton)
-                    AppButton(pluginLocalization.string("保存"), style: .primary, size: .small) {
+                    AppButton(pluginLocalization.string("Save"), style: .primary, size: .small) {
                         save()
                     }
                     .disabled(!form.canSave)
@@ -68,19 +68,19 @@ public struct CustomCloudProviderEditor: View {
             ScrollView {
                 VStack(spacing: DesignTokens.Spacing.md) {
                     // 基本信息
-                    AppSettingSection(title: pluginLocalization.string("基本信息")) {
+                    AppSettingSection(title: pluginLocalization.string("General")) {
                         AppInputField(
-                            LocalizedStringKey(pluginLocalization.string("供应商名称")),
+                            LocalizedStringKey(pluginLocalization.string("Provider Name")),
                             text: $form.displayName
                         )
                             .accessibilityIdentifier(ProviderSettingsAccessibility.nameField)
                         AppInputField(
-                            LocalizedStringKey(pluginLocalization.string("描述（可选）")),
+                            LocalizedStringKey(pluginLocalization.string("Description (optional)")),
                             text: $form.description
                         )
                             .accessibilityIdentifier(ProviderSettingsAccessibility.descriptionField)
                         AppInputField(
-                            LocalizedStringKey(pluginLocalization.string("官网（可选）")),
+                            LocalizedStringKey(pluginLocalization.string("Website (optional)")),
                             text: $form.websiteURL
                         )
                             .accessibilityIdentifier(ProviderSettingsAccessibility.websiteField)
@@ -89,7 +89,7 @@ public struct CustomCloudProviderEditor: View {
                     // 连接
                     AppSettingSection {
                         HStack {
-                            Text(pluginLocalization.string("连接"))
+                            Text(pluginLocalization.string("Connection"))
                                 .font(.headline)
                                 .foregroundColor(.secondary)
                             Spacer()
@@ -110,9 +110,9 @@ public struct CustomCloudProviderEditor: View {
                     }
 
                     // 模型
-                    AppSettingSection(title: pluginLocalization.string("模型")) {
+                    AppSettingSection(title: pluginLocalization.string("Models")) {
                         VStack(alignment: .leading, spacing: DesignTokens.Spacing.xs) {
-                            Text(pluginLocalization.string("模型 ID（每行一个）"))
+                            Text(pluginLocalization.string("Model IDs (one per line)"))
                                 .font(DesignTokens.Typography.caption1)
                                 .foregroundColor(theme.textSecondary)
                             TextEditor(text: $form.modelIDsText)
@@ -157,8 +157,8 @@ public struct CustomCloudProviderEditor: View {
 
     private static func apiFormatTitle(_ format: LLMProviderAPIFormat) -> String {
         switch format {
-        case .openAI: return pluginLocalization.string("OpenAI 兼容")
-        case .anthropic: return pluginLocalization.string("Anthropic 兼容")
+        case .openAI: return pluginLocalization.string("OpenAI Compatible")
+        case .anthropic: return pluginLocalization.string("Anthropic Compatible")
         case .responses: return "OpenAI Responses"
         }
     }

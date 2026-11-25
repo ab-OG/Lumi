@@ -108,8 +108,8 @@ final class GeneralSettingsViewModel: ObservableObject {
     }
 
     var storageSizeDescription: String {
-        guard isStorageAvailable else { return "存储服务暂不可用" }
-        guard let storageSizeInBytes else { return "正在计算…" }
+        guard isStorageAvailable else { return pluginLocalization.string("Storage service unavailable") }
+        guard let storageSizeInBytes else { return pluginLocalization.string("Calculating…") }
         return ByteCountFormatter.string(fromByteCount: storageSizeInBytes, countStyle: .file)
     }
 
@@ -142,7 +142,7 @@ final class GeneralSettingsViewModel: ObservableObject {
 
     func exportDiagnostics() {
         guard isDiagnosticsAvailable else {
-            diagnosticsFeedback = "日志服务暂不可用。"
+            diagnosticsFeedback = pluginLocalization.string("Diagnostics log service unavailable.")
             return
         }
 
@@ -159,17 +159,17 @@ final class GeneralSettingsViewModel: ObservableObject {
                 panel.allowedContentTypes = [.zip]
                 panel.canCreateDirectories = true
                 panel.nameFieldStringValue = archive.filename
-                panel.message = "选择诊断日志保存位置"
+                panel.message = pluginLocalization.string("Choose where to save the diagnostics log")
 
                 guard panel.runModal() == .OK, let destination = panel.url else {
-                    diagnosticsFeedback = "已取消导出。"
+                    diagnosticsFeedback = pluginLocalization.string("Export cancelled.")
                     return
                 }
 
                 try Self.installDiagnosticsArchive(from: archive.url, to: destination)
-                diagnosticsFeedback = "日志已导出：\(destination.lastPathComponent)"
+                diagnosticsFeedback = String(format: pluginLocalization.string("Logs exported: %@"), destination.lastPathComponent)
             } catch {
-                diagnosticsFeedback = "导出失败：\(error.localizedDescription)"
+                diagnosticsFeedback = String(format: pluginLocalization.string("Export failed: %@"), error.localizedDescription)
             }
         }
     }
@@ -206,7 +206,7 @@ final class GeneralSettingsViewModel: ObservableObject {
 
     func beginUninstall() {
         guard isUninstallAvailable else {
-            uninstallFeedback = "卸载服务暂不可用。"
+            uninstallFeedback = pluginLocalization.string("Uninstall service unavailable.")
             uninstallFeedbackKind = .warning
             return
         }
@@ -246,7 +246,7 @@ final class GeneralSettingsViewModel: ObservableObject {
 
     func performUninstall() {
         guard isUninstallAvailable else {
-            uninstallFeedback = "卸载服务暂不可用。"
+            uninstallFeedback = pluginLocalization.string("Uninstall service unavailable.")
             uninstallFeedbackKind = .warning
             return
         }
@@ -285,14 +285,14 @@ final class GeneralSettingsViewModel: ObservableObject {
                 } else {
                     UninstallOverlayWindowController.shared.update(
                         phase: .failed(
-                            detail: "部分数据未能清除，应用未移除：\n"
+                            detail: pluginLocalization.string("Some data could not be cleared; the app was not removed:\n")
                                 + result.failures.map { "\($0.location)：\($0.message)" }.joined(separator: "\n")
                         )
                     )
                 }
             } catch {
                 UninstallOverlayWindowController.shared.update(
-                    phase: .failed(detail: "卸载失败：\(error.localizedDescription)")
+                    phase: .failed(detail: String(format: pluginLocalization.string("Uninstall failed: %@"), error.localizedDescription))
                 )
             }
         }
