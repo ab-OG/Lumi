@@ -981,7 +981,7 @@
         }
       }
     },
-    "Manage all registered plugins." : {
+        "Manage all registered plugins" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -1012,41 +1012,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "管理所有已註冊外掛。"
-          }
-        }
-      }
-    },
-    "Manage all registered plugins" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Manage all registered plugins"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "管理所有已注册插件"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "管理所有已註冊外掛"
-          }
-        },
-        "zh-HK" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "管理所有已註冊外掛"
-          }
-        },
-        "zh-TW" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "管理所有已註冊外掛"
           }
         }
       }
