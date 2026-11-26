@@ -23,10 +23,10 @@ public enum CommandRiskLevel: String, Codable, Sendable {
     /// 显示名称
     public var displayName: String {
         switch self {
-        case .safe: return "安全"
-        case .low: return "低风险"
-        case .medium: return "中风险"
-        case .high: return "高风险"
+        case .safe: return pluginLocalization.string("Safe")
+        case .low: return pluginLocalization.string("Low risk")
+        case .medium: return pluginLocalization.string("Medium risk")
+        case .high: return pluginLocalization.string("High risk")
         }
     }
 
@@ -34,9 +34,9 @@ public enum CommandRiskLevel: String, Codable, Sendable {
     public var reason: String? {
         switch self {
         case .safe: return nil
-        case .low: return "此操作只读取信息，不会修改文件"
-        case .medium: return "此操作可能修改文件或访问网络"
-        case .high: return "此操作可能造成数据丢失或系统更改"
+        case .low: return pluginLocalization.string("This operation only reads information and does not modify files")
+        case .medium: return pluginLocalization.string("This operation may modify files or access the network")
+        case .high: return pluginLocalization.string("This operation may cause data loss or system changes")
         }
     }
 }

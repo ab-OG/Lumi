@@ -31,8 +31,8 @@ public struct GlobTool: SuperAgentTool, @unchecked Sendable {
     public func permissionRiskLevel(arguments: [String: ToolArgument]) -> CommandRiskLevel { .low }
 
     public func displayDescription(for arguments: [String: ToolArgument]) -> String {
-        guard let pattern = arguments.stringValue("pattern") else { return "搜索文件" }
-        return "搜索 \(pattern)"
+        guard let pattern = arguments.stringValue("pattern") else { return pluginLocalization.string("Search files") }
+        return String(format: pluginLocalization.string("Search %@"), pattern)
     }
 
     public func execute(arguments: [String: ToolArgument]) async throws -> String {

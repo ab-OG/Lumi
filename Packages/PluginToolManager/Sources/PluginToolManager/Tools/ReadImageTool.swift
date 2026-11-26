@@ -28,8 +28,8 @@ public struct ReadImageTool: SuperAgentTool, @unchecked Sendable {
     public func permissionRiskLevel(arguments: [String: ToolArgument]) -> CommandRiskLevel { .low }
 
     public func displayDescription(for arguments: [String: ToolArgument]) -> String {
-        guard let path = arguments.stringValue("path") else { return "读取图片" }
-        return "查看图片 " + URL(fileURLWithPath: path).lastPathComponent
+        guard let path = arguments.stringValue("path") else { return pluginLocalization.string("Read image") }
+        return String(format: pluginLocalization.string("View image %@"), URL(fileURLWithPath: path).lastPathComponent)
     }
 
     public func execute(arguments: [String: ToolArgument]) async throws -> String {
@@ -71,7 +71,10 @@ public struct ReadImageTool: SuperAgentTool, @unchecked Sendable {
             let size = pixelSize.width > 0 && pixelSize.height > 0
                 ? "\(pixelSize.width)×\(pixelSize.height)"
                 : "unknown dimensions"
-            let content = "已读取图片：\(url.lastPathComponent)（\(size)）。图片已附加到工具结果，可直接查看。"
+            let content = String(
+                format: pluginLocalization.string("Read image %1$@ (%2$@). The image is attached to the tool result and can be viewed directly."),
+                url.lastPathComponent, size
+            )
 
             return ToolCallResult(
                 content: content,

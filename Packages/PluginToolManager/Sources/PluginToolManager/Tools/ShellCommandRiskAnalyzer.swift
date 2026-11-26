@@ -33,11 +33,11 @@ enum ShellCommandRiskAnalyzer {
 
     private static func analyze(_ command: String, depth: Int, reasons: inout [String]) -> CommandRiskLevel {
         if depth > maxDepth {
-            add("嵌套层数过深，无法可靠分析", &reasons)
+            add(pluginLocalization.string("Nesting too deep to analyze reliably"), &reasons)
             return .high
         }
         if command.utf8.count > maxInputLength {
-            add("命令长度超限，无法可靠分析", &reasons)
+            add(pluginLocalization.string("Command too long to analyze reliably"), &reasons)
             return .high
         }
         let trimmed = command.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -45,7 +45,7 @@ enum ShellCommandRiskAnalyzer {
 
         let parsed = parse(trimmed)
         if parsed.malformed {
-            add("命令含未闭合的引号、括号或命令替换，无法可靠解析", &reasons)
+            add(pluginLocalization.string("Command contains unmatched quotes, brackets, or command substitution"), &reasons)
             return .high
         }
 
@@ -67,15 +67,15 @@ enum ShellCommandRiskAnalyzer {
         let lowercased = segment.lowercased()
 
         if lowercased.contains("/dev/tcp/") {
-            add("使用 /dev/tcp 网络通道", &reasons)
+            add(pluginLocalization.string("Uses the /dev/tcp network channel"), &reasons)
             return .high
         }
         if let fragment = sensitiveFragments.first(where: { lowercased.contains($0) }) {
-            add("访问敏感路径片段 \(fragment)", &reasons)
+            add(String(format: pluginLocalization.string("Accesses sensitive path fragment %@"), fragment), &reasons)
             return .high
         }
         if hasDangerousRedirection(segment) {
-            add("写重定向到非 /dev/null 目标", &reasons)
+            add(pluginLocalization.string("Redirects output to a target other than /dev/null"), &reasons)
             return .high
         }
 
@@ -83,11 +83,11 @@ enum ShellCommandRiskAnalyzer {
         guard let name = commandName(from: tokens) else { return .low }
 
         if networkCommands.contains(name) {
-            add("网络工具 \(name) 可能外发或下载内容", &reasons)
+            add(String(format: pluginLocalization.string("Network tool %@ may send out or download content"), name), &reasons)
             return .high
         }
         if interpreterCommands.contains(name) {
-            add("解释器或间接执行器 \(name)", &reasons)
+            add(String(format: pluginLocalization.string("Interpreter or indirect executor %@"), name), &reasons)
             // 内层字符串必须递归分析，而不是当成普通参数。
             for literal in quotedLiterals(in: segment) {
                 _ = analyze(literal, depth: depth + 1, reasons: &reasons)
@@ -95,22 +95,22 @@ enum ShellCommandRiskAnalyzer {
             return .high
         }
         if privilegeCommands.contains(name) {
-            add("提权或权限变更命令 \(name)", &reasons)
+            add(String(format: pluginLocalization.string("Privilege escalation or permission-change command %@"), name), &reasons)
             return .high
         }
         if destructiveCommands.contains(name) {
-            add("破坏性或有副作用的命令 \(name)", &reasons)
+            add(String(format: pluginLocalization.string("Destructive or side-effect command %@"), name), &reasons)
             return .high
         }
         if readOnlyCommands.contains(name) {
             if readOnlyCommandIsSafe(name: name, tokens: tokens, segment: lowercased) {
                 return .low
             }
-            add("只读命令 \(name) 带有写入/执行参数", &reasons)
+            add(String(format: pluginLocalization.string("Read-only command %@ has write or execute arguments"), name), &reasons)
             return .high
         }
 
-        add("未识别的命令 \(name)，按 fail-safe 判定为需要授权", &reasons)
+        add(String(format: pluginLocalization.string("Unrecognized command %@; fail-safe marks it as requiring approval"), name), &reasons)
         return .high
     }
 

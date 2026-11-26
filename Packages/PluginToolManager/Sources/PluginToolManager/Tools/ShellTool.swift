@@ -86,9 +86,11 @@ public struct ShellTool: SuperAgentTool, @unchecked Sendable {
     }
 
     public func displayDescription(for arguments: [String: ToolArgument]) -> String {
-        guard let command = arguments.stringValue("command") else { return "运行命令" }
+        guard let command = arguments.stringValue("command") else { return pluginLocalization.string("Run command") }
         let preview = command.count > 40 ? String(command.prefix(40)) + "…" : command
-        return arguments.boolValue("unsandboxed") == true ? "脱离沙箱运行 \(preview)" : "运行 \(preview)"
+        return arguments.boolValue("unsandboxed") == true
+            ? String(format: pluginLocalization.string("Run %1$@ outside the sandbox"), preview)
+            : String(format: pluginLocalization.string("Run %1$@"), preview)
     }
 
     public func execute(arguments: [String: ToolArgument]) async throws -> String {

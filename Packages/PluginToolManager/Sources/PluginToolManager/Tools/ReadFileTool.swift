@@ -36,17 +36,17 @@ public struct ReadFileTool: SuperAgentTool, @unchecked Sendable {
     public func permissionRiskLevel(arguments: [String: ToolArgument]) -> CommandRiskLevel { .low }
 
     public func displayDescription(for arguments: [String: ToolArgument]) -> String {
-        guard let path = arguments.stringValue("path") else { return "读取文件" }
+        guard let path = arguments.stringValue("path") else { return pluginLocalization.string("Read file") }
         let fileName = URL(fileURLWithPath: path).lastPathComponent
         // 审批/渲染阶段先于执行：这里的整型读取同样必须安全，
         // 越界或非有限的参数只能降级为「不展示」，不能在 UI 线程 trap。
         if let offset = arguments.toolInt("offset") {
             if let limit = arguments.toolInt("limit") {
-                return "读取 \(fileName)（第 \(offset) 行起，最多 \(limit) 行）"
+                return String(format: pluginLocalization.string("Read %1$@ (from line %2$lld, up to %3$lld lines)"), fileName, offset, limit)
             }
-            return "读取 \(fileName)（从第 \(offset) 行起）"
+            return String(format: pluginLocalization.string("Read %1$@ (from line %2$lld)"), fileName, offset)
         }
-        return "读取 \(fileName)"
+        return String(format: pluginLocalization.string("Read %@"), fileName)
     }
 
     public func execute(arguments: [String: ToolArgument]) async throws -> String {

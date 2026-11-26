@@ -31,8 +31,8 @@ public struct WriteFileTool: SuperAgentTool, @unchecked Sendable {
     public func permissionRiskLevel(arguments: [String: ToolArgument]) -> CommandRiskLevel { .medium }
 
     public func displayDescription(for arguments: [String: ToolArgument]) -> String {
-        guard let path = arguments.stringValue("path") else { return "写入文件" }
-        return "写入 \(URL(fileURLWithPath: path).lastPathComponent)"
+        guard let path = arguments.stringValue("path") else { return pluginLocalization.string("Write file") }
+        return String(format: pluginLocalization.string("Write %@"), URL(fileURLWithPath: path).lastPathComponent)
     }
 
     public func execute(arguments: [String: ToolArgument]) async throws -> String {
