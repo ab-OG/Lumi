@@ -47,73 +47,86 @@ struct MessageInfoPopoverContent: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 12) {
-                infoSection("基本信息") {
-                    infoRow("消息 ID", value: message.id.uuidString, isMono: true)
-                    infoRow("会话 ID", value: message.conversationID.uuidString, isMono: true)
-                    infoRow("角色", value: message.role.rawValue)
-                    infoRow("创建时间", value: Self.fullTimestampFormatter.string(from: message.createdAt))
-                    infoRow("渲染类型", value: displayValue(message.renderKind))
+                infoSection(pluginLocalization.string("Basic Information")) {
+                    infoRow(pluginLocalization.string("Message ID"), value: message.id.uuidString, isMono: true)
+                    infoRow(pluginLocalization.string("Conversation ID"), value: message.conversationID.uuidString, isMono: true)
+                    infoRow(pluginLocalization.string("Role"), value: message.role.rawValue)
+                    infoRow(pluginLocalization.string("Created At"), value: Self.fullTimestampFormatter.string(from: message.createdAt))
+                    infoRow(pluginLocalization.string("Render Type"), value: displayValue(message.renderKind))
                     if let preferred = message.preferredRendererID, !preferred.isEmpty {
-                        infoRow("期望渲染器", value: preferred, isMono: true)
+                        infoRow(pluginLocalization.string("Preferred Renderer"), value: preferred, isMono: true)
                     }
                     if let turnID = message.turnID {
-                        infoRow("轮次 ID", value: turnID.uuidString, isMono: true)
+                        infoRow(pluginLocalization.string("Turn ID"), value: turnID.uuidString, isMono: true)
                     }
-                    infoRow("错误标记", value: message.isError ? "是" : "否")
+                    infoRow(
+                        pluginLocalization.string("Error Flag"),
+                        value: pluginLocalization.string(message.isError ? "Yes" : "No")
+                    )
                 }
 
-                infoSection("模型") {
-                    infoRow("供应商", value: displayValue(message.providerID))
-                    infoRow("模型", value: displayValue(message.modelName))
+                infoSection(pluginLocalization.string("Model")) {
+                    infoRow(pluginLocalization.string("Provider"), value: displayValue(message.providerID))
+                    infoRow(pluginLocalization.string("Model"), value: displayValue(message.modelName))
                 }
 
                 if message.latencyMs != nil || message.timeToFirstTokenMs != nil || message.streamingDurationMs != nil {
-                    infoSection("性能") {
+                    infoSection(pluginLocalization.string("Performance")) {
                         if let latency = message.latencyMs {
-                            infoRow("总耗时", value: MessageViewHelpers.formatMilliseconds(latency))
+                            infoRow(pluginLocalization.string("Total Duration"), value: MessageViewHelpers.formatMilliseconds(latency))
                         }
                         if let ttft = message.timeToFirstTokenMs {
-                            infoRow("首 Token 延迟", value: MessageViewHelpers.formatMilliseconds(ttft))
+                            infoRow(pluginLocalization.string("Time to First Token"), value: MessageViewHelpers.formatMilliseconds(ttft))
                         }
                         if let streaming = message.streamingDurationMs {
-                            infoRow("流式时长", value: MessageViewHelpers.formatMilliseconds(streaming))
+                            infoRow(pluginLocalization.string("Streaming Duration"), value: MessageViewHelpers.formatMilliseconds(streaming))
                         }
                     }
                 }
 
                 if message.toolCallID != nil {
-                    infoSection("工具关联") {
-                        infoRow("Tool Call ID", value: displayValue(message.toolCallID), isMono: true)
+                    infoSection(pluginLocalization.string("Tool Association")) {
+                        infoRow(pluginLocalization.string("Tool Call ID"), value: displayValue(message.toolCallID), isMono: true)
                     }
                 }
 
                 let hasHttpDetail = message.httpStatusCode != nil
                     || (message.httpBody?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == false)
                 if let detail = errorDetailSummary(for: message), !detail.isEmpty {
-                    infoSection("错误详情") {
-                        infoMultilineRow("原始错误", value: detail)
+                    infoSection(pluginLocalization.string("Error Details")) {
+                        infoMultilineRow(pluginLocalization.string("Raw Error"), value: detail)
                         httpDetailRows()
                     }
                 } else if hasHttpDetail {
-                    infoSection("错误详情") {
+                    infoSection(pluginLocalization.string("Error Details")) {
                         httpDetailRows()
                     }
                 }
 
-                infoSection("内容统计") {
-                    infoRow("字符数", value: "\(message.content.count)")
-                    infoRow("行数", value: "\(lineCount(in: message.content))")
-                    infoRow("内容为空", value: message.content.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? "是" : "否")
+                infoSection(pluginLocalization.string("Content Statistics")) {
+                    infoRow(pluginLocalization.string("Character Count"), value: "\(message.content.count)")
+                    infoRow(pluginLocalization.string("Line Count"), value: "\(lineCount(in: message.content))")
+                    infoRow(
+                        pluginLocalization.string("Content is empty"),
+                        value: pluginLocalization.string(
+                            message.content.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? "Yes" : "No"
+                        )
+                    )
                     if let thinking = message.metadata["thinkingContent"], !thinking.isEmpty {
-                        infoRow("思考内容", value: "\(thinking.count) 字符")
+                        infoRow(
+                            pluginLocalization.string("Thinking Content"),
+                            value: String(format: pluginLocalization.string("%lld characters"), thinking.count)
+                        )
                     }
                     if message.metadata["hasImages"] == "true" {
-                        infoRow("图片附件", value: "是")
+                        infoRow(pluginLocalization.string("Image Attachment"), value: pluginLocalization.string("Yes"))
                     }
                 }
 
                 if let toolCalls = message.toolCalls, !toolCalls.isEmpty {
-                    infoSection("工具调用 (\(toolCalls.count))") {
+                    infoSection(
+                        String(format: pluginLocalization.string("Tool Calls (%lld)"), toolCalls.count)
+                    ) {
                         ForEach(Array(toolCalls.enumerated()), id: \.offset) { index, toolCall in
                             toolCallSummary(index: index + 1, toolCall: toolCall)
                         }
@@ -177,21 +190,29 @@ struct MessageInfoPopoverContent: View {
     @ViewBuilder
     private func toolCallSummary(index: Int, toolCall: MessageToolCall) -> some View {
         VStack(alignment: .leading, spacing: 2) {
-            infoRow("#\(index) 操作", value: toolCall.displayDescription ?? "执行工具")
+            infoRow(
+                String(format: pluginLocalization.string("Tool action %lld"), index),
+                value: toolCall.displayDescription ?? pluginLocalization.string("Run tool")
+            )
             infoRow("ID", value: toolCall.id, isMono: true)
-            infoRow("参数", value: "\(toolCall.arguments.count) 字符")
-            infoRow("结果", value: toolCallResultSummary(toolCall))
+            infoRow(
+                pluginLocalization.string("Arguments"),
+                value: String(format: pluginLocalization.string("%lld characters"), toolCall.arguments.count)
+            )
+            infoRow(pluginLocalization.string("Result"), value: toolCallResultSummary(toolCall))
         }
         .padding(.vertical, 4)
     }
 
     private func toolCallResultSummary(_ toolCall: MessageToolCall) -> String {
         guard let result = toolCall.result else {
-            return "等待中"
+            return pluginLocalization.string("Waiting")
         }
 
-        var parts = [result.isError ? "失败" : "成功"]
-        parts.append("\(result.content.count) 字符")
+        var parts = [pluginLocalization.string(result.isError ? "Failed" : "Succeeded")]
+        parts.append(
+            String(format: pluginLocalization.string("%lld characters"), result.content.count)
+        )
         if let duration = result.duration {
             parts.append(MessageViewHelpers.formatDuration(duration))
         }
@@ -205,10 +226,10 @@ struct MessageInfoPopoverContent: View {
     @ViewBuilder
     private func httpDetailRows() -> some View {
         if let status = message.httpStatusCode {
-            infoRow("HTTP 状态码", value: "\(status)", isMono: true)
+            infoRow(pluginLocalization.string("HTTP Status Code"), value: "\(status)", isMono: true)
         }
         if let body = message.httpBody, !body.isEmpty {
-            infoMultilineRow("HTTP 响应体", value: body)
+            infoMultilineRow(pluginLocalization.string("HTTP Response Body"), value: body)
         }
     }
 
