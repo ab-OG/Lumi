@@ -203,8 +203,10 @@ Unify or distinctly name such keys.
      labels), the low-disk toast, and the Settings window title now follow the
      existing `LumiMenuBarController` `localized(_:chinese:)` pattern
      (`lumiAppString(_:chinese:)`, English-first with zh fallback).
-   Verified: swift test PluginMessageListDetailed (120) / PluginMessageRenderer
-   (213) / PluginAgentLoop (116) all pass; check-localization-keys.py OK for
+   Catalog-integrity tests require all 5 locales (en, zh-Hans, zh-Hant,
+   zh-HK, zh-TW) on every touched key. Verified: swift test
+   PluginMessageListDetailed (120) / PluginMessageRenderer (213) /
+   PluginAgentLoop (116) all pass; check-localization-keys.py OK for
    Detailed + AgentLoop (PMR still has its 39 pre-existing long-tail problems,
    unchanged by this PR); check-tool-failure-strings.py passes; full app builds
    with unsigned `xcodebuild` (scheme Lumi, Debug).

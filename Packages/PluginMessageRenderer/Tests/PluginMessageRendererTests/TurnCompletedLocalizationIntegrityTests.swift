@@ -9,7 +9,7 @@ import Testing
 /// 格式符占位在各语言间一致。
 @Suite("回合完成分隔线本地化")
 struct TurnCompletedLocalizationIntegrityTests {
-    private static let requiredLanguages = ["en", "zh-Hans", "zh-HK", "zh-TW"]
+    private static let requiredLanguages = ["en", "zh-Hans", "zh-Hant", "zh-HK", "zh-TW"]
 
     @Test("Turn complete / Duration%@ 以英文源 key 登记，中文翻译保留")
     func turnCompletedKeysAreEnglishSourced() throws {

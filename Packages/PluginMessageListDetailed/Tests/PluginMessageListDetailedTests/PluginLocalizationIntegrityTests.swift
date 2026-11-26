@@ -11,7 +11,7 @@ import Testing
 ///  这里从 xcstrings 本身断言契约，二者互补。）
 @Suite("状态文案本地化完整性")
 struct PluginLocalizationIntegrityTests {
-    private static let requiredLanguages = ["en", "zh-Hans", "zh-HK", "zh-TW"]
+    private static let requiredLanguages = ["en", "zh-Hans", "zh-Hant", "zh-HK", "zh-TW"]
 
     /// 状态键 → 期望的中文（简体）译文。
     private static let statusKeys: [String: String] = [
