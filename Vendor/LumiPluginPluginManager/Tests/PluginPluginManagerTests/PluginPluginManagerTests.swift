@@ -118,7 +118,7 @@ struct PluginPluginManagerTests {
         try plugin.onReady(kernel: kernel)
 
         let entry = settings.entries.first { $0.id == "plugin-manager" }
-        #expect(entry?.title == "插件管理")
+        #expect(entry?.title == "Plugin Manager")
         #expect(entry?.systemImage == "puzzlepiece.extension")
         #expect(entry?.order == 3)
     }
@@ -143,7 +143,7 @@ struct PluginPluginManagerTests {
         try plugin.onBoot(kernel: kernel)
         try plugin.onReady(kernel: kernel)
 
-        let suggestion = suggestions.allSuggestions.first { $0.title == "浏览插件" }
+        let suggestion = suggestions.allSuggestions.first { $0.title == "Browse Plugins" }
         #expect(suggestion?.action == .openSettingsTab(PluginPluginManager.settingsEntryID))
     }
 

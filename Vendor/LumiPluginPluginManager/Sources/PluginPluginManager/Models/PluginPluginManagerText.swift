@@ -14,8 +14,13 @@ enum PluginPluginManagerText {
     static var searchPlugins: String { pluginLocalization.string("Search plugins") }
     static var noPluginsFound: String { pluginLocalization.string("No plugins found") }
     static var selectPlugin: String { pluginLocalization.string("Select a plugin") }
-    static var pluginsCount: String { pluginLocalization.string("%lld plugins") }
-    static var enabledCount: String { pluginLocalization.string("%lld enabled") }
+    static var status: String { pluginLocalization.string("Status") }
+    static func pluginsCountText(_ count: Int) -> String {
+        String(format: pluginLocalization.count("%lld plugin", "%lld plugins", for: count), count)
+    }
+    static func enabledCountText(_ count: Int) -> String {
+        String(format: pluginLocalization.count("%lld enabled item", "%lld enabled", for: count), count)
+    }
     static var allCategories: String { pluginLocalization.string("All") }
     static var filterAll: String { pluginLocalization.string("All") }
     static var filterEnabled: String { pluginLocalization.string("Enabled") }

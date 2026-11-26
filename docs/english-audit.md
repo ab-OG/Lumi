@@ -9,7 +9,7 @@ inventory, and the PR slicing plan. It is a baseline: counts move as slices land
 
 | Piece | Status |
 |---|---|
-| Plugin Manager screen → English source + zh translations | PR #4 (draft) |
+| Plugin Manager screen → English source + zh translations, including singular/plural count labels | PR #4 (draft; updated against latest main) |
 | MLX TitleService/agent-loop contention fix | PR #3 (draft, retargeted to main; merge after on-Mac verification) |
 | Tokenizer + Metal fixes | merged (PR #2) |
 | Project docs | merged (PR #1) |
