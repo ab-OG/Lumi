@@ -13,8 +13,9 @@ inventory, and the PR slicing plan. It is a baseline: counts move as slices land
 | MLX TitleService/agent-loop contention fix | PR #3 (draft, retargeted to main; merge after on-Mac verification) |
 | Tokenizer + Metal fixes | merged (PR #2) |
 | Project docs | merged (PR #1) |
-| Settings/General English | **PluginSettingGeneral + PluginLLMProviderSettings → PR #6 (draft)** |
-| Provider settings/pickers English | not started |
+| Settings/General English | merged (PR #6) |
+| Settings catalogs en+zh sync, singular/plural count labels, key audits | merged (PR #5) |
+| Provider settings/pickers English | draft PR (`personal/english-provider-pickers`): Aliyun/CommandCode/OpenCode/StepFun/Tencent/Zhipu/MiniMax identity strings, ModelSelector catalog en values, LumiLocalizationKit locale-precedence fix, new `Scripts/check-localization-keys.py` gate |
 | Tools & permission prompts English | not started |
 | Errors & agent-loop UI English | not started |
 | Plugin long tail (Mail, EditorService, MessageRenderer, …) | not started |
@@ -29,6 +30,14 @@ Upstream already ships the machinery; new work follows PR #4:
 - All previous Chinese strings move into `Resources/Localizable.xcstrings` as
   `zh-Hans` (+ zh-Hant/zh-HK/zh-TW where the catalog already has them).
 - Catalogs keep `sourceLanguage: en`; localization support is preserved, not removed.
+- Count labels use the singular/plural helper (`pluginLocalization.count`) so
+  count 1 reads singular (“1 local provider”) and other counts read plural.
+- Every visible-key migration must pass `Scripts/check-localization-keys.py <pkgs>`:
+  every source key exists in its catalog with an explicit en value (en ≡ key, with
+  a temporary allowlist for MiniMax legacy keys) plus zh-Hans, and no Chinese keys.
+- Fixed in the provider-pickers PR: `LumiLocalization` now resolves the
+  explicitly passed locale **before** system `preferredLanguages`; previously an
+  `en` entry in a catalog shadowed `locale: zh-Hans` lookups on English systems.
 
 Caution learned in PR #4: keys that differ only by trailing punctuation
 generate colliding string symbols (`GenerateStringSymbols` fails the build).
@@ -76,7 +85,13 @@ Unify or distinctly name such keys.
 | PluginStoryWriter | 23 |
 | PluginTerminal | 23 |
 | PluginCADDesigner | 23 |
-| PluginLLMProviderMiniMax | 23 |
+| PluginLLMProviderMiniMax | 23 → 0 visible non-comment (provider-pickers PR: provider identity/picker strings migrated to English source keys, zh preserved; remaining hits are `#if DEBUG` #Preview fixtures and Logger-only fallbacks) |
+| PluginLLMProviderAliyun | → 0 visible non-comment (provider-pickers PR: identity strings migrated; per-package catalog added with en + zh) |
+| PluginLLMProviderCommandCode | → 0 visible non-comment (provider-pickers PR, same pattern) |
+| PluginLLMProviderOpenCode | → 0 visible non-comment (provider-pickers PR, same pattern) |
+| PluginLLMProviderStepFun | → 0 visible non-comment (provider-pickers PR, same pattern) |
+| PluginLLMProviderTencent | → 0 visible non-comment (provider-pickers PR, same pattern) |
+| PluginLLMProviderZhipu | → 0 visible non-comment (provider-pickers PR, same pattern) |
 | PluginMessageListZCode | 21 |
 | … 102 more modules | 616 |
 | **Total** | **2817** |
@@ -89,14 +104,14 @@ Unify or distinctly name such keys.
 | Packages/PluginACP/Resources/Localizable.xcstrings | 34 | 95 |
 | Packages/PluginDatabaseManager/Resources/Localizable.xcstrings | 31 | 156 |
 | Packages/PluginMail/Resources/Localizable.xcstrings | 28 | 30 |
-| Packages/PluginSettingGeneral/Resources/Localizable.xcstrings | 28 | 52 |
+| Packages/PluginSettingGeneral/Resources/Localizable.xcstrings | 3 | 77 |
 | Packages/PluginAppStorePromoDesigner/Resources/Localizable.xcstrings | 22 | 76 |
 | Packages/PluginSystemBenchmark/Resources/Localizable.xcstrings | 14 | 49 |
 | Packages/PluginTextActions/Resources/Localizable.xcstrings | 12 | 53 |
 | Packages/PluginMessageRenderer/Resources/Localizable.xcstrings | 10 | 60 |
 | Vendor/LumiUI/Resources/Localizable.xcstrings | 9 | 108 |
-| Packages/PluginModelSelector/Resources/Localizable.xcstrings | 8 | 31 |
-| Packages/PluginLLMProviderSettings/Resources/Localizable.xcstrings | 8 | 71 |
+| Packages/PluginModelSelector/Resources/Localizable.xcstrings | 0 | 30 |
+| Packages/PluginLLMProviderSettings/Resources/Localizable.xcstrings | 0 | 66 |
 | Packages/PluginConversationList/Resources/Localizable.xcstrings | 8 | 25 |
 | Vendor/LumiPluginBookletMaker/Resources/Localizable.xcstrings | 8 | 337 |
 | Packages/PluginWhiteNoise/Resources/Localizable.xcstrings | 6 | 35 |
@@ -148,9 +163,21 @@ Unify or distinctly name such keys.
 
 1. **PR #4 — Plugin Manager** (Vendor/LumiPluginPluginManager). Done as draft.
 2. **Settings core**: PluginSettingGeneral (64 hits), PluginLLMProviderSettings (61),
-   ToolManager settings surfaces.
+   ToolManager settings surfaces. Done and merged (PR #6). Three stale
+   empty-localization keys remain in the PluginSettingGeneral catalog
+   (`%lld`, `Bundle ID`, `Check whether a newer version of Lumi is available.`) —
+   dead keys to sweep in a later cleanup.
 3. **Providers**: provider metadata visible in pickers (names, descriptions),
    ModelSelector, and MLX provider plugin strings ("MLX 本地供应商" etc.).
+   Provider identity strings for Aliyun/CommandCode/OpenCode/StepFun/Tencent/
+   Zhipu/MiniMax plus the ModelSelector catalog are done in the
+   provider-pickers PR; remaining: MLX provider plugin strings and any provider
+   text living under Vendor.
+   Count-label fix in the provider-pickers PR: the provider-list row used to
+   hardcode "\(count) models" (showing "1 models"); it now goes through
+   `ProviderListItem.modelsCountText` → `"1 model"` / `"%lld models"` count keys
+   with all 5 locales, plus two regression tests (value-level singular/plural and
+   compiled per-language translations).
 4. **Tools & permission prompts**: tool schema descriptions rendered in prompts,
    PluginToolManager manager UI + permission dialogs (this text also reaches
    the LLM; keep changes semantics-preserving).

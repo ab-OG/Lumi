@@ -22,6 +22,14 @@ struct ProviderListItem: View {
     var canRefreshModels: Bool = false
     var onRefreshModels: (() -> Void)? = nil
 
+
+    /// Count-1 reads "1 model", other counts read the plural form
+    /// (same `pluginLocalization.count` convention as PR #6's Settings work).
+    /// Injected resolver keeps this testable without depending on the host language.
+    static func modelsCountText(resolve: (String) -> String, count: Int) -> String {
+        String(format: resolve(count == 1 ? "1 model" : "%lld models"), count)
+    }
+
     var body: some View {
         AppListRow(isSelected: isBrowsing, action: onSelect) {
             HStack(spacing: 10) {
@@ -37,7 +45,10 @@ struct ProviderListItem: View {
                         .foregroundColor(isActive || isBrowsing ? theme.primary : theme.textPrimary)
 
                     HStack(spacing: 4) {
-                        Text("\(modelCount ?? info.models.count) models")
+                        Text(Self.modelsCountText(
+                            resolve: { pluginLocalization.string($0) },
+                            count: modelCount ?? info.models.count
+                        ))
                             .font(.appMicro)
                             .foregroundColor(theme.textTertiary)
                             .accessibilityIdentifier("lumi.model-selector.provider.\(info.id).count")

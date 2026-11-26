@@ -10,7 +10,7 @@ public final class ZhipuCodingPlanProvider: VendorLLMProvider {
         super.init(
             info: LLMProviderInfo(
                 id: "zhipu",
-                displayName: "智谱 Coding Plan",
+                displayName: pluginLocalization.string("Zhipu Coding Plan"),
                 description: "Zhipu AI GLM (Anthropic-compatible)",
                 defaultModel: "glm-4.7",
                 models: [

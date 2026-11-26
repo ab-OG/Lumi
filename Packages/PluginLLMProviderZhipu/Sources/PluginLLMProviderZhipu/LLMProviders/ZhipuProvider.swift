@@ -10,7 +10,7 @@ public final class ZhipuProvider: VendorLLMProvider {
         super.init(
             info: LLMProviderInfo(
                 id: "zhipu-api",
-                displayName: "智谱 API",
+                displayName: pluginLocalization.string("Zhipu API"),
                 description: "Zhipu AI GLM (OpenAI-compatible)",
                 defaultModel: "glm-4.7",
                 models: [

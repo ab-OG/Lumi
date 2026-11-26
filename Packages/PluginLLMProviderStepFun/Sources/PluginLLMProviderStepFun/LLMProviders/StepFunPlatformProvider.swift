@@ -13,8 +13,8 @@ public final class StepFunPlatformProvider: VendorLLMProvider {
         super.init(
             info: LLMProviderInfo(
                 id: "stepfun-platform",
-                displayName: "StepFun 开放平台",
-                description: "阶跃星辰开放平台",
+                displayName: pluginLocalization.string("StepFun Open Platform"),
+                description: pluginLocalization.string("StepFun Open Platform"),
                 defaultModel: "step-5-preview",
                 models: [
                     LLMModelInfo(

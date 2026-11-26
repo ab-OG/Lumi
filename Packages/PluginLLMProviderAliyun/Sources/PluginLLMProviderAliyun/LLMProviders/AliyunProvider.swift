@@ -10,8 +10,8 @@ public final class AliyunProvider: VendorLLMProvider {
         super.init(
             info: LLMProviderInfo(
                 id: "aliyun",
-                displayName: "阿里云 CodingPlan",
-                description: "阿里云 DashScope Coding Plan",
+                displayName: pluginLocalization.string("Aliyun CodingPlan"),
+                description: pluginLocalization.string("Aliyun DashScope Coding Plan"),
                 defaultModel: "qwen3.7-plus",
                 models: [
                     LLMModelInfo(id: "qwen3.7-plus", contextWindowSize: 1_000_000, supportsVision: true),

@@ -64,7 +64,7 @@ public final class GoProvider: VendorLLMProvider, SuperLog {
             info: LLMProviderInfo(
                 id: "opencode-go",
                 displayName: "OpenCode Go",
-                description: "低成本的开源编程模型订阅服务",
+                description: pluginLocalization.string("Low-cost subscription for open-source coding models"),
                 defaultModel: "deepseek-v4-flash",
                 models: [
                     LLMModelInfo(id: "grok-4.5", displayName: "Grok 4.5", contextWindowSize: 500000),
@@ -108,7 +108,7 @@ public final class GoProvider: VendorLLMProvider, SuperLog {
         let model = request.model ?? providerInfo.defaultModel
         guard let kind = Self.kinds[model] else {
             Self.logger.error("\(Self.t)Unknown model: \(model, privacy: .public)")
-            throw VendorAPIError.requestFailed("OpenCode Go 未知模型：\(model)")
+            throw VendorAPIError.requestFailed(String(format: pluginLocalization.string("Unknown OpenCode Go model: %@"), model))
         }
         if Self.verbose {
             Self.logger.debug("\(Self.t)complete model=\(model, privacy: .public) kind=\(String(describing: kind))")
@@ -131,7 +131,7 @@ public final class GoProvider: VendorLLMProvider, SuperLog {
         let model = request.model ?? providerInfo.defaultModel
         guard let kind = Self.kinds[model] else {
             Self.logger.error("\(Self.t)Unknown model: \(model, privacy: .public)")
-            throw VendorAPIError.requestFailed("OpenCode Go 未知模型：\(model)")
+            throw VendorAPIError.requestFailed(String(format: pluginLocalization.string("Unknown OpenCode Go model: %@"), model))
         }
         if Self.verbose {
             Self.logger.debug("\(Self.t)streamComplete model=\(model, privacy: .public) kind=\(String(describing: kind))")

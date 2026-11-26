@@ -16,7 +16,7 @@ struct MiniMaxProviderPluginTests {
         #expect(plugin.order == 100)
 
         #expect(plugin.metadata.id == "com.coffic.lumi.plugin.llm-provider.minimax")
-        #expect(plugin.metadata.name == "MiniMax 供应商")
+        #expect(plugin.metadata.name == "MiniMax Providers")
         #expect(plugin.metadata.category.rawValue == "llm")
         #expect(plugin.metadata.stage.rawValue == "stable")
         #expect(plugin.metadata.policy.rawValue == "alwaysOn")

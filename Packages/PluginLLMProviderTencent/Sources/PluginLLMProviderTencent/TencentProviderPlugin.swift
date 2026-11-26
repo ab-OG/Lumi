@@ -15,8 +15,8 @@ public final class TencentProviderPlugin: SuperPlugin {
     public let order = 100
     public let metadata = PluginMetadata(
         id: "com.coffic.lumi.plugin.llm-provider.tencent",
-        name: "腾讯云供应商",
-        description: "注册 TokenHubProvider 到 LLM 管理器。",
+        name: pluginLocalization.string("Tencent Cloud Providers"),
+        description: pluginLocalization.string("Registers TokenHubProvider with the LLM manager."),
         category: .llm,
         stage: .stable,
         policy: .alwaysOn

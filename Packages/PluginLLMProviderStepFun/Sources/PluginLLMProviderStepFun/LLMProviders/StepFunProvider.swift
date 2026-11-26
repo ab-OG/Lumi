@@ -14,7 +14,7 @@ public final class StepFunProvider: VendorLLMProvider {
             info: LLMProviderInfo(
                 id: "stepfun",
                 displayName: "StepFun Step Plan",
-                description: "Step Plan 智能路由服务",
+                description: pluginLocalization.string("Step Plan smart-routing service"),
                 defaultModel: "step-router-v1",
                 models: [
                     LLMModelInfo(

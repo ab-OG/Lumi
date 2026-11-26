@@ -15,7 +15,7 @@ public final class ZenProvider: VendorLLMProvider {
             info: LLMProviderInfo(
                 id: "opencode-zen",
                 displayName: "OpenCode Zen",
-                description: "OpenCode Zen 系列模型服务",
+                description: pluginLocalization.string("OpenCode Zen model family service"),
                 defaultModel: "",
                 models: [],
                 websiteURL: URL(string: "https://opencode.ai")!,

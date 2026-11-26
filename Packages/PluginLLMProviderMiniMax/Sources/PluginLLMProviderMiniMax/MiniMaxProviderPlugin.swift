@@ -32,7 +32,7 @@ public final class MiniMaxProviderPlugin: SuperPlugin, SuperLog {
     public let order = 100
     public let metadata = PluginMetadata(
         id: MiniMaxProviderPlugin.pluginID,
-        name: "MiniMax 供应商",
+        name: pluginLocalization.string("MiniMax Providers"),
         description: "",
         category: .llm,
         stage: .stable,

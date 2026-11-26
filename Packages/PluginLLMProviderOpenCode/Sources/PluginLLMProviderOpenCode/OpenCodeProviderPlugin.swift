@@ -18,8 +18,8 @@ public final class OpenCodeProviderPlugin: SuperPlugin, SuperLog {
     public let order = 100
     public let metadata = PluginMetadata(
         id: "com.coffic.lumi.plugin.llm-provider.opencode",
-        name: "OpenCode 供应商",
-        description: "注册 GoProvider 和 ZenProvider 到 LLM 管理器。",
+        name: pluginLocalization.string("OpenCode Providers"),
+        description: pluginLocalization.string("Registers GoProvider and ZenProvider with the LLM manager."),
         category: .llm,
         stage: .stable,
         policy: .alwaysOn
