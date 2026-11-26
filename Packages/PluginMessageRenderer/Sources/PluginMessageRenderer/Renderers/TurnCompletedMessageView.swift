@@ -26,8 +26,8 @@ struct TurnCompletedMessageView: View {
 
     var body: some View {
         AppLabeledDivider(
-            title: "结束",
-            detail: MessageViewHelpers.formatTimestamp(message.createdAt) + (turnDurationText.map { " · 耗时 \($0)" } ?? "")
+            title: pluginLocalization.string("Turn complete"),
+            detail: MessageViewHelpers.formatTimestamp(message.createdAt) + (turnDurationText.map { " · " + String(format: pluginLocalization.string("Duration %@"), $0) } ?? "")
         )
         .padding(.vertical, 8)
     }

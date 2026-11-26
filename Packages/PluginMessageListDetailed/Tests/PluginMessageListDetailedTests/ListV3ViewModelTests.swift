@@ -487,7 +487,7 @@ struct ListV3ViewModelEventTests {
         )
         harness.viewModel.handleConversationStateChange(.updated(conversationID))
 
-        #expect(harness.viewModel.activityMessage?.content == "正在发送消息…")
+        #expect(harness.viewModel.activityMessage?.content == "Sending message…")
     }
 
     @Test("其他会话的状态事件被忽略")
@@ -499,7 +499,7 @@ struct ListV3ViewModelEventTests {
         harness.viewModel.handleConversationStateChange(.updated(UUID()))
 
         // 仍是原会话的活动状态，未被其他会话事件污染。
-        #expect(harness.viewModel.activityMessage?.content == "正在思考…")
+        #expect(harness.viewModel.activityMessage?.content == "Thinking…")
     }
 
     @Test("非 updated 的状态事件被忽略")
@@ -510,7 +510,7 @@ struct ListV3ViewModelEventTests {
 
         harness.viewModel.handleConversationStateChange(.removed(conversationID))
 
-        #expect(harness.viewModel.activityMessage?.content == "正在思考…")
+        #expect(harness.viewModel.activityMessage?.content == "Thinking…")
     }
 
     @Test("切换会话后活动消息反映新会话状态")
@@ -519,7 +519,7 @@ struct ListV3ViewModelEventTests {
         let harness = Harness(conversationID: first, page: [], activity: .thinking)
         await harness.viewModel.activate(conversationID: first)
 
-        #expect(harness.viewModel.activityMessage?.content == "正在思考…")
+        #expect(harness.viewModel.activityMessage?.content == "Thinking…")
 
         harness.conversationState.snapshot = ConversationStateSnapshot(
             conversationID: first,
@@ -527,7 +527,7 @@ struct ListV3ViewModelEventTests {
         )
         harness.viewModel.handleConversationStateChange(.updated(first))
 
-        #expect(harness.viewModel.activityMessage?.content == "正在执行工具…")
+        #expect(harness.viewModel.activityMessage?.content == "Executing tool…")
     }
 
     @Test("会话状态无活动时活动消息为 nil")

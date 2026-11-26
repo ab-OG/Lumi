@@ -34,6 +34,14 @@ private func raiseFileDescriptorLimit() {
     }
 }
 
+
+/// The host app target has no `.xcstrings` catalog of its own; user-facing
+/// strings follow the `LumiMenuBarController` pattern: English-first with a
+/// Chinese fallback chosen from the user's preferred languages.
+private func lumiAppString(_ english: String, chinese: String) -> String {
+    Locale.preferredLanguages.first?.lowercased().hasPrefix("zh") == true ? chinese : english
+}
+
 @main
 struct LumiApp: App {
     @NSApplicationDelegateAdaptor private var appDelegate: LumiAppDelegate
@@ -199,7 +207,7 @@ struct LumiApp: App {
             }
         }
 
-        Window("设置", id: "lumi.settings") {
+        Window(lumiAppString("Settings", chinese: "设置"), id: "lumi.settings") {
             settingsView
         }
         .windowStyle(.hiddenTitleBar)
@@ -220,10 +228,14 @@ struct LumiApp: App {
     private func warnIfDiskSpaceLow() {
         guard case .insufficient(let availableBytes, let requiredBytes) = spaceVerdict else { return }
         toastCenter?.presentError(
-            title: "磁盘空间不足",
-            message: "Lumi 至少需要 \(BootstrapByteFormat.string(requiredBytes)) 的可用磁盘空间，"
-                + "当前只剩 \(BootstrapByteFormat.string(availableBytes))。"
-                + "空间不足会导致插件启动失败或数据写入失败，请尽快清理磁盘。",
+            title: lumiAppString("Insufficient Disk Space", chinese: "磁盘空间不足"),
+            message: lumiAppString(
+                "Lumi needs at least \(BootstrapByteFormat.string(requiredBytes)) of free disk space to work reliably; only \(BootstrapByteFormat.string(availableBytes)) remains. "
+                    + "Low space can cause plugin launch failures or data-write failures—please free up disk space soon.",
+                chinese: "Lumi 至少需要 \(BootstrapByteFormat.string(requiredBytes)) 的可用磁盘空间，"
+                    + "当前只剩 \(BootstrapByteFormat.string(availableBytes))。"
+                    + "空间不足会导致插件启动失败或数据写入失败，请尽快清理磁盘。"
+            ),
             sourceWindowID: nil
         )
     }
@@ -295,11 +307,11 @@ private struct BootstrapFailureView: View {
     private var title: String {
         switch failure.kind {
         case .insufficientDiskSpace:
-            return "磁盘空间不足"
+            return lumiAppString("Insufficient Disk Space", chinese: "磁盘空间不足")
         case .pluginBootFailed:
-            return "插件启动失败"
+            return lumiAppString("Plugin Launch Failed", chinese: "插件启动失败")
         case .unknown:
-            return "LumiMinimal 启动失败"
+            return lumiAppString("Lumi Failed to Start", chinese: "LumiMinimal 启动失败")
         }
     }
 
@@ -315,25 +327,37 @@ private struct BootstrapFailureView: View {
     private var explanationText: String {
         switch failure.kind {
         case .insufficientDiskSpace(let availableBytes, let requiredBytes):
-            return "Lumi 至少需要 \(BootstrapByteFormat.string(requiredBytes)) 的可用磁盘空间才能启动，"
-                + "当前只剩 \(BootstrapByteFormat.string(availableBytes))。"
-                + "释放磁盘空间后重新启动即可——数据目录里通常藏着可以清理的大文件。"
+            return lumiAppString(
+                "Lumi needs at least \(BootstrapByteFormat.string(requiredBytes)) of free disk space to start, but only \(BootstrapByteFormat.string(availableBytes)) remains. "
+                    + "Free up disk space and relaunch—the data directory usually has large files that can be cleaned up.",
+                chinese: "Lumi 至少需要 \(BootstrapByteFormat.string(requiredBytes)) 的可用磁盘空间才能启动，"
+                    + "当前只剩 \(BootstrapByteFormat.string(availableBytes))。"
+                    + "释放磁盘空间后重新启动即可——数据目录里通常藏着可以清理的大文件。"
+            )
         case .pluginBootFailed:
-            let plugin = failure.pluginID.map { "「\($0)」" } ?? "某个插件"
-            return "插件 \(plugin) 在\(phaseDescription(failure.phase))阶段失败。"
-                + "原始报错在下方技术详情里，可复制后排查。"
+            let plugin = failure.pluginID.map { "“\($0)”" }
+                ?? lumiAppString("a plugin", chinese: "某个插件")
+            return lumiAppString(
+                "Plugin \(plugin) failed during the \(phaseDescription(failure.phase)) phase. "
+                    + "The original error is in the technical details below, where it can be copied for troubleshooting.",
+                chinese: "插件 \(plugin) 在\(phaseDescription(failure.phase))阶段失败。"
+                    + "原始报错在下方技术详情里，可复制后排查。"
+            )
         case .unknown:
-            return "启动过程中发生未预期的错误。原始报错在下方技术详情里，可复制后排查。"
+            return lumiAppString(
+                "An unexpected error occurred during startup. The original error is in the technical details below, where it can be copied for troubleshooting.",
+                chinese: "启动过程中发生未预期的错误。原始报错在下方技术详情里，可复制后排查。"
+            )
         }
     }
 
     /// 把 KernelCore 的生命周期阶段名翻译成人话。
     private func phaseDescription(_ phase: String?) -> String {
         switch phase {
-        case "boot": return "启动"
-        case "ready": return "就绪"
+        case "boot": return lumiAppString("startup", chinese: "启动")
+        case "ready": return lumiAppString("ready", chinese: "就绪")
         case .some(let other): return other
-        case nil: return "启动"
+        case nil: return lumiAppString("startup", chinese: "启动")
         }
     }
 
@@ -345,16 +369,16 @@ private struct BootstrapFailureView: View {
         HStack(spacing: 12) {
             switch failure.kind {
             case .insufficientDiskSpace:
-                Button("在访达中打开数据目录") { self.openDataDirectory() }
+                Button(lumiAppString("Open Data Folder in Finder", chinese: "在访达中打开数据目录")) { self.openDataDirectory() }
                     .buttonStyle(.borderedProminent)
-                Button("重新启动") { self.relaunch() }
+                Button(lumiAppString("Relaunch", chinese: "重新启动")) { self.relaunch() }
                     .buttonStyle(.bordered)
-                Button("退出") { self.terminateApp() }
+                Button(lumiAppString("Quit", chinese: "退出")) { self.terminateApp() }
                     .buttonStyle(.bordered)
             case .pluginBootFailed, .unknown:
-                Button("复制技术详情") { self.copyTechnicalDetail() }
+                Button(lumiAppString("Copy Technical Details", chinese: "复制技术详情")) { self.copyTechnicalDetail() }
                     .buttonStyle(.borderedProminent)
-                Button("退出") { self.terminateApp() }
+                Button(lumiAppString("Quit", chinese: "退出")) { self.terminateApp() }
                     .buttonStyle(.bordered)
             }
         }
@@ -365,7 +389,7 @@ private struct BootstrapFailureView: View {
         DisclosureGroup(isExpanded: $showsTechnicalDetail) {
             detailCard
         } label: {
-            Label("技术详情", systemImage: "doc.text.magnifyingglass")
+            Label(lumiAppString("Technical Details", chinese: "技术详情"), systemImage: "doc.text.magnifyingglass")
                 .font(.system(size: 11, weight: .semibold))
                 .foregroundStyle(.secondary)
         }
@@ -375,13 +399,13 @@ private struct BootstrapFailureView: View {
     private var detailCard: some View {
         VStack(alignment: .leading, spacing: 8) {
             if let pluginID = failure.pluginID {
-                Text("插件：\(pluginID)")
+                Text(lumiAppString("Plugin: \(pluginID)", chinese: "插件：\(pluginID)"))
                     .font(.system(size: 11, design: .monospaced))
                     .foregroundStyle(.secondary)
                     .textSelection(.enabled)
             }
             if let phase = failure.phase {
-                Text("阶段：\(phase)")
+                Text(lumiAppString("Phase: \(phase)", chinese: "阶段：\(phase)"))
                     .font(.system(size: 11, design: .monospaced))
                     .foregroundStyle(.secondary)
                     .textSelection(.enabled)
