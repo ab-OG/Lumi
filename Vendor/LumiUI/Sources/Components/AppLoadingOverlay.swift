@@ -22,12 +22,26 @@ public struct AppLoadingOverlay: View {
         self.size = size
     }
 
+    /// Verbatim overload for callers that resolve their localized string first
+    /// (e.g. plugin `pluginLocalization` shims) and must not be re-looked-up.
+    public init(verbatimMessage: String, size: Size = .medium) {
+        self.message = nil
+        self.verbatimMessage = verbatimMessage
+        self.size = size
+    }
+
+    private var verbatimMessage: String? = nil
+
     public var body: some View {
         VStack(spacing: AppUI.Spacing.md) {
             ProgressView()
                 .scaleEffect(scaleEffect)
 
-            if let message {
+            if let verbatimMessage {
+                Text(verbatimMessage)
+                    .font(AppUI.Typography.caption1)
+                    .foregroundColor(theme.textSecondary)
+            } else if let message {
                 Text(message)
                     .font(AppUI.Typography.caption1)
                     .foregroundColor(theme.textSecondary)

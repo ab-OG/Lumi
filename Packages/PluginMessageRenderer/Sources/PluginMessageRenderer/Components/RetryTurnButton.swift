@@ -40,12 +40,12 @@ struct RetryTurnButton: View {
     var body: some View {
         AppIconButton(
             systemImage: "arrow.clockwise",
-            label: pluginLocalization.string("重试"),
+            label: pluginLocalization.string("Retry"),
             tint: theme.textSecondary.opacity(0.8),
             size: .compact,
             action: retry
         )
-        .help(pluginLocalization.string("重试该回合"))
+        .help(pluginLocalization.string("Retry this turn"))
         .accessibilityIdentifier(Self.accessibilityIdentifier)
     }
 

@@ -498,7 +498,7 @@ struct ToolCallRowView: View {
             }
 
             if projection.isStale {
-                Text("暂无新进度")
+                Text(pluginLocalization.string("No new progress yet"))
                     .font(.appMicro)
                     .foregroundColor(theme.warning)
             }
@@ -514,7 +514,7 @@ struct ToolCallRowView: View {
                 ) {
                     isJobOutputPresented.toggle()
                 }
-                .help("查看输出")
+                .help(pluginLocalization.string("View output"))
                 .popover(isPresented: $isJobOutputPresented, arrowEdge: .bottom) {
                     if let job = jobActivity.job {
                         ToolJobOutputPopover(job: job)
@@ -534,10 +534,10 @@ struct ToolCallRowView: View {
         ) {
             toggleParameterPopover()
         }
-        .help(pluginLocalization.string("调用参数"))
+        .help(pluginLocalization.string("Call Parameters"))
         .popover(isPresented: popoverBinding(selection: $parameterPopoverToolCallID), arrowEdge: .bottom) {
             ToolDetailPopoverView(
-                title: "调用参数",
+                title: pluginLocalization.string("Call Parameters"),
                 systemImage: "slider.horizontal.3",
                 trailingTitle: toolCall.name,
                 minHeight: 0
@@ -557,7 +557,7 @@ struct ToolCallRowView: View {
         ) {
             toggleResultPopover()
         }
-        .help(pluginLocalization.string("调用结果"))
+        .help(pluginLocalization.string("Call Results"))
         .popover(isPresented: popoverBinding(selection: $resultPopoverToolCallID), arrowEdge: .bottom) {
             // 结果按钮本身不持有数据:打开时先显示 loading,再去能力层查询该工具调用结果,
             // 查到后再渲染。
@@ -759,7 +759,7 @@ private struct ToolCallResultView: View {
                     if resultImageData.isEmpty {
                         ToolResultEmptyStateView(
                             systemImage: "info.circle",
-                            text: visualState.isFailure ? "没有错误详情" : "暂无工具输出"
+                            text: visualState.isFailure ? pluginLocalization.string("No error details") : pluginLocalization.string("No tool output yet")
                         )
                     }
                 } else {
@@ -770,7 +770,7 @@ private struct ToolCallResultView: View {
                 }
             }
         } else {
-            ToolResultEmptyStateView(systemImage: "info.circle", text: "暂无工具输出")
+            ToolResultEmptyStateView(systemImage: "info.circle", text: pluginLocalization.string("No tool output yet"))
         }
     }
 
@@ -797,7 +797,7 @@ private struct ToolDurationRowView: View {
                 .font(.appCaption)
                 .foregroundColor(theme.textSecondary)
 
-            Text(pluginLocalization.string("执行耗时"))
+            Text(pluginLocalization.string("Execution Time"))
                 .font(.appCaption)
                 .foregroundColor(theme.textSecondary)
 
@@ -878,7 +878,7 @@ private struct ToolCallResultLazyPopover: View {
 
     var body: some View {
         ToolDetailPopoverView(
-            title: "调用结果",
+            title: pluginLocalization.string("Call Results"),
             systemImage: visualState.systemImage,
             isError: visualState.isFailure,
             minHeight: 128

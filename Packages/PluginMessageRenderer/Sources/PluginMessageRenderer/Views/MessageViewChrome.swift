@@ -98,7 +98,7 @@ struct MessageViewChrome<Content: View>: View {
                             ) {
                                 showThinkingPopover.toggle()
                             }
-                            .help(pluginLocalization.string("思考过程"))
+                            .help(pluginLocalization.string("Thinking Process"))
                             .popover(isPresented: $showThinkingPopover, arrowEdge: .bottom) {
                                 ThinkingPopoverContent(text: thinking!)
                             }
@@ -148,7 +148,7 @@ struct MessageViewChrome<Content: View>: View {
         Button {
             copyMessageContent()
         } label: {
-            Label("复制消息", systemImage: "doc.on.doc")
+            Label(pluginLocalization.string("Copy message"), systemImage: "doc.on.doc")
         }
 
         if showsResendButton, capability != nil, !message.content.isEmpty {
@@ -160,7 +160,7 @@ struct MessageViewChrome<Content: View>: View {
                     )
                 }
             } label: {
-                Label("重新发送", systemImage: "arrow.clockwise")
+                Label(pluginLocalization.string("Resend"), systemImage: "arrow.clockwise")
             }
         }
     }

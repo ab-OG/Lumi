@@ -142,8 +142,8 @@ struct ChatGPTUserMessageView: View {
             }
             .buttonStyle(.plain)
             .accessibilityIdentifier(ChatGPTRendererAccessibilityIdentifiers.userResendButton)
-            .accessibilityLabel(pluginLocalization.string("重新发送"))
-            .help(pluginLocalization.string("重新发送该消息"))
+            .accessibilityLabel(pluginLocalization.string("Resend"))
+            .help(pluginLocalization.string("Resend this message"))
         }
     }
 

@@ -60,7 +60,7 @@ struct ToolCallGroupSummaryRow: View {
             ) {
                 isExpanded.toggle()
             }
-            .help(pluginLocalization.string("查看工具调用"))
+            .help(pluginLocalization.string("View Tool Calls"))
             .accessibilityIdentifier(ToolCallGroupAccessibility.expandButton)
         }
         .padding(EdgeInsets(top: 5, leading: 10, bottom: 5, trailing: 10))
@@ -195,7 +195,7 @@ struct ToolCallGroupPopoverContent: View {
                 .font(.appCaptionEmphasized)
                 .foregroundColor(theme.textSecondary)
 
-            Text(pluginLocalization.string("工具调用"))
+            Text(pluginLocalization.string("Tool Calls"))
                 .font(.appCallout)
                 .foregroundColor(theme.textPrimary)
 

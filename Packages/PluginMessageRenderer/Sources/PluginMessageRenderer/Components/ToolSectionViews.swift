@@ -21,7 +21,7 @@ struct LoadingToolSectionView: View {
             ProgressView()
                 .controlSize(.small)
 
-            Text(verbatim: pluginLocalization.string("查询结果中..."))
+            Text(verbatim: pluginLocalization.string("Querying results..."))
                 .font(.appCaption)
                 .foregroundColor(theme.textSecondary)
         }
@@ -40,7 +40,7 @@ struct ToolFailureNoticeView: View {
             Image(systemName: "exclamationmark.triangle.fill")
                 .foregroundColor(theme.error)
 
-            Text(verbatim: pluginLocalization.string("工具执行失败"))
+            Text(verbatim: pluginLocalization.string("Tool execution failed"))
                 .font(.appCaptionEmphasized)
                 .foregroundColor(theme.error)
         }

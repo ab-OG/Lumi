@@ -18,7 +18,7 @@ struct ThinkingPopoverContent: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 8) {
-                Text(pluginLocalization.string("思考过程"))
+                Text(pluginLocalization.string("Thinking Process"))
                     .font(.appCaptionEmphasized)
                     .foregroundColor(theme.textSecondary)
 
