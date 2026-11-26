@@ -486,7 +486,7 @@ struct ToolCallRowView: View {
     @ViewBuilder
     private func liveJobDetails(_ projection: ToolJobActivityProjection) -> some View {
         HStack(spacing: 8) {
-            Text("耗时\(MessageViewHelpers.formatDuration(projection.duration))")
+            Text(String(format: pluginLocalization.string("Elapsed: %@"), MessageViewHelpers.formatDuration(projection.duration)))
                 .font(.appMicro)
                 .foregroundColor(theme.textSecondary)
 
@@ -764,7 +764,7 @@ private struct ToolCallResultView: View {
                     }
                 } else {
                     VStack(alignment: .leading, spacing: 6) {
-                        ToolResultSectionLabel(title: "输出")
+                        ToolResultSectionLabel(title: pluginLocalization.string("Output"))
                         ToolTextSectionView(content: result.content, isError: visualState.isFailure)
                     }
                 }

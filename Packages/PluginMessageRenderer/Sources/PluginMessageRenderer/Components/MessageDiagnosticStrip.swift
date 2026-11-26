@@ -24,19 +24,19 @@ struct MessageDiagnosticStrip: View {
     private var summaryText: String? {
         var parts: [String] = []
         if let latency = message.latencyMs {
-            parts.append("耗时 \(MessageViewHelpers.formatMilliseconds(latency))")
+            parts.append(String(format: pluginLocalization.string("Latency: %@"), MessageViewHelpers.formatMilliseconds(latency)))
         }
         if let ttft = message.timeToFirstTokenMs {
-            parts.append("首 token \(MessageViewHelpers.formatMilliseconds(ttft))")
+            parts.append(String(format: pluginLocalization.string("First token: %@"), MessageViewHelpers.formatMilliseconds(ttft)))
         }
         if let streaming = message.streamingDurationMs {
-            parts.append("流式 \(MessageViewHelpers.formatMilliseconds(streaming))")
+            parts.append(String(format: pluginLocalization.string("Streaming: %@"), MessageViewHelpers.formatMilliseconds(streaming)))
         }
         if let renderKind = message.renderKind, !renderKind.isEmpty {
-            parts.append("渲染 \(renderKind)")
+            parts.append(String(format: pluginLocalization.string("Rendered as: %@"), renderKind))
         }
         if let preferred = message.preferredRendererID, !preferred.isEmpty {
-            parts.append("期望 \(preferred)")
+            parts.append(String(format: pluginLocalization.string("Preferred: %@"), preferred))
         }
         guard !parts.isEmpty else { return nil }
         return parts.joined(separator: "  ·  ")
