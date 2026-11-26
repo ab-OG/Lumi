@@ -37,8 +37,8 @@ public struct EditFileTool: SuperAgentTool, @unchecked Sendable {
     public func permissionRiskLevel(arguments: [String: ToolArgument]) -> CommandRiskLevel { .high }
 
     public func displayDescription(for arguments: [String: ToolArgument]) -> String {
-        guard let filePath = arguments.stringValue("file_path") else { return "编辑文件" }
-        return "编辑 \(URL(fileURLWithPath: filePath).lastPathComponent)"
+        guard let filePath = arguments.stringValue("file_path") else { return pluginLocalization.string("Edit file") }
+        return String(format: pluginLocalization.string("Edit %@"), URL(fileURLWithPath: filePath).lastPathComponent)
     }
 
     public func execute(arguments: [String: ToolArgument]) async throws -> String {

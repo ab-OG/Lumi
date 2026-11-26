@@ -181,7 +181,7 @@ private func withTempFile(
         ])
         #expect(!description.isEmpty)
     }
-    #expect(tool.displayDescription(for: ["path": ToolArgument("/tmp/a.txt")]) == "读取 a.txt")
+    #expect(tool.displayDescription(for: ["path": ToolArgument("/tmp/a.txt")]) == "Read a.txt")
 }
 
 @MainActor

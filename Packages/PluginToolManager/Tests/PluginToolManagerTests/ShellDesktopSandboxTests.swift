@@ -89,7 +89,7 @@ import Testing
         "unsandboxed": ToolArgument(true),
     ])
     #expect(sandboxed != unsandboxed)
-    #expect(unsandboxed.contains("沙箱"))
+    #expect(unsandboxed.contains("outside the sandbox"))
 }
 
 // MARK: - Output budget

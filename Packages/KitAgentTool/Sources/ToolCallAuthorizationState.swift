@@ -16,11 +16,11 @@ public enum ToolCallAuthorizationState: String, Codable, Sendable, Equatable, Ca
     /// 简短中文标签（用于 UI）
     public var displayName: String {
         switch self {
-        case .noRisk: return "无风险"
-        case .autoApproved: return "自动同意"
-        case .userApproved: return "用户同意"
-        case .userRejected: return "用户拒绝"
-        case .pendingAuthorization: return "等待授权"
+        case .noRisk: return pluginLocalization.string("No risk")
+        case .autoApproved: return pluginLocalization.string("Auto-approved")
+        case .userApproved: return pluginLocalization.string("User approved")
+        case .userRejected: return pluginLocalization.string("User rejected")
+        case .pendingAuthorization: return pluginLocalization.string("Pending authorization")
         }
     }
 

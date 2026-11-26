@@ -1,6 +1,326 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "Accesses sensitive path fragment %@": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Accesses sensitive path fragment %@" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "访问敏感路径片段 %@" } },
+        "zh-Hant": { "stringUnit": { "state": "translated", "value": "存取敏感路徑片段 %@" } },
+        "zh-HK": { "stringUnit": { "state": "translated", "value": "存取敏感路徑片段 %@" } },
+        "zh-TW": { "stringUnit": { "state": "translated", "value": "存取敏感路徑片段 %@" } }
+      }
+    },
+    "Command contains unmatched quotes, brackets, or command substitution": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Command contains unmatched quotes, brackets, or command substitution" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "命令含未闭合的引号、括号或命令替换，无法可靠解析" } },
+        "zh-Hant": { "stringUnit": { "state": "translated", "value": "命令含未閉合的引號、括號或命令替換，無法可靠解析" } },
+        "zh-HK": { "stringUnit": { "state": "translated", "value": "命令含未閉合的引號、括號或命令替換，無法可靠解析" } },
+        "zh-TW": { "stringUnit": { "state": "translated", "value": "命令含未閉合的引號、括號或命令替換，無法可靠解析" } }
+      }
+    },
+    "Command too long to analyze reliably": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Command too long to analyze reliably" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "命令长度超限，无法可靠分析" } },
+        "zh-Hant": { "stringUnit": { "state": "translated", "value": "命令長度超限，無法可靠分析" } },
+        "zh-HK": { "stringUnit": { "state": "translated", "value": "命令長度超限，無法可靠分析" } },
+        "zh-TW": { "stringUnit": { "state": "translated", "value": "命令長度超限，無法可靠分析" } }
+      }
+    },
+    "Destructive or side-effect command %@": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Destructive or side-effect command %@" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "破坏性或有副作用的命令 %@" } },
+        "zh-Hant": { "stringUnit": { "state": "translated", "value": "破壞性或有副作用的命令 %@" } },
+        "zh-HK": { "stringUnit": { "state": "translated", "value": "破壞性或有副作用的命令 %@" } },
+        "zh-TW": { "stringUnit": { "state": "translated", "value": "破壞性或有副作用的命令 %@" } }
+      }
+    },
+    "Edit %@": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Edit %@" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "编辑 %@" } },
+        "zh-Hant": { "stringUnit": { "state": "translated", "value": "編輯 %@" } },
+        "zh-HK": { "stringUnit": { "state": "translated", "value": "編輯 %@" } },
+        "zh-TW": { "stringUnit": { "state": "translated", "value": "編輯 %@" } }
+      }
+    },
+    "Edit file": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Edit file" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "编辑文件" } },
+        "zh-Hant": { "stringUnit": { "state": "translated", "value": "編輯檔案" } },
+        "zh-HK": { "stringUnit": { "state": "translated", "value": "編輯檔案" } },
+        "zh-TW": { "stringUnit": { "state": "translated", "value": "編輯檔案" } }
+      }
+    },
+    "Interpreter or indirect executor %@": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Interpreter or indirect executor %@" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "解释器或间接执行器 %@" } },
+        "zh-Hant": { "stringUnit": { "state": "translated", "value": "直譯器或間接執行器 %@" } },
+        "zh-HK": { "stringUnit": { "state": "translated", "value": "直譯器或間接執行器 %@" } },
+        "zh-TW": { "stringUnit": { "state": "translated", "value": "直譯器或間接執行器 %@" } }
+      }
+    },
+    "List directory": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "List directory" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "列出目录" } },
+        "zh-Hant": { "stringUnit": { "state": "translated", "value": "列出目錄" } },
+        "zh-HK": { "stringUnit": { "state": "translated", "value": "列出目錄" } },
+        "zh-TW": { "stringUnit": { "state": "translated", "value": "列出目錄" } }
+      }
+    },
+    "List directory %@": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "List directory %@" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "列出 %1$@ 目录" } },
+        "zh-Hant": { "stringUnit": { "state": "translated", "value": "列出 %1$@ 目錄" } },
+        "zh-HK": { "stringUnit": { "state": "translated", "value": "列出 %1$@ 目錄" } },
+        "zh-TW": { "stringUnit": { "state": "translated", "value": "列出 %1$@ 目錄" } }
+      }
+    },
+    "Nesting too deep to analyze reliably": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Nesting too deep to analyze reliably" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "嵌套层数过深，无法可靠分析" } },
+        "zh-Hant": { "stringUnit": { "state": "translated", "value": "巢狀層數過深，無法可靠分析" } },
+        "zh-HK": { "stringUnit": { "state": "translated", "value": "巢狀層數過深，無法可靠分析" } },
+        "zh-TW": { "stringUnit": { "state": "translated", "value": "巢狀層數過深，無法可靠分析" } }
+      }
+    },
+    "Network tool %@ may send out or download content": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Network tool %@ may send out or download content" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "网络工具 %@ 可能外发或下载内容" } },
+        "zh-Hant": { "stringUnit": { "state": "translated", "value": "網路工具 %@ 可能外傳或下載內容" } },
+        "zh-HK": { "stringUnit": { "state": "translated", "value": "網路工具 %@ 可能外傳或下載內容" } },
+        "zh-TW": { "stringUnit": { "state": "translated", "value": "網路工具 %@ 可能外傳或下載內容" } }
+      }
+    },
+    "Privilege escalation or permission-change command %@": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Privilege escalation or permission-change command %@" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "提权或权限变更命令 %@" } },
+        "zh-Hant": { "stringUnit": { "state": "translated", "value": "提權或權限變更命令 %@" } },
+        "zh-HK": { "stringUnit": { "state": "translated", "value": "提權或權限變更命令 %@" } },
+        "zh-TW": { "stringUnit": { "state": "translated", "value": "提權或權限變更命令 %@" } }
+      }
+    },
+    "Read %1$@ (from line %2$lld)": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Read %1$@ (from line %2$lld)" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "读取 %1$@（从第 %2$lld 行起）" } },
+        "zh-Hant": { "stringUnit": { "state": "translated", "value": "讀取 %1$@（從第 %2$lld 行起）" } },
+        "zh-HK": { "stringUnit": { "state": "translated", "value": "讀取 %1$@（從第 %2$lld 行起）" } },
+        "zh-TW": { "stringUnit": { "state": "translated", "value": "讀取 %1$@（從第 %2$lld 行起）" } }
+      }
+    },
+    "Read %1$@ (from line %2$lld, up to %3$lld lines)": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Read %1$@ (from line %2$lld, up to %3$lld lines)" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "读取 %1$@（第 %2$lld 行起，最多 %3$lld 行）" } },
+        "zh-Hant": { "stringUnit": { "state": "translated", "value": "讀取 %1$@（第 %2$lld 行起，最多 %3$lld 行）" } },
+        "zh-HK": { "stringUnit": { "state": "translated", "value": "讀取 %1$@（第 %2$lld 行起，最多 %3$lld 行）" } },
+        "zh-TW": { "stringUnit": { "state": "translated", "value": "讀取 %1$@（第 %2$lld 行起，最多 %3$lld 行）" } }
+      }
+    },
+    "Read %@": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Read %@" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "读取 %@" } },
+        "zh-Hant": { "stringUnit": { "state": "translated", "value": "讀取 %@" } },
+        "zh-HK": { "stringUnit": { "state": "translated", "value": "讀取 %@" } },
+        "zh-TW": { "stringUnit": { "state": "translated", "value": "讀取 %@" } }
+      }
+    },
+    "Read file": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Read file" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "读取文件" } },
+        "zh-Hant": { "stringUnit": { "state": "translated", "value": "讀取檔案" } },
+        "zh-HK": { "stringUnit": { "state": "translated", "value": "讀取檔案" } },
+        "zh-TW": { "stringUnit": { "state": "translated", "value": "讀取檔案" } }
+      }
+    },
+    "Read image": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Read image" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "读取图片" } },
+        "zh-Hant": { "stringUnit": { "state": "translated", "value": "讀取圖片" } },
+        "zh-HK": { "stringUnit": { "state": "translated", "value": "讀取圖片" } },
+        "zh-TW": { "stringUnit": { "state": "translated", "value": "讀取圖片" } }
+      }
+    },
+    "Read image %1$@ (%2$@). The image is attached to the tool result and can be viewed directly.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Read image %1$@ (%2$@). The image is attached to the tool result and can be viewed directly." } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "已读取图片：%1$@（%2$@）。图片已附加到工具结果，可直接查看。" } },
+        "zh-Hant": { "stringUnit": { "state": "translated", "value": "已讀取圖片：%1$@（%2$@）。圖片已附加到工具結果，可直接檢視。" } },
+        "zh-HK": { "stringUnit": { "state": "translated", "value": "已讀取圖片：%1$@（%2$@）。圖片已附加到工具結果，可直接檢視。" } },
+        "zh-TW": { "stringUnit": { "state": "translated", "value": "已讀取圖片：%1$@（%2$@）。圖片已附加到工具結果，可直接檢視。" } }
+      }
+    },
+    "Read-only command %@ has write or execute arguments": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Read-only command %@ has write or execute arguments" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "只读命令 %@ 带有写入/执行参数" } },
+        "zh-Hant": { "stringUnit": { "state": "translated", "value": "唯讀命令 %@ 帶有寫入/執行參數" } },
+        "zh-HK": { "stringUnit": { "state": "translated", "value": "唯讀命令 %@ 帶有寫入/執行參數" } },
+        "zh-TW": { "stringUnit": { "state": "translated", "value": "唯讀命令 %@ 帶有寫入/執行參數" } }
+      }
+    },
+    "Redirects output to a target other than /dev/null": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Redirects output to a target other than /dev/null" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "写重定向到非 /dev/null 目标" } },
+        "zh-Hant": { "stringUnit": { "state": "translated", "value": "將輸出重新導向至非 /dev/null 目標" } },
+        "zh-HK": { "stringUnit": { "state": "translated", "value": "將輸出重新導向至非 /dev/null 目標" } },
+        "zh-TW": { "stringUnit": { "state": "translated", "value": "將輸出重新導向至非 /dev/null 目標" } }
+      }
+    },
+    "Run %1$@": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Run %1$@" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "运行 %1$@" } },
+        "zh-Hant": { "stringUnit": { "state": "translated", "value": "執行 %1$@" } },
+        "zh-HK": { "stringUnit": { "state": "translated", "value": "執行 %1$@" } },
+        "zh-TW": { "stringUnit": { "state": "translated", "value": "執行 %1$@" } }
+      }
+    },
+    "Run %1$@ outside the sandbox": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Run %1$@ outside the sandbox" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "脱离沙箱运行 %1$@" } },
+        "zh-Hant": { "stringUnit": { "state": "translated", "value": "脫離沙箱執行 %1$@" } },
+        "zh-HK": { "stringUnit": { "state": "translated", "value": "脫離沙箱執行 %1$@" } },
+        "zh-TW": { "stringUnit": { "state": "translated", "value": "脫離沙箱執行 %1$@" } }
+      }
+    },
+    "Run command": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Run command" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "运行命令" } },
+        "zh-Hant": { "stringUnit": { "state": "translated", "value": "執行命令" } },
+        "zh-HK": { "stringUnit": { "state": "translated", "value": "執行命令" } },
+        "zh-TW": { "stringUnit": { "state": "translated", "value": "執行命令" } }
+      }
+    },
+    "Search %@": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Search %@" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "搜索 %@" } },
+        "zh-Hant": { "stringUnit": { "state": "translated", "value": "搜尋 %@" } },
+        "zh-HK": { "stringUnit": { "state": "translated", "value": "搜尋 %@" } },
+        "zh-TW": { "stringUnit": { "state": "translated", "value": "搜尋 %@" } }
+      }
+    },
+    "Search files": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Search files" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "搜索文件" } },
+        "zh-Hant": { "stringUnit": { "state": "translated", "value": "搜尋檔案" } },
+        "zh-HK": { "stringUnit": { "state": "translated", "value": "搜尋檔案" } },
+        "zh-TW": { "stringUnit": { "state": "translated", "value": "搜尋檔案" } }
+      }
+    },
+    "Stopping…": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Stopping…" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "正在停止…" } },
+        "zh-Hant": { "stringUnit": { "state": "translated", "value": "正在停止…" } },
+        "zh-HK": { "stringUnit": { "state": "translated", "value": "正在停止…" } },
+        "zh-TW": { "stringUnit": { "state": "translated", "value": "正在停止…" } }
+      }
+    },
+    "The tool process could not be resumed after the app restarted and was not retried.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "The tool process could not be resumed after the app restarted and was not retried." } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "工具进程在应用重启后无法恢复，未自动重试。" } },
+        "zh-Hant": { "stringUnit": { "state": "translated", "value": "工具程式在應用程式重新啟動後無法恢復，未自動重試。" } },
+        "zh-HK": { "stringUnit": { "state": "translated", "value": "工具程式在應用程式重新啟動後無法恢復，未自動重試。" } },
+        "zh-TW": { "stringUnit": { "state": "translated", "value": "工具程式在應用程式重新啟動後無法恢復，未自動重試。" } }
+      }
+    },
+    "Unrecognized command %@; fail-safe marks it as requiring approval": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Unrecognized command %@; fail-safe marks it as requiring approval" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "未识别的命令 %@，按 fail-safe 判定为需要授权" } },
+        "zh-Hant": { "stringUnit": { "state": "translated", "value": "未識別的命令 %@，依 fail-safe 判定為需要授權" } },
+        "zh-HK": { "stringUnit": { "state": "translated", "value": "未識別的命令 %@，依 fail-safe 判定為需要授權" } },
+        "zh-TW": { "stringUnit": { "state": "translated", "value": "未識別的命令 %@，依 fail-safe 判定為需要授權" } }
+      }
+    },
+    "Uses the /dev/tcp network channel": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Uses the /dev/tcp network channel" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "使用 /dev/tcp 网络通道" } },
+        "zh-Hant": { "stringUnit": { "state": "translated", "value": "使用 /dev/tcp 網路通道" } },
+        "zh-HK": { "stringUnit": { "state": "translated", "value": "使用 /dev/tcp 網路通道" } },
+        "zh-TW": { "stringUnit": { "state": "translated", "value": "使用 /dev/tcp 網路通道" } }
+      }
+    },
+    "View image %@": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "View image %@" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "查看图片 %@" } },
+        "zh-Hant": { "stringUnit": { "state": "translated", "value": "檢視圖片 %@" } },
+        "zh-HK": { "stringUnit": { "state": "translated", "value": "檢視圖片 %@" } },
+        "zh-TW": { "stringUnit": { "state": "translated", "value": "檢視圖片 %@" } }
+      }
+    },
+    "Write %@": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Write %@" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "写入 %@" } },
+        "zh-Hant": { "stringUnit": { "state": "translated", "value": "寫入 %@" } },
+        "zh-HK": { "stringUnit": { "state": "translated", "value": "寫入 %@" } },
+        "zh-TW": { "stringUnit": { "state": "translated", "value": "寫入 %@" } }
+      }
+    },
+    "Write file": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Write file" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "写入文件" } },
+        "zh-Hant": { "stringUnit": { "state": "translated", "value": "寫入檔案" } },
+        "zh-HK": { "stringUnit": { "state": "translated", "value": "寫入檔案" } },
+        "zh-TW": { "stringUnit": { "state": "translated", "value": "寫入檔案" } }
+      }
+    },
     "Arguments": {
       "localizations": {
         "en": { "stringUnit": { "state": "translated", "value": "Arguments" } },

@@ -16,7 +16,7 @@ inventory, and the PR slicing plan. It is a baseline: counts move as slices land
 | Settings/General English | merged (PR #6) |
 | Settings catalogs en+zh sync, singular/plural count labels, key audits | merged (PR #5) |
 | Provider settings/pickers English | draft PR (`personal/english-provider-pickers`): Aliyun/CommandCode/OpenCode/StepFun/Tencent/Zhipu/MiniMax identity strings, ModelSelector catalog en values, LumiLocalizationKit locale-precedence fix, new `Scripts/check-localization-keys.py` gate |
-| Tools & permission prompts English | not started |
+| Tools & permission prompts English | draft PR (`personal/english-tools-permissions`, stacked on the provider-pickers PR): KitAgentTool risk/authorization labels, PluginToolManager tool descriptions + risk reasons + job messages, PluginMessageRenderer permission-card text |
 | Errors & agent-loop UI English | not started |
 | Plugin long tail (Mail, EditorService, MessageRenderer, …) | not started |
 | On-device English UI + local-model conversation verification | **requires Ankit's Mac** |
@@ -50,7 +50,7 @@ Unify or distinctly name such keys.
 | Vendor | 342 |
 | EditorService | 210 |
 | PluginMail | 130 |
-| PluginMessageRenderer | 117 |
+| PluginMessageRenderer | 117 → permission-card strings done in the tools PR (question, Allow/Deny/Always-allow labels, fallback note); remaining 145 raw lines are the long-tail slice (loggers, comments, remaining UI rows) |
 | ProjectRAGEngine | 71 |
 | KitCADDesigner | 69 |
 | PluginSettingGeneral | 64 → 18 non-comment (PR #6: all visible strings now `pluginLocalization.string("<English>")` with singular/plural pairs for count labels; remaining 18 are Logger lines, `run(label:)` log labels, and one verbose-only PATH hint) |
@@ -68,7 +68,7 @@ Unify or distinctly name such keys.
 | PluginConversationManager | 42 |
 | PluginOcr | 39 |
 | PluginAgentLoop | 37 |
-| PluginToolManager | 36 |
+| PluginToolManager | 36 → 0 visible non-comment (tools PR: tool displayDescription, ShellCommandRiskAnalyzer reasons, ToolExecutionManager job messages; ToolManager/ViewModel/Views UI was already English; remaining hits are comments and logger lines) |
 | FinderSync.swift | 34 |
 | PluginDiskManager | 34 |
 | PluginBrowser | 34 |
@@ -108,7 +108,7 @@ Unify or distinctly name such keys.
 | Packages/PluginAppStorePromoDesigner/Resources/Localizable.xcstrings | 22 | 76 |
 | Packages/PluginSystemBenchmark/Resources/Localizable.xcstrings | 14 | 49 |
 | Packages/PluginTextActions/Resources/Localizable.xcstrings | 12 | 53 |
-| Packages/PluginMessageRenderer/Resources/Localizable.xcstrings | 10 | 60 |
+| Packages/PluginMessageRenderer/Resources/Localizable.xcstrings | 10 | 66 |
 | Vendor/LumiUI/Resources/Localizable.xcstrings | 9 | 108 |
 | Packages/PluginModelSelector/Resources/Localizable.xcstrings | 0 | 30 |
 | Packages/PluginLLMProviderSettings/Resources/Localizable.xcstrings | 0 | 66 |
@@ -176,6 +176,14 @@ Unify or distinctly name such keys.
 4. **Tools & permission prompts**: tool schema descriptions rendered in prompts,
    PluginToolManager manager UI + permission dialogs (this text also reaches
    the LLM; keep changes semantics-preserving).
+   Done in the tools PR: KitAgentTool CommandRiskLevel/ToolCallAuthorizationState
+   labels + reasons, PluginToolManager tool descriptions/risk reasons/job
+   messages, PluginMessageRenderer permission-card question + buttons.
+   Tool schema descriptions were already English upstream.
+   Remaining in this area: PluginComputerUse authorization card, and
+   PluginMessageRenderer's legacy Chinese catalog keys (26 zh-source keys plus
+   8 en≠key entries and 2 keys missing en, flagged by check-localization-keys.py
+   as long-tail debt).
 5. **Errors & agent-loop UI**: non-localized throw/error strings shown to the
    user, agent loop event titles (e.g. "生成中"/"结束"), send-state strings.
 6. **Plugin long tail** (several PRs, roughly by visibility):

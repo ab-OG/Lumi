@@ -68,7 +68,7 @@ private enum ToolApprovalAction: Equatable {
     case reject
     case other
 
-    static let alwaysAllowLabel = "始终允许"
+    static let alwaysAllowLabel = pluginLocalization.string("Always allow")
 
     init(answer: String) {
         switch answer.trimmingCharacters(in: .whitespacesAndNewlines).lowercased() {
@@ -204,8 +204,11 @@ final class ToolApprovalBridge: SuperLog {
         return ToolPermissionRequest(
             toolCallID: "approval:\(toolCall.id)",
             kind: ToolSuspensionKind.permission,
-            question: "此操作被判定为\(risk.displayName)，是否允许执行？\n\(toolManager?.displayDescription(for: toolCall) ?? toolCall.name)",
-            options: ["允许", "拒绝"],
+            question: [
+                String(format: pluginLocalization.string("This operation was judged %1$@. Allow it to run?"), risk.displayName),
+                toolManager?.displayDescription(for: toolCall) ?? toolCall.name,
+            ].joined(separator: "\n"),
+            options: [pluginLocalization.string("Allow"), pluginLocalization.string("Deny")],
             mode: "yes_no"
         )
     }
@@ -345,7 +348,7 @@ public struct ToolApprovalRowRenderer: ToolCallRowRenderer, SuperLog {
             Self.logger.error(
                 "\(Self.t)授权渲染器已命中但无法构造授权请求 tool=\(toolCall.name, privacy: .public) id=\(toolCall.id, privacy: .public)"
             )
-            return AnyView(Text("无法解析工具审批请求"))
+            return AnyView(Text(pluginLocalization.string("Unable to parse the tool approval request")))
         }
 
         return AnyView(
@@ -416,7 +419,7 @@ struct ToolApprovalPendingView: View {
                 }
 
                 if responded {
-                    Text("已提交：等待继续执行…")
+                    Text(pluginLocalization.string("Submitted: waiting to continue…"))
                         .font(.appMicro)
                         .foregroundColor(theme.textSecondary)
                 }

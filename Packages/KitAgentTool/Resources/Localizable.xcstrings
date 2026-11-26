@@ -1,6 +1,136 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "Allow": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Allow" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "允许" } },
+        "zh-Hant": { "stringUnit": { "state": "translated", "value": "允許" } },
+        "zh-HK": { "stringUnit": { "state": "translated", "value": "允許" } },
+        "zh-TW": { "stringUnit": { "state": "translated", "value": "允許" } }
+      }
+    },
+    "Auto-approved": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Auto-approved" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "自动同意" } },
+        "zh-Hant": { "stringUnit": { "state": "translated", "value": "自動同意" } },
+        "zh-HK": { "stringUnit": { "state": "translated", "value": "自動同意" } },
+        "zh-TW": { "stringUnit": { "state": "translated", "value": "自動同意" } }
+      }
+    },
+    "High risk": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "High risk" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "高风险" } },
+        "zh-Hant": { "stringUnit": { "state": "translated", "value": "高風險" } },
+        "zh-HK": { "stringUnit": { "state": "translated", "value": "高風險" } },
+        "zh-TW": { "stringUnit": { "state": "translated", "value": "高風險" } }
+      }
+    },
+    "Low risk": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Low risk" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "低风险" } },
+        "zh-Hant": { "stringUnit": { "state": "translated", "value": "低風險" } },
+        "zh-HK": { "stringUnit": { "state": "translated", "value": "低風險" } },
+        "zh-TW": { "stringUnit": { "state": "translated", "value": "低風險" } }
+      }
+    },
+    "Medium risk": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Medium risk" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "中风险" } },
+        "zh-Hant": { "stringUnit": { "state": "translated", "value": "中風險" } },
+        "zh-HK": { "stringUnit": { "state": "translated", "value": "中風險" } },
+        "zh-TW": { "stringUnit": { "state": "translated", "value": "中風險" } }
+      }
+    },
+    "No risk": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "No risk" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "无风险" } },
+        "zh-Hant": { "stringUnit": { "state": "translated", "value": "無風險" } },
+        "zh-HK": { "stringUnit": { "state": "translated", "value": "無風險" } },
+        "zh-TW": { "stringUnit": { "state": "translated", "value": "無風險" } }
+      }
+    },
+    "Pending authorization": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Pending authorization" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "等待授权" } },
+        "zh-Hant": { "stringUnit": { "state": "translated", "value": "等待授權" } },
+        "zh-HK": { "stringUnit": { "state": "translated", "value": "等待授權" } },
+        "zh-TW": { "stringUnit": { "state": "translated", "value": "等待授權" } }
+      }
+    },
+    "Safe": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Safe" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "安全" } },
+        "zh-Hant": { "stringUnit": { "state": "translated", "value": "安全" } },
+        "zh-HK": { "stringUnit": { "state": "translated", "value": "安全" } },
+        "zh-TW": { "stringUnit": { "state": "translated", "value": "安全" } }
+      }
+    },
+    "This operation may cause data loss or system changes": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "This operation may cause data loss or system changes" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "此操作可能造成数据丢失或系统更改" } },
+        "zh-Hant": { "stringUnit": { "state": "translated", "value": "此操作可能造成資料遺失或系統變更" } },
+        "zh-HK": { "stringUnit": { "state": "translated", "value": "此操作可能造成資料遺失或系統變更" } },
+        "zh-TW": { "stringUnit": { "state": "translated", "value": "此操作可能造成資料遺失或系統變更" } }
+      }
+    },
+    "This operation may modify files or access the network": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "This operation may modify files or access the network" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "此操作可能修改文件或访问网络" } },
+        "zh-Hant": { "stringUnit": { "state": "translated", "value": "此操作可能修改檔案或存取網路" } },
+        "zh-HK": { "stringUnit": { "state": "translated", "value": "此操作可能修改檔案或存取網路" } },
+        "zh-TW": { "stringUnit": { "state": "translated", "value": "此操作可能修改檔案或存取網路" } }
+      }
+    },
+    "This operation only reads information and does not modify files": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "This operation only reads information and does not modify files" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "此操作只读取信息，不会修改文件" } },
+        "zh-Hant": { "stringUnit": { "state": "translated", "value": "此操作只讀取資訊，不會修改檔案" } },
+        "zh-HK": { "stringUnit": { "state": "translated", "value": "此操作只讀取資訊，不會修改檔案" } },
+        "zh-TW": { "stringUnit": { "state": "translated", "value": "此操作只讀取資訊，不會修改檔案" } }
+      }
+    },
+    "User approved": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "User approved" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "用户同意" } },
+        "zh-Hant": { "stringUnit": { "state": "translated", "value": "使用者同意" } },
+        "zh-HK": { "stringUnit": { "state": "translated", "value": "使用者同意" } },
+        "zh-TW": { "stringUnit": { "state": "translated", "value": "使用者同意" } }
+      }
+    },
+    "User rejected": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "User rejected" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "用户拒绝" } },
+        "zh-Hant": { "stringUnit": { "state": "translated", "value": "使用者拒絕" } },
+        "zh-HK": { "stringUnit": { "state": "translated", "value": "使用者拒絕" } },
+        "zh-TW": { "stringUnit": { "state": "translated", "value": "使用者拒絕" } }
+      }
+    },
     "Chinese": {
       "localizations": {
         "en": {

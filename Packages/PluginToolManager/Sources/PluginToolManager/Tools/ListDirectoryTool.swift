@@ -31,9 +31,9 @@ public struct ListDirectoryTool: SuperAgentTool, @unchecked Sendable {
     public func permissionRiskLevel(arguments: [String: ToolArgument]) -> CommandRiskLevel { .low }
 
     public func displayDescription(for arguments: [String: ToolArgument]) -> String {
-        guard let path = arguments.stringValue("path") else { return "列出目录" }
+        guard let path = arguments.stringValue("path") else { return pluginLocalization.string("List directory") }
         let dirName = URL(fileURLWithPath: path).lastPathComponent
-        return "列出 \(dirName) 目录"
+        return String(format: pluginLocalization.string("List directory %@"), dirName)
     }
 
     public func execute(arguments: [String: ToolArgument]) async throws -> String {

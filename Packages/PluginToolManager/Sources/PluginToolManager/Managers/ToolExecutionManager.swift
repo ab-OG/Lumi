@@ -237,7 +237,7 @@ final class ToolExecutionManager {
         var cancellingJob = job
         cancellingJob.status = .cancelling
         cancellingJob.updatedAt = Date()
-        cancellingJob.latestProgress = ToolJobProgress(message: "正在停止…")
+        cancellingJob.latestProgress = ToolJobProgress(message: pluginLocalization.string("Stopping…"))
         jobsByID[jobID] = cancellingJob
         persist(cancellingJob)
         emit(
@@ -612,7 +612,7 @@ final class ToolExecutionManager {
     }
 
     private func restore(_ records: [ToolJobRecord]) {
-        let message = "工具进程在应用重启后无法恢复，未自动重试。"
+        let message = pluginLocalization.string("The tool process could not be resumed after the app restarted and was not retried.")
         var restoredTerminalJobs: [ToolJob] = []
         for record in records where jobsByID[record.id] == nil {
             if record.status.isTerminal {

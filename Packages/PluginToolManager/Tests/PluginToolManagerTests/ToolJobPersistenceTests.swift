@@ -142,7 +142,7 @@ struct ToolJobPersistenceTests {
         #expect(recovered?.status == .failed)
         #expect(recovered?.latestOutput == "partial output")
         let settled = await waitForRecord(store, jobID: record.id, status: .failed)
-        #expect(settled?.errorMessage?.contains("无法恢复") == true)
+        #expect(settled?.errorMessage?.contains("could not be resumed") == true)
         #expect(settled?.result?.isError == true)
     }
 
