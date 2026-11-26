@@ -24,7 +24,7 @@ struct PluginManagerAboutView: View {
             tagline: PluginPluginManagerText.aboutDescription,
             chips: [PluginPluginManagerText.searchPlugins, PluginPluginManagerText.allCategories],
             metrics: [
-                .init(value: PluginPluginManagerText.enabled, label: PluginPluginManagerText.enabledCount),
+                .init(value: PluginPluginManagerText.enabled, label: PluginPluginManagerText.status),
                 .init(value: PluginPluginManagerText.alwaysOn, label: PluginPluginManagerText.policyLabel)
             ]
         )

@@ -85,7 +85,7 @@ public final class PluginPluginManager: SuperPlugin, SuperLog {
         self.metadata = PluginMetadata(
             id: id,
             name: pluginLocalization.string("Plugin Manager"),
-            description: pluginLocalization.string("Manage all registered plugins."),
+            description: pluginLocalization.string("Manage all registered plugins"),
             version: "1.0.0",
             category: .system,
             stage: .stable,
