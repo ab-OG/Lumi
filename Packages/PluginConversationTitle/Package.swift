@@ -19,6 +19,7 @@ let package = Package(
         .package(path: "../KitLLM"),
         .package(path: "../ProviderToolManager"),
         .package(path: "../ProviderAgentLoop"),
+        .package(path: "../ProviderLifecycleHooks"),
     ],
     targets: [
         .target(
@@ -39,7 +40,7 @@ let package = Package(
         ),
         .testTarget(
             name: "PluginConversationTitleTests",
-            dependencies: ["PluginConversationTitle"],
+            dependencies: ["PluginConversationTitle", "ProviderAgentLoop", .product(name: "ProviderLifecycleHooks", package: "ProviderLifecycleHooks")],
             path: "Tests/PluginConversationTitleTests"
         ),
     ]
