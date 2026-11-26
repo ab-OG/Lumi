@@ -17,7 +17,7 @@ inventory, and the PR slicing plan. It is a baseline: counts move as slices land
 | Settings catalogs en+zh sync, singular/plural count labels, key audits | merged (PR #5) |
 | Provider settings/pickers English | draft PR (`personal/english-provider-pickers`): Aliyun/CommandCode/OpenCode/StepFun/Tencent/Zhipu/MiniMax identity strings, ModelSelector catalog en values, LumiLocalizationKit locale-precedence fix, new `Scripts/check-localization-keys.py` gate |
 | Tools & permission prompts English | draft PR (`personal/english-tools-permissions`, stacked on the provider-pickers PR): KitAgentTool risk/authorization labels, PluginToolManager tool descriptions + risk reasons + job messages, PluginMessageRenderer permission-card text |
-| Errors & agent-loop UI English | not started |
+| Errors & agent-loop UI English | draft PR (`personal/english-agentloop-ui`, stacked on the tools-and-permissions PR): PluginMessageListDetailed send-state strings, PluginMessageRenderer turn-complete divider, PluginAgentLoop LLM recovery hint (LLM-facing), LumiApp bootstrap-failure screen + low-disk toast + Settings window title |
 | Plugin long tail (Mail, EditorService, MessageRenderer, …) | not started |
 | On-device English UI + local-model conversation verification | **requires Ankit's Mac** |
 
@@ -184,8 +184,37 @@ Unify or distinctly name such keys.
    PluginMessageRenderer's legacy Chinese catalog keys (26 zh-source keys plus
    8 en≠key entries and 2 keys missing en, flagged by check-localization-keys.py
    as long-tail debt).
-5. **Errors & agent-loop UI**: non-localized throw/error strings shown to the
-   user, agent loop event titles (e.g. "生成中"/"结束"), send-state strings.
+5. **Errors & agent-loop UI**: done in the agentloop-ui PR:
+   - PluginMessageListDetailed: the 4 status strings (`status.sending` etc.) had
+     Chinese as their en catalog value; migrated to English source keys
+     ("Sending message…", "Thinking…", "Executing tool…", "Waiting for your
+     input…") plus a new "Executing %@…" format key for the status + job
+     description compound that mixed Chinese scaffolding with English tool
+     names after the tools PR ("正在Read a.txt…"). zh-Hans/Hant/HK/TW values
+     preserved. Fixed matching test pins in ListV3ViewModelTests.
+   - PluginMessageRenderer: `TurnCompletedMessageView` divider title "结束" and
+     detail " · 耗时 X" → English source keys "Turn complete", "Duration %@"
+     with zh translations preserved in the PMR catalog.
+   - PluginAgentLoop: `llmRecoveryHint` system-prompt recovery instruction is
+     now English (it is sent to the LLM as a temporary system message, not UI;
+     switched for consistency with the English-model-facing prompts).
+   - LumiApp (host target, no xcstrings of its own): bootstrap-failure screen
+     (titles, explanations, phase words, action buttons, technical-details
+     labels), the low-disk toast, and the Settings window title now follow the
+     existing `LumiMenuBarController` `localized(_:chinese:)` pattern
+     (`lumiAppString(_:chinese:)`, English-first with zh fallback).
+   Catalog-integrity tests require all 5 locales (en, zh-Hans, zh-Hant,
+   zh-HK, zh-TW) on every touched key. Verified: swift test
+   PluginMessageListDetailed (120) / PluginMessageRenderer (213) /
+   PluginAgentLoop (116) all pass; check-localization-keys.py OK for
+   Detailed + AgentLoop (PMR still has its 39 pre-existing long-tail problems,
+   unchanged by this PR); check-tool-failure-strings.py passes; full app builds
+   with unsigned `xcodebuild` (scheme Lumi, Debug).
+   Remaining in this area: PMR long-tail catalog migration (26 zh-source keys,
+   8 en≠key entries, 'Collapse'/'Expand' missing en), PluginComputerUse
+   authorization card, agent-loop event titles in PluginLLMProviderMLX
+   ("生成中"/"结束" in MLXRuntime.swift are currently never consumed
+   downstream — dead strings, noted for later cleanup).
 6. **Plugin long tail** (several PRs, roughly by visibility):
    Browser/DiskManager/ClipboardManager/AppManager → Mail/MessageRenderer →
    EditorService & Kits → designers/recorder utilities.

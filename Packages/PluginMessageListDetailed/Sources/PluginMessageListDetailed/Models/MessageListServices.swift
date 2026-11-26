@@ -45,16 +45,16 @@ struct MessageListServices {
         guard let activity = state.activity else { return nil }
         let content: String
         switch activity {
-        case .sending: content = String(localized: "status.sending", defaultValue: "正在发送消息…")
-        case .thinking: content = String(localized: "status.thinking", defaultValue: "正在思考…")
+        case .sending: content = pluginLocalization.string("Sending message…")
+        case .thinking: content = pluginLocalization.string("Thinking…")
         case .executingTool:
             if let description = state.jobActivity.recentJobDescription,
                state.jobActivity.runningJobCount > 0 {
-                content = "正在\(description)…"
+                content = String(format: pluginLocalization.string("Executing %@…"), description)
             } else {
-                content = String(localized: "status.executing-tool", defaultValue: "正在执行工具…")
+                content = pluginLocalization.string("Executing tool…")
             }
-        case .waitingForUser: content = String(localized: "status.waiting-for-user", defaultValue: "等待你的输入…")
+        case .waitingForUser: content = pluginLocalization.string("Waiting for your input…")
         }
         return Message(conversationID: conversationID, role: .status, content: content)
     }

@@ -256,7 +256,7 @@ public enum TurnReducer {
                 return (rt, .failed(reason))
             }
             rt.llmRecoveryAttempts += 1
-            rt.llmRecoveryHint = "上一次工具调用没有完整到达，系统未执行任何文件操作。请重新发送完整、合法的工具调用 JSON；如果内容较大，请拆分为较小的编辑操作。不要重复解释，直接继续任务。"
+            rt.llmRecoveryHint = "The previous tool call did not fully arrive, and the system executed no file operations. Resend a complete, valid tool-call JSON; if the payload is large, split it into smaller edits. Do not repeat explanations—continue the task directly."
             return (rt, nil)
 
         case .toolJobCreated(let jobID):
