@@ -78,7 +78,13 @@ final class ProviderSettingsPageViewModel: ObservableObject {
     }
 
     var providerCountLabel: String {
-        let key = isLocal ? "%lld 个本地供应商" : "%lld 个云端供应商"
+        let key: String
+        switch (isLocal, filteredProviders.count) {
+        case (true, 1): key = "%lld local provider"
+        case (true, _): key = "%lld local providers"
+        case (false, 1): key = "%lld cloud provider"
+        case (false, _): key = "%lld cloud providers"
+        }
         return String(format: pluginLocalization.string(key), Int64(filteredProviders.count))
     }
 
