@@ -35,18 +35,27 @@ enum ToolStepGroupSummary {
         let state = aggregateState(for: toolCalls)
 
         if state == .loading {
-            let progress = "执行中 · 已完成 \(finished)/\(total)"
+            var progress = String(
+                format: pluginLocalization.string("Running · %lld/%lld completed"),
+                finished, total
+            )
             if let duration = totalDuration(for: toolCalls) {
-                return "\(progress) · \(MessageViewHelpers.formatDuration(duration))"
+                progress += " · \(MessageViewHelpers.formatDuration(duration))"
             }
             return progress
         }
 
-        var parts = ["执行了 \(total) 个步骤"]
         let failed = toolCalls.filter { $0.result?.isError == true }.count
+        var head: String
         if failed > 0 {
-            parts[0] = "执行了 \(total) 个步骤(\(failed) 失败)"
+            head = String(
+                format: pluginLocalization.string("Ran %lld steps (%lld failed)"),
+                total, failed
+            )
+        } else {
+            head = String(format: pluginLocalization.string("Ran %lld steps"), total)
         }
+        var parts = [head]
         if let duration = totalDuration(for: toolCalls) {
             parts.append(MessageViewHelpers.formatDuration(duration))
         }
@@ -55,7 +64,7 @@ enum ToolStepGroupSummary {
 
     /// 从 Job 快照生成 V1 折叠态摘要，避免把实时态误判成“无结果”。
     static func summaryText(for jobs: [ToolJob], now: Date = Date()) -> String {
-        guard !jobs.isEmpty else { return "执行工具" }
+        guard !jobs.isEmpty else { return pluginLocalization.string("Executing tools") }
         let total = jobs.count
         let active = jobs.filter { !$0.status.isTerminal }.count
         let failed = jobs.filter { $0.status == .failed || $0.status == .timedOut }.count
@@ -64,12 +73,20 @@ enum ToolStepGroupSummary {
         let elapsed = max(0, end.timeIntervalSince(start))
 
         if active > 0 {
-            return "执行中 · \(total - active)/\(total) · \(MessageViewHelpers.formatDuration(elapsed))"
+            return String(
+                format: pluginLocalization.string("Running · %lld/%lld · %@"),
+                total - active, total,
+                MessageViewHelpers.formatDuration(elapsed)
+            )
         }
         if failed > 0 {
-            return "已停止 · \(failed)个失败"
+            return String(format: pluginLocalization.string("Stopped · %lld failed"), failed)
         }
-        return "执行了\(total)个步骤 · \(MessageViewHelpers.formatDuration(elapsed))"
+        return String(
+            format: pluginLocalization.string("Ran %lld steps · %@"),
+            total,
+            MessageViewHelpers.formatDuration(elapsed)
+        )
     }
 
     /// 已完成工具的耗时之和(进行中仅统计已完成的部分);无任何耗时数据时为 nil。

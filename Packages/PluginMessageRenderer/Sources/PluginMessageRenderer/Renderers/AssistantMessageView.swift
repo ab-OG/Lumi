@@ -143,7 +143,7 @@ private struct AssistantMessageBody: View {
                         .font(.caption2.weight(.semibold))
                         .foregroundColor(theme.textSecondary)
                         .rotationEffect(.degrees(isReasoningExpanded ? 90 : 0))
-                    Text(pluginLocalization.string("思考过程"))
+                    Text(pluginLocalization.string("Thinking Process"))
                         .font(.appCaptionEmphasized)
                         .foregroundColor(theme.textSecondary)
                     Spacer()

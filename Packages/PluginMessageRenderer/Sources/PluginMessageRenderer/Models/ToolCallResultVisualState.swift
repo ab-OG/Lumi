@@ -63,16 +63,19 @@ enum ToolJobVisualState: Equatable {
         }
     }
 
-    var title: String {
+    var title: String { pluginLocalization.string(key) }
+
+    /// English source key; see Resources/Localizable.xcstrings for translations.
+    private var key: String {
         switch self {
-        case .queued: "排队中"
-        case .running: "执行中"
-        case .waitingForUser: "等待用户"
-        case .cancelling: "停止中"
-        case .completed: "已完成"
-        case .failed: "失败"
-        case .cancelled: "已停止"
-        case .timedOut: "已超时"
+        case .queued: "Queued"
+        case .running: "Running"
+        case .waitingForUser: "Waiting for user"
+        case .cancelling: "Cancelling"
+        case .completed: "Completed"
+        case .failed: "Failed"
+        case .cancelled: "Stopped"
+        case .timedOut: "Timed out"
         }
     }
 

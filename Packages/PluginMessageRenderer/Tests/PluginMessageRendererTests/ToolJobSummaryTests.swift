@@ -11,18 +11,18 @@ struct ToolJobSummaryTests {
     @Test("所有 Job 状态都有稳定的用户文案")
     func mapsAllStatuses() {
         let statuses: [(ToolJobStatus, String)] = [
-            (.queued, "排队中"),
-            (.running, "执行中"),
-            (.waitingForUser, "等待用户"),
-            (.cancelling, "停止中"),
-            (.completed, "已完成"),
-            (.failed, "失败"),
-            (.cancelled, "已停止"),
-            (.timedOut, "已超时"),
+            (.queued, "Queued"),
+            (.running, "Running"),
+            (.waitingForUser, "Waiting for user"),
+            (.cancelling, "Cancelling"),
+            (.completed, "Completed"),
+            (.failed, "Failed"),
+            (.cancelled, "Stopped"),
+            (.timedOut, "Timed out"),
         ]
 
         for (status, title) in statuses {
-            #expect(ToolJobVisualState(status: status).title == title)
+            #expect(ToolJobVisualState(status: status).title == PluginMessageRenderer.pluginLocalization.string(title))
         }
     }
 
@@ -76,11 +76,11 @@ struct ToolJobSummaryTests {
             ToolStepGroupSummary.summaryText(
                 for: [running, completed],
                 now: baseDate.addingTimeInterval(138)
-            ) == "执行中 · 1/2 · 2m 18s"
+            ) == String(format: PluginMessageRenderer.pluginLocalization.string("Running · %lld/%lld · %@"), 1, 2, "2m 18s")
         )
 
         let failed = makeJob(id: "failed", status: .failed)
-        #expect(ToolStepGroupSummary.summaryText(for: [failed]) == "已停止 · 1个失败")
+        #expect(ToolStepGroupSummary.summaryText(for: [failed]) == String(format: PluginMessageRenderer.pluginLocalization.string("Stopped · %lld failed"), 1))
     }
 
     private func makeJob(

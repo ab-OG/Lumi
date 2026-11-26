@@ -26,7 +26,7 @@ struct MessageInfoButton: View {
         ) {
             isPresented.toggle()
         }
-        .help(pluginLocalization.string("消息详情"))
+        .help(pluginLocalization.string("Message Details"))
         .popover(isPresented: $isPresented, arrowEdge: .bottom) {
             MessageInfoPopoverContent(message: message)
         }

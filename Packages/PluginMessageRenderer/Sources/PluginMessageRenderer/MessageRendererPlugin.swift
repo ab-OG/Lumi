@@ -25,8 +25,8 @@ public final class MessageRendererPlugin: SuperPlugin, SuperLog {
 
     public let metadata = PluginMetadata(
         id: "CoreMessageRenderer",
-        name: "核心消息渲染器",
-        description: "消息渲染：用户/助手/系统/错误/状态/工具消息与工具调用卡片",
+        name: pluginLocalization.string("Core Message Renderer"),
+        description: pluginLocalization.string("Message rendering for user/assistant/system/error/status messages, tool-call cards"),
         category: .chat,
         stage: .preview,
         policy: .required

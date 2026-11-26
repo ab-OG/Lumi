@@ -12,12 +12,12 @@ struct ResendMessageButton: View {
     var body: some View {
         AppIconButton(
             systemImage: "arrow.clockwise",
-            label: pluginLocalization.string("重发"),
+            label: pluginLocalization.string("Resend"),
             tint: theme.textSecondary.opacity(0.8),
             size: .compact,
             action: resend
         )
-        .help(pluginLocalization.string("重新发送该消息"))
+        .help(pluginLocalization.string("Resend this message"))
     }
 
     private func resend() {

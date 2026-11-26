@@ -30,12 +30,15 @@ struct GoalTaskContinuationMessageView: View {
 
     private var statusText: String {
         if isLimitReached {
-            return "Goal 自动续跑已停止"
+            return pluginLocalization.string("Goal auto-continuation stopped")
         }
         if let attempt, let maxAttempts {
-            return "Goal 自动继续（\(attempt)/\(maxAttempts)）"
+            return String(
+                format: pluginLocalization.string("Goal auto-continuing (%lld/%lld)"),
+                attempt, maxAttempts
+            )
         }
-        return "Goal 自动继续"
+        return pluginLocalization.string("Goal auto-continuing")
     }
 
     private var reason: String? {
@@ -78,7 +81,7 @@ struct GoalTaskContinuationMessageView: View {
         .popover(isPresented: $showsDetail, arrowEdge: .bottom) {
             detailPopover
         }
-        .help("点击查看 Goal 自动续跑详情")
+        .help(pluginLocalization.string("Tap to view Goal auto-continuation details"))
         .accessibilityElement(children: .combine)
         .accessibilityLabel(statusText)
     }
@@ -90,10 +93,10 @@ struct GoalTaskContinuationMessageView: View {
                 .font(.subheadline.weight(.semibold))
 
             if let reason, !reason.isEmpty {
-                detailRow(title: "说明", body: reason)
+                detailRow(title: pluginLocalization.string("Details"), body: reason)
             }
             if !goalTitles.isEmpty {
-                detailRow(title: "相关 Goal", body: goalTitles.joined(separator: "\n"))
+                detailRow(title: pluginLocalization.string("Related Goals"), body: goalTitles.joined(separator: "\n"))
             }
         }
         .padding(12)

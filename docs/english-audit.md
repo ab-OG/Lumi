@@ -18,7 +18,9 @@ inventory, and the PR slicing plan. It is a baseline: counts move as slices land
 | Provider settings/pickers English | draft PR (`personal/english-provider-pickers`): Aliyun/CommandCode/OpenCode/StepFun/Tencent/Zhipu/MiniMax identity strings, ModelSelector catalog en values, LumiLocalizationKit locale-precedence fix, new `Scripts/check-localization-keys.py` gate |
 | Tools & permission prompts English | draft PR (`personal/english-tools-permissions`, stacked on the provider-pickers PR): KitAgentTool risk/authorization labels, PluginToolManager tool descriptions + risk reasons + job messages, PluginMessageRenderer permission-card text |
 | Errors & agent-loop UI English | draft PR (`personal/english-agentloop-ui`, stacked on the tools-and-permissions PR): PluginMessageListDetailed send-state strings, PluginMessageRenderer turn-complete divider, PluginAgentLoop LLM recovery hint (LLM-facing), LumiApp bootstrap-failure screen + low-disk toast + Settings window title |
-| Plugin long tail (Mail, EditorService, MessageRenderer, …) | not started |
+| PMR catalog migration (39 gate findings) | draft PR (`personal/english-pmr-catalog`, stacked on the agent-loop PR): all 39 findings fixed — 18 zh-source keys renamed to English source keys, 9 previously hard-coded strings routed through `pluginLocalization`, tool-call state words, step-group summaries, Goal-continuation labels, plugin title/description, Collapse/Expand keys added; gate now clean |
+| PMR info popover + diagnostic strip English (MessageInfoButton, MessageDiagnosticStrip) | not started (next slice) |
+| Plugin long tail (Mail, EditorService, …) | not started |
 | On-device English UI + local-model conversation verification | **requires Ankit's Mac** |
 
 ## Established translation pattern
@@ -180,10 +182,10 @@ Unify or distinctly name such keys.
    labels + reasons, PluginToolManager tool descriptions/risk reasons/job
    messages, PluginMessageRenderer permission-card question + buttons.
    Tool schema descriptions were already English upstream.
-   Remaining in this area: PluginComputerUse authorization card, and
-   PluginMessageRenderer's legacy Chinese catalog keys (26 zh-source keys plus
-   8 en≠key entries and 2 keys missing en, flagged by check-localization-keys.py
-   as long-tail debt).
+   Remaining in this area: PluginComputerUse authorization card, and the PMR
+   info popover / diagnostic strip strings (MessageInfoButton,
+   MessageDiagnosticStrip) — the rest of PMR's catalog debt is fixed in the
+   pmr-catalog PR.
 5. **Errors & agent-loop UI**: done in the agentloop-ui PR:
    - PluginMessageListDetailed: the 4 status strings (`status.sending` etc.) had
      Chinese as their en catalog value; migrated to English source keys
@@ -210,9 +212,10 @@ Unify or distinctly name such keys.
    Detailed + AgentLoop (PMR still has its 39 pre-existing long-tail problems,
    unchanged by this PR); check-tool-failure-strings.py passes; full app builds
    with unsigned `xcodebuild` (scheme Lumi, Debug).
-   Remaining in this area: PMR long-tail catalog migration (26 zh-source keys,
-   8 en≠key entries, 'Collapse'/'Expand' missing en), PluginComputerUse
-   authorization card, agent-loop event titles in PluginLLMProviderMLX
+   Remaining in this area: fixed by the pmr-catalog PR for the 39 gate findings
+   (PMR gate now clean); still open: PMR info popover (MessageInfoButton) +
+   diagnostic strip strings, PluginComputerUse authorization card,
+   agent-loop event titles in PluginLLMProviderMLX
    ("生成中"/"结束" in MLXRuntime.swift are currently never consumed
    downstream — dead strings, noted for later cleanup).
 6. **Plugin long tail** (several PRs, roughly by visibility):
