@@ -173,6 +173,11 @@ Unify or distinctly name such keys.
    Zhipu/MiniMax plus the ModelSelector catalog are done in the
    provider-pickers PR; remaining: MLX provider plugin strings and any provider
    text living under Vendor.
+   Count-label fix in the provider-pickers PR: the provider-list row used to
+   hardcode "\(count) models" (showing "1 models"); it now goes through
+   `ProviderListItem.modelsCountText` → `"1 model"` / `"%lld models"` count keys
+   with all 5 locales, plus two regression tests (value-level singular/plural and
+   compiled per-language translations).
 4. **Tools & permission prompts**: tool schema descriptions rendered in prompts,
    PluginToolManager manager UI + permission dialogs (this text also reaches
    the LLM; keep changes semantics-preserving).
