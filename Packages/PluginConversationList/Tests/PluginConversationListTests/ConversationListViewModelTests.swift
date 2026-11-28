@@ -21,7 +21,7 @@ import Testing
     )
     #expect(viewModel.isLoading)
     #expect(viewModel.headerVisible == false)
-    #expect(viewModel.headerTitle == "所有项目的对话")
+    #expect(viewModel.headerTitle == "All project conversations")
 
     await viewModel.loadInitialIfNeeded()
     await viewModel.loadInitialIfNeeded()
@@ -52,7 +52,7 @@ import Testing
     #expect(viewModel.conversations.map(\.id) == [selectedID])
     #expect(viewModel.resolvedProjectPath == "/workspace/Two")
     #expect(viewModel.headerVisible)
-    #expect(viewModel.headerTitle == "项目对话 (Two)")
+    #expect(viewModel.headerTitle == String(format: pluginLocalization.string("Project conversations (%@)"), "Two"))
     #expect(!viewModel.hasMultipleProjects)
     // 徽标条数只统计当前项目的对话，不含其它项目的。
     #expect(viewModel.conversationCount == 1)

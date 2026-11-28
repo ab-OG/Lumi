@@ -88,7 +88,7 @@ final class ConversationListToolbarViewModel: ObservableObject {
         if let name = currentProjectName {
             return name
         }
-        return "当前项目"
+        return pluginLocalization.string("Current project")
     }
 
     // MARK: - 数据加载

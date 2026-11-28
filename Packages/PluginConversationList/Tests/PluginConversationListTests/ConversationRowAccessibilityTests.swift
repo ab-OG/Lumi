@@ -63,7 +63,7 @@ import Testing
         title: nil,
         automationLevel: nil
     ))
-    #expect(row == "对话", "无标题时应回退为「对话」，实际「\(row)」")
+    #expect(row == "Conversation", "无标题时应回退为「对话」，实际「\(row)」")
     #expect(!row.isEmpty, "label 不得为空串")
 }
 

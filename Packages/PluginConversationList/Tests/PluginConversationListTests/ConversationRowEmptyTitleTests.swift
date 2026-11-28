@@ -46,7 +46,7 @@ struct ConversationRowEmptyTitleTests {
             automationLevel: nil
         ))
         #expect(!row.isEmpty, "空标题的行不得产生空 label")
-        #expect(row == "对话", "空字符串标题应回退为「对话」，实际「\(row)」")
+        #expect(row == "Conversation", "空字符串标题应回退为占位文案，实际「\(row)」")
     }
 
     /// 只含空白字符的标题同样属于「无标题」。
@@ -62,7 +62,7 @@ struct ConversationRowEmptyTitleTests {
             automationLevel: nil
         ))
         #expect(!row.isEmpty, "纯空白标题的行不得产生空 label")
-        #expect(row == "对话", "纯空白标题应回退为「对话」，实际「\(row)」")
+        #expect(row == "Conversation", "纯空白标题应回退为占位文案，实际「\(row)」")
     }
 
     /// 与 `nil` 形态保持一致：空串标题与 nil 标题必须得到同样的占位文案。
