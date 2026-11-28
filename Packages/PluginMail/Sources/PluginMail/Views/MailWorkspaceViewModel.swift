@@ -154,7 +154,7 @@ final class MailWorkspaceViewModel: ObservableObject {
             // 并用本地缓存渲染列表，而不是留下空白工作区。
             isOffline = true
             folders = [MailFolder(path: "INBOX", kind: .inbox, delimiter: "/")]
-            handleError(error, context: "加载文件夹")
+            handleError(error, context: pluginLocalization.string("Loading folders"))
             await loadMessages(folder: "INBOX", reset: true)
         }
     }
@@ -208,7 +208,7 @@ final class MailWorkspaceViewModel: ObservableObject {
         } catch {
             guard currentContext == context else { return }
             isOffline = true
-            handleError(error, context: "同步 \(folder)")
+            handleError(error, context: String(format: pluginLocalization.string("Syncing %@"), folder))
             // 离线降级：仍展示本地缓存
             await loadMessages(folder: folder, reset: true)
         }
@@ -262,7 +262,7 @@ final class MailWorkspaceViewModel: ObservableObject {
             }
         } catch {
             guard currentContext == context, selectedMessage?.uid == message.uid else { return }
-            handleError(error, context: "读取邮件")
+            handleError(error, context: pluginLocalization.string("Reading message"))
         }
     }
 
@@ -282,9 +282,9 @@ final class MailWorkspaceViewModel: ObservableObject {
 
     private func handleError(_ error: Error, context: String) {
         if let mailError = error as? MailError {
-            errorMessage = "\(context)失败：\(mailError.localizedDescription)"
+            errorMessage = String(format: pluginLocalization.string("%@ failed: %@"), context, mailError.localizedDescription)
         } else {
-            errorMessage = "\(context)失败：\(error.localizedDescription)"
+            errorMessage = String(format: pluginLocalization.string("%@ failed: %@"), context, error.localizedDescription)
         }
     }
 }

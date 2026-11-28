@@ -35,7 +35,7 @@ public struct MailReaderView: View {
                             allowsRemoteContent: allowsRemoteContent
                         )
                     } else {
-                        Text(detail.plainTextBody?.isEmpty == false ? detail.plainTextBody! : "（无正文）")
+                        Text(detail.plainTextBody?.isEmpty == false ? detail.plainTextBody! : pluginLocalization.string("(No body)"))
                             .font(.appBody)
                             .foregroundColor(theme.textPrimary)
                             .textSelection(.enabled)
@@ -61,11 +61,11 @@ public struct MailReaderView: View {
             Image(systemName: "shield.lefthalf.filled")
                 .font(.appCaption)
                 .foregroundColor(theme.textTertiary)
-            Text("为保护隐私，已拦截远程图片和样式。")
+            Text(pluginLocalization.string("Remote images and styles are blocked for privacy."))
                 .font(.appCaption)
                 .foregroundColor(theme.textSecondary)
             Spacer()
-            AppButton("加载远程内容", style: .secondary, size: .small) {
+            AppButton(pluginLocalization.string("Load Remote Content"), style: .secondary, size: .small) {
                 allowsRemoteContent = true
             }
         }
@@ -79,11 +79,11 @@ public struct MailReaderView: View {
 
     private var header: some View {
         VStack(alignment: .leading, spacing: 6) {
-            Text(detail.summary.subject.isEmpty ? "（无主题）" : detail.summary.subject)
+            Text(detail.summary.subject.isEmpty ? pluginLocalization.string("(No Subject)") : detail.summary.subject)
                 .font(.appTitle)
                 .foregroundColor(theme.textPrimary)
             HStack(spacing: 6) {
-                Text("发件人")
+                Text(pluginLocalization.string("From"))
                     .font(.appCaption)
                     .foregroundColor(theme.textTertiary)
                 Text(fromText(detail.summary.from))
@@ -96,7 +96,7 @@ public struct MailReaderView: View {
             }
             if !detail.summary.to.isEmpty {
                 HStack(spacing: 6) {
-                    Text("收件人")
+                    Text(pluginLocalization.string("To"))
                         .font(.appCaption)
                         .foregroundColor(theme.textTertiary)
                     Text(detail.summary.to.map(\.email).joined(separator: ", "))
@@ -111,7 +111,7 @@ public struct MailReaderView: View {
     }
 
     private func fromText(_ address: MailAddress?) -> String {
-        guard let address else { return "未知" }
+        guard let address else { return pluginLocalization.string("Unknown") }
         if let displayName = address.displayName, !displayName.isEmpty {
             return "\(displayName) <\(address.email)>"
         }
@@ -269,7 +269,7 @@ public struct MailAttachmentBarView: View {
 
     public var body: some View {
         VStack(alignment: .leading, spacing: 6) {
-            Text("附件（\(attachments.count)）")
+            Text(String(format: pluginLocalization.string("Attachments (%lld)"), Int64(attachments.count)))
                 .font(.appCaption)
                 .foregroundColor(theme.textTertiary)
             ForEach(attachments) { attachment in

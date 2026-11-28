@@ -29,7 +29,7 @@ public struct MailSettingsView: View {
     public var body: some View {
         PluginSettingsScaffold(
             title: pluginLocalization.string("Mail"),
-            subtitle: "IMAP/SMTP 账户：连接、撰写、搜索与 Agent 工具。",
+            subtitle: pluginLocalization.string("IMAP/SMTP accounts: connection, composing, search, and Agent tools."),
             showHeader: true
         ) {
             if editingDraft != nil {
@@ -47,10 +47,10 @@ public struct MailSettingsView: View {
     // MARK: - 账户列表
 
     private var accountListCard: some View {
-        AppSettingSection(title: "账户", titleAlignment: .leading) {
+        AppSettingSection(title: pluginLocalization.string("Accounts"), titleAlignment: .leading) {
             VStack(spacing: 0) {
                 if accounts.isEmpty {
-                    Text("还没有邮件账户。点击下方「添加账户」开始配置。")
+                    Text(pluginLocalization.string("No mail accounts yet. Click Add Account below to get started."))
                         .font(.appBody)
                         .foregroundColor(theme.textSecondary)
                 } else {
@@ -82,14 +82,14 @@ public struct MailSettingsView: View {
                     ProgressView()
                         .controlSize(.small)
                 } else {
-                    AppButton("测试", style: .secondary, size: .small) {
+                    AppButton(pluginLocalization.string("Test"), style: .secondary, size: .small) {
                         Task { await testConnection(account) }
                     }
                 }
-                AppButton("编辑", style: .secondary, size: .small) {
+                AppButton(pluginLocalization.string("Edit"), style: .secondary, size: .small) {
                     beginEditing(account)
                 }
-                AppButton("删除", style: .destructive, size: .small) {
+                AppButton(pluginLocalization.string("Delete"), style: .destructive, size: .small) {
                     delete(account)
                 }
             }
@@ -100,7 +100,7 @@ public struct MailSettingsView: View {
 
     private var addCard: some View {
         AppSettingSection(title: nil, titleAlignment: .leading) {
-            AppButton("添加账户", style: .primary, fillsWidth: true) {
+            AppButton(pluginLocalization.string("Add Account"), style: .primary, fillsWidth: true) {
                 beginAdding()
             }
         }
@@ -146,7 +146,7 @@ public struct MailSettingsView: View {
     private func save(_ draft: MailAccountDraft) {
         let id = editingAccountID ?? UUID()
         guard let config = try? draft.toConfig(id: id) else {
-            errorMessage = "IMAP 与 SMTP 端口必须在 1–65535 之间。"
+            errorMessage = pluginLocalization.string("IMAP and SMTP ports must be between 1 and 65535.")
             return
         }
         accountStore.upsertAccount(config)
@@ -173,7 +173,7 @@ public struct MailSettingsView: View {
         errorMessage = nil
         defer { testingAccountID = nil }
         guard let password = accountStore.password(for: account.id) else {
-            errorMessage = "未找到该账户的密码，请先编辑并保存密码。"
+            errorMessage = pluginLocalization.string("No password found for this account. Edit it and save a password first.")
             return
         }
         do {
