@@ -13,7 +13,7 @@ struct ConversationStatsChart: View {
             points: series.points.map {
                 AppLineChartPoint(date: $0.day, value: Double($0.count))
             },
-            accessibilityLabel: "每日对话数量",
+            accessibilityLabel: pluginLocalization.string("Daily conversation count"),
             valueLabel: { $0.formatted(.number) }
         )
     }

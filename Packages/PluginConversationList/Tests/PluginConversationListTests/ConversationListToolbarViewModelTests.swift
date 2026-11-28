@@ -62,7 +62,7 @@ import Testing
     await project.closeProject()
     await viewModel.refreshProjectScopeVisibility()
     #expect(!viewModel.showsCurrentProjectScope)
-    #expect(viewModel.currentProjectTabTitle == "当前项目")
+    #expect(viewModel.currentProjectTabTitle == "Current project")
     #expect(viewModel.pickerSelection == .allProjects)
 }
 

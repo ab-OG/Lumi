@@ -104,9 +104,9 @@ final class ConversationListViewModel: ObservableObject {
         switch scope {
         case .currentProject:
             let projectName = context.currentProjectName ?? "—"
-            return String(format: "项目对话 (%@)", projectName)
+            return String(format: pluginLocalization.string("Project conversations (%@)"), projectName)
         case .all:
-            return "所有项目的对话"
+            return pluginLocalization.string("All project conversations")
         }
     }
 

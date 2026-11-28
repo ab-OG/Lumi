@@ -20,7 +20,7 @@ import Foundation
 /// `nil` 与 `""` 两种形态收敛到同一个结果，避免「只堵住其中一种」。
 enum ConversationRowTitle {
     /// 无标题时使用的占位文案。
-    static let placeholder = "对话"
+    static let placeholder = pluginLocalization.string("Conversation")
 
     /// 归一后的行标题：**永远非空**。
     ///
