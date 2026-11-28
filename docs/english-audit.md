@@ -23,7 +23,8 @@ inventory, and the PR slicing plan. It is a baseline: counts move as slices land
 | Computer-use authorization card English | draft PR (`personal/english-computer-use-auth-card`, stacked on the pmr-info PR): blocked Computer Use guidance localized, `ComputerUseLocalizationIntegrityTests` added |
 | Plugin long tail — Mail UI English | draft PR (`personal/english-mail`, stacked on the computer-use-auth-card PR): all 24 PluginMail gate findings fixed — 23 zh-source keys renamed to English source keys with en+zh-Hans/zh-Hant/zh-HK/zh-TW values (the `邮件` key merged into the existing fully-localized `Mail` key), plus ~50 previously hard-coded UI strings (settings, account form, compose, list, reader, workspace, provider presets, workspace error banners) routed through `pluginLocalization`; attachments count label uses singular/plural keys (`%lld attachment`/`%lld attachments`); new `MailCatalogMigrationIntegrityTests` (en≡key, 5 locales, legacy zh keys removed, placeholder parity, count pair). Verified: swift test PluginMail all pass, gate OK, tool-failure-strings OK, full unsigned app build (scheme Lumi, Debug) BUILD SUCCEEDED. MailAgentTools.swift LLM-facing strings deliberately left for the agent-tool long-tail slice |
 | Conversation list UI English (PluginConversationList) | draft PR (`personal/english-conversation-list`, stacked on the mail PR): all 5 gate findings fixed — 4 zh-source keys renamed to English keys with en+zh-Hans/zh-Hant/zh-HK/zh-TW values (`删除` merged into the existing fully-localized `Delete` key), plus hard-coded header titles, scope tabs, row placeholder, relative timestamps (`Date.relativeTime`, which now matches its documented English formats), count badge (singular/plural), and accessibility labels routed through `pluginLocalization`; new `ConversationListCatalogMigrationIntegrityTests`; Verified: swift test PluginConversationList 68 tests pass, gate OK, tool-failure-strings OK, full unsigned app build (scheme Lumi, Debug) BUILD SUCCEEDED. locale-dependent test pins updated to resolve via `pluginLocalization`. `GetRecentConversationsTool` LLM-facing text left for the agent-tool long-tail slice |
-| Plugin long tail (Browser, EditorService, TextActions, BrewManager, QuickFileSearch, DatabaseManager, …) | not started |
+| PluginDatabaseManager catalog completion | draft PR (`personal/english-database-manager`, stacked on the conversation-list PR): all 27 gate findings fixed — 25 English keys filled with en ≡ key values (zh translations untouched), `Index Type` en value corrected from 'Type' to the key, and the DEBUG-preview-referenced `No tables` key added with full locales (no source changes needed; all 27 keys already route through `pluginLocalization`) | Verified: swift test PluginDatabaseManager 76 tests pass (incl. 3 new integrity tests), gate OK, tool-failure-strings OK, full unsigned app build (scheme Lumi, Debug) BUILD SUCCEEDED.
+| Plugin long tail (Browser, EditorService, TextActions, BrewManager, QuickFileSearch, …) | not started |
 | On-device English UI + local-model conversation verification | **requires Ankit's Mac** |
 
 ## Established translation pattern
@@ -107,7 +108,7 @@ Unify or distinctly name such keys.
 |---|---|---|
 | Packages/PluginAppStoreConnect/Resources/Localizable.xcstrings | 279 | 286 |
 | Packages/PluginACP/Resources/Localizable.xcstrings | 34 | 95 |
-| Packages/PluginDatabaseManager/Resources/Localizable.xcstrings | 31 | 156 |
+| Packages/PluginDatabaseManager/Resources/Localizable.xcstrings | 0 | 157 |
 | Packages/PluginMail/Resources/Localizable.xcstrings | 0 | 80 |
 | Packages/PluginSettingGeneral/Resources/Localizable.xcstrings | 3 | 77 |
 | Packages/PluginAppStorePromoDesigner/Resources/Localizable.xcstrings | 22 | 76 |

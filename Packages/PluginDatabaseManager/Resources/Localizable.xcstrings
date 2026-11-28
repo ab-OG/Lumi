@@ -64,6 +64,12 @@
             "state" : "translated",
             "value" : "添加列"
           }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add Column"
+          }
         }
       }
     },
@@ -125,6 +131,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "添加索引"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add Index"
           }
         }
       }
@@ -188,6 +200,12 @@
             "state" : "translated",
             "value" : "允许 NULL"
           }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Allow NULL"
+          }
         }
       }
     },
@@ -249,6 +267,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "应用结构更改"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apply Structure Changes"
           }
         }
       }
@@ -551,6 +575,12 @@
             "state" : "translated",
             "value" : "列"
           }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Columns"
+          }
         }
       }
     },
@@ -783,6 +813,12 @@
             "state" : "translated",
             "value" : "数据类型"
           }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Data Type"
+          }
         }
       }
     },
@@ -981,6 +1017,12 @@
             "state" : "translated",
             "value" : "该对象不可用 DDL。"
           }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "DDL is not available for this object."
+          }
         }
       }
     },
@@ -1043,6 +1085,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "默认 SQL 表达式"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Default SQL Expression"
           }
         }
       }
@@ -1243,6 +1291,12 @@
             "state" : "translated",
             "value" : "删除列…"
           }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Drop Column…"
+          }
         }
       }
     },
@@ -1270,6 +1324,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "删除索引…"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Drop Index…"
           }
         }
       }
@@ -1639,6 +1699,12 @@
             "state" : "translated",
             "value" : "索引名称"
           }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Index Name"
+          }
         }
       }
     },
@@ -1648,7 +1714,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Type"
+            "value" : "Index Type"
           }
         },
         "zh-Hans" : {
@@ -1906,6 +1972,12 @@
             "state" : "translated",
             "value" : "加载结构…"
           }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Loading structure…"
+          }
         }
       }
     },
@@ -2070,6 +2142,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "名称"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name"
           }
         }
       }
@@ -2303,6 +2381,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "无项目"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No items"
           }
         }
       }
@@ -2570,6 +2654,12 @@
             "state" : "translated",
             "value" : "确定"
           }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
         }
       }
     },
@@ -2631,6 +2721,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "打开表或视图以查看其结构。"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open a table or view to inspect its structure."
           }
         }
       }
@@ -3413,6 +3509,12 @@
             "state" : "translated",
             "value" : "重命名列"
           }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rename Column"
+          }
         }
       }
     },
@@ -3440,6 +3542,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "重命名…"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rename…"
           }
         }
       }
@@ -3502,6 +3610,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "修改数据库前，请先查看生成的 DDL。"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Review the generated DDL before changing the database."
           }
         }
       }
@@ -4077,6 +4191,12 @@
             "state" : "translated",
             "value" : "部分数据库引擎会自动提交 DDL 语句。"
           }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Some database engines auto-commit DDL statements."
+          }
         }
       }
     },
@@ -4203,6 +4323,12 @@
           }
         },
         "zh-TW" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SSL / TLS"
+          }
+        },
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "SSL / TLS"
@@ -4371,6 +4497,12 @@
             "state" : "translated",
             "value" : "结构更改错误"
           }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Structure Change Error"
+          }
         }
       }
     },
@@ -4398,6 +4530,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "结构分区"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Structure Section"
           }
         }
       }
@@ -4563,6 +4701,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "此更改会丢弃数据，且无法由 Lumi 撤销。"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This change drops data and cannot be undone by Lumi."
           }
         }
       }
@@ -4798,6 +4942,12 @@
             "state" : "translated",
             "value" : "唯一索引"
           }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unique Index"
+          }
         }
       }
     },
@@ -4933,6 +5083,41 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "在編輯器中撰寫 SQL,點擊「全部執行」,結果顯示在下方。"
+          }
+        }
+      }
+    },
+    "No tables" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No tables"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有表"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "沒有資料表"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "沒有資料表"
+          }
+        },
+        "zh-TW" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "沒有資料表"
           }
         }
       }
