@@ -42,40 +42,40 @@ public struct MailAccountFormView: View {
     public var body: some View {
         VStack(alignment: .leading, spacing: 24) {
             AppSettingSection(
-                title: accountID == nil ? "添加账户" : "编辑账户",
+                title: accountID == nil ? pluginLocalization.string("Add Account") : pluginLocalization.string("Edit Account"),
                 titleAlignment: .leading
             ) {
                 providerRow
             }
 
-            AppSettingSection(title: "账户信息", titleAlignment: .leading) {
+            AppSettingSection(title: pluginLocalization.string("Account Details"), titleAlignment: .leading) {
                 VStack(spacing: 0) {
-                    AppSettingRow(title: "显示名称（可选）") {
-                        AppInputField("显示名称（可选）", text: $draft.displayName)
+                    AppSettingRow(title: pluginLocalization.string("Display Name (Optional)")) {
+                        AppInputField(LocalizedStringKey(pluginLocalization.string("Display Name (Optional)")), text: $draft.displayName)
                     }
 
                     Divider()
                         .padding(.vertical, 8)
 
-                    AppSettingRow(title: "邮箱地址") {
-                        AppInputField("邮箱地址", text: $draft.email)
+                    AppSettingRow(title: pluginLocalization.string("Email Address")) {
+                        AppInputField(LocalizedStringKey(pluginLocalization.string("Email Address")), text: $draft.email)
                     }
 
                     Divider()
                         .padding(.vertical, 8)
 
-                    AppSettingRow(title: "登录用户名") {
-                        AppInputField("登录用户名", text: $draft.username)
+                    AppSettingRow(title: pluginLocalization.string("Login Username")) {
+                        AppInputField(LocalizedStringKey(pluginLocalization.string("Login Username")), text: $draft.username)
                     }
 
                     Divider()
                         .padding(.vertical, 8)
 
-                    AppSettingRow(title: "密码 / 授权码") {
+                    AppSettingRow(title: pluginLocalization.string("Password / App Password")) {
                         GlassTextField(
                             title: "",
                             text: $draft.password,
-                            placeholder: "应用专用密码或授权码",
+                            placeholder: pluginLocalization.string("App-specific password or auth code"),
                             isSecure: true,
                             allowsReveal: true
                         )
@@ -83,29 +83,29 @@ public struct MailAccountFormView: View {
                 }
             }
 
-            AppSettingSection(title: "服务器", titleAlignment: .leading) {
+            AppSettingSection(title: pluginLocalization.string("Servers"), titleAlignment: .leading) {
                 VStack(spacing: 0) {
-                    serverHostRow("IMAP 服务器", host: $draft.imapHost)
+                    serverHostRow(pluginLocalization.string("IMAP Server"), host: $draft.imapHost)
 
                     Divider()
                         .padding(.vertical, 8)
 
-                    portRow("IMAP 端口", port: $draft.imapPort)
+                    portRow(pluginLocalization.string("IMAP Port"), port: $draft.imapPort)
 
                     Divider()
                         .padding(.vertical, 8)
 
-                    serverHostRow("SMTP 服务器", host: $draft.smtpHost)
+                    serverHostRow(pluginLocalization.string("SMTP Server"), host: $draft.smtpHost)
 
                     Divider()
                         .padding(.vertical, 8)
 
-                    portRow("SMTP 端口", port: $draft.smtpPort)
+                    portRow(pluginLocalization.string("SMTP Port"), port: $draft.smtpPort)
 
                     Divider()
                         .padding(.vertical, 8)
 
-                    AppSettingToggleRow("强制 TLS", isOn: $draft.useTLS)
+                    AppSettingToggleRow(pluginLocalization.string("Require TLS"), isOn: $draft.useTLS)
                 }
             }
 
@@ -127,8 +127,8 @@ public struct MailAccountFormView: View {
     // MARK: - 服务商预设
 
     private var providerRow: some View {
-        AppSettingRow(title: "服务商", icon: "server.rack") {
-            Picker("服务商", selection: $draft.provider) {
+        AppSettingRow(title: pluginLocalization.string("Provider"), icon: "server.rack") {
+            Picker(pluginLocalization.string("Provider"), selection: $draft.provider) {
                 ForEach(MailProviderPreset.allCases) { preset in
                     Text(preset.displayName).tag(preset)
                 }
@@ -159,7 +159,7 @@ public struct MailAccountFormView: View {
                 )
                 .textFieldStyle(.plain)
                 if !MailAccountDraft.isValidPort(port.wrappedValue) {
-                    Text("端口必须在 1–65535 之间。")
+                    Text(pluginLocalization.string("Port must be between 1 and 65535."))
                         .font(.appCaption)
                         .foregroundColor(theme.error)
                 }
@@ -173,7 +173,7 @@ public struct MailAccountFormView: View {
         VStack(alignment: .leading, spacing: 8) {
             HStack(spacing: 8) {
                 AppButton(
-                    isTesting ? "测试中…" : "连接测试",
+                    isTesting ? pluginLocalization.string("Testing…") : pluginLocalization.string("Test Connection"),
                     style: .secondary,
                     fillsWidth: true
                 ) {
@@ -209,11 +209,11 @@ public struct MailAccountFormView: View {
 
     private var actionsRow: some View {
         HStack(spacing: 8) {
-            AppButton("取消", style: .secondary, fillsWidth: true) {
+            AppButton(pluginLocalization.string("Cancel"), style: .secondary, fillsWidth: true) {
                 onCancel()
             }
             AppButton(
-                "保存",
+                pluginLocalization.string("Save"),
                 style: .primary,
                 fillsWidth: true
             ) {
@@ -229,41 +229,41 @@ public struct MailAccountFormView: View {
         defer { isTesting = false }
 
         guard !draft.email.isEmpty, !draft.password.isEmpty else {
-            formError = "请先填写邮箱地址与密码/授权码。"
+            formError = pluginLocalization.string("Enter an email address and password/auth code first.")
             return
         }
         guard draft.hasValidPorts else {
-            formError = "IMAP 与 SMTP 端口必须在 1–65535 之间。"
+            formError = pluginLocalization.string("IMAP and SMTP ports must be between 1 and 65535.")
             return
         }
         guard let config = try? draft.toConfig(id: accountID ?? UUID()) else {
-            formError = "IMAP 与 SMTP 端口必须在 1–65535 之间。"
+            formError = pluginLocalization.string("IMAP and SMTP ports must be between 1 and 65535.")
             return
         }
         do {
             try await sessionManager.testConnection(account: config, password: draft.password)
-            testResult = .success("连接成功：认证通过。")
+            testResult = .success(pluginLocalization.string("Connection succeeded: authentication passed."))
         } catch {
-            testResult = .failure("连接失败：\(error.localizedDescription)")
+            testResult = .failure(String(format: pluginLocalization.string("Connection failed: %@"), error.localizedDescription))
         }
     }
 
     private func save() {
         formError = nil
         guard !draft.email.isEmpty else {
-            formError = "邮箱地址不能为空。"
+            formError = pluginLocalization.string("Email address cannot be empty.")
             return
         }
         guard !draft.password.isEmpty else {
-            formError = "请填写密码/授权码。"
+            formError = pluginLocalization.string("Enter a password/auth code.")
             return
         }
         guard !draft.imapHost.isEmpty, !draft.smtpHost.isEmpty else {
-            formError = "IMAP 与 SMTP 服务器不能为空。"
+            formError = pluginLocalization.string("IMAP and SMTP servers cannot be empty.")
             return
         }
         guard draft.hasValidPorts else {
-            formError = "IMAP 与 SMTP 端口必须在 1–65535 之间。"
+            formError = pluginLocalization.string("IMAP and SMTP ports must be between 1 and 65535.")
             return
         }
         onSave(draft)

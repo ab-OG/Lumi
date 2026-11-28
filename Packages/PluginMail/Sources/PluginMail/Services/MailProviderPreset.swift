@@ -17,11 +17,11 @@ public enum MailProviderPreset: String, CaseIterable, Identifiable, Sendable {
     public var displayName: String {
         switch self {
         case .gmail: return "Gmail"
-        case .qq: return "QQ 邮箱"
-        case .netease163: return "网易 163"
+        case .qq: return pluginLocalization.string("QQ Mail")
+        case .netease163: return pluginLocalization.string("NetEase 163")
         case .icloud: return "iCloud Mail"
         case .outlook: return "Outlook"
-        case .custom: return "自定义"
+        case .custom: return pluginLocalization.string("Custom")
         }
     }
 

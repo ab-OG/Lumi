@@ -19,8 +19,10 @@ inventory, and the PR slicing plan. It is a baseline: counts move as slices land
 | Tools & permission prompts English | draft PR (`personal/english-tools-permissions`, stacked on the provider-pickers PR): KitAgentTool risk/authorization labels, PluginToolManager tool descriptions + risk reasons + job messages, PluginMessageRenderer permission-card text |
 | Errors & agent-loop UI English | draft PR (`personal/english-agentloop-ui`, stacked on the tools-and-permissions PR): PluginMessageListDetailed send-state strings, PluginMessageRenderer turn-complete divider, PluginAgentLoop LLM recovery hint (LLM-facing), LumiApp bootstrap-failure screen + low-disk toast + Settings window title |
 | PMR catalog migration (39 gate findings) | draft PR (`personal/english-pmr-catalog`, stacked on the agent-loop PR): all 39 findings fixed — 18 zh-source keys renamed to English source keys, 9 previously hard-coded strings routed through `pluginLocalization`, tool-call state words, step-group summaries, Goal-continuation labels, plugin title/description, Collapse/Expand keys added; gate now clean |
-| PMR info popover + diagnostic strip English (MessageInfoButton, MessageDiagnosticStrip) | not started (next slice) |
-| Plugin long tail (Mail, EditorService, …) | not started |
+| PMR info popover + diagnostic strip English (MessageInfoButton, MessageDiagnosticStrip) | draft PR (`personal/english-pmr-info-diagnostic`, stacked on the pmr-catalog PR): 42 keyed MessageInfoButton calls + diagnostic strip labels |
+| Computer-use authorization card English | draft PR (`personal/english-computer-use-auth-card`, stacked on the pmr-info PR): blocked Computer Use guidance localized, `ComputerUseLocalizationIntegrityTests` added |
+| Plugin long tail — Mail UI English | draft PR (`personal/english-mail`, stacked on the computer-use-auth-card PR): all 24 PluginMail gate findings fixed — 23 zh-source keys renamed to English source keys with en+zh-Hans/zh-Hant/zh-HK/zh-TW values (the `邮件` key merged into the existing fully-localized `Mail` key), plus ~50 previously hard-coded UI strings (settings, account form, compose, list, reader, workspace, provider presets, workspace error banners) routed through `pluginLocalization`; attachments count label uses singular/plural keys (`%lld attachment`/`%lld attachments`); new `MailCatalogMigrationIntegrityTests` (en≡key, 5 locales, legacy zh keys removed, placeholder parity, count pair). Verified: swift test PluginMail all pass, gate OK, tool-failure-strings OK, full unsigned app build (scheme Lumi, Debug) BUILD SUCCEEDED. MailAgentTools.swift LLM-facing strings deliberately left for the agent-tool long-tail slice |
+| Plugin long tail (Browser, EditorService, TextActions, BrewManager, QuickFileSearch, …) | not started |
 | On-device English UI + local-model conversation verification | **requires Ankit's Mac** |
 
 ## Established translation pattern
@@ -51,7 +53,7 @@ Unify or distinctly name such keys.
 |---|---|
 | Vendor | 342 |
 | EditorService | 210 |
-| PluginMail | 130 |
+| PluginMail | 130 → Mail UI done in the mail PR: all Views/Services user-visible strings now English source keys; remaining hits are comments, Logger lines, and `Agent/MailAgentTools.swift` LLM-facing tool text (separate follow-up) |
 | PluginMessageRenderer | 117 → permission-card strings done in the tools PR (question, Allow/Deny/Always-allow labels, fallback note); remaining 145 raw lines are the long-tail slice (loggers, comments, remaining UI rows) |
 | ProjectRAGEngine | 71 |
 | KitCADDesigner | 69 |
@@ -105,7 +107,7 @@ Unify or distinctly name such keys.
 | Packages/PluginAppStoreConnect/Resources/Localizable.xcstrings | 279 | 286 |
 | Packages/PluginACP/Resources/Localizable.xcstrings | 34 | 95 |
 | Packages/PluginDatabaseManager/Resources/Localizable.xcstrings | 31 | 156 |
-| Packages/PluginMail/Resources/Localizable.xcstrings | 28 | 30 |
+| Packages/PluginMail/Resources/Localizable.xcstrings | 0 | 80 |
 | Packages/PluginSettingGeneral/Resources/Localizable.xcstrings | 3 | 77 |
 | Packages/PluginAppStorePromoDesigner/Resources/Localizable.xcstrings | 22 | 76 |
 | Packages/PluginSystemBenchmark/Resources/Localizable.xcstrings | 14 | 49 |
@@ -219,7 +221,9 @@ Unify or distinctly name such keys.
    ("生成中"/"结束" in MLXRuntime.swift are currently never consumed
    downstream — dead strings, noted for later cleanup).
 6. **Plugin long tail** (several PRs, roughly by visibility):
-   Browser/DiskManager/ClipboardManager/AppManager → Mail/MessageRenderer →
+   Browser/DiskManager/ClipboardManager/AppManager → Mail (done in the mail PR:
+   all 24 gate findings + hard-coded UI strings migrated; MailAgentTools
+   LLM-facing text and the agent-tool long tail remain) /MessageRenderer →
    EditorService & Kits → designers/recorder utilities.
 7. **Vendor long tail** (LumiProviders, LumiUI, plugin vendor packages).
 

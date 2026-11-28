@@ -105,15 +105,15 @@ public struct MailWorkspaceView: View {
     private var toolbar: some View {
         HStack(spacing: 8) {
             if viewModel.selectedMessage != nil, viewModel.selectedDetail != nil {
-                AppButton("回复", style: .secondary, size: .small) {
+                AppButton(pluginLocalization.string("Reply"), style: .secondary, size: .small) {
                     viewModel.openComposer(mode: .reply, detail: viewModel.selectedDetail)
                 }
-                AppButton("转发", style: .secondary, size: .small) {
+                AppButton(pluginLocalization.string("Forward"), style: .secondary, size: .small) {
                     viewModel.openComposer(mode: .forward, detail: viewModel.selectedDetail)
                 }
             }
             Spacer()
-            AppButton("写邮件", style: .primary, size: .small) {
+            AppButton(pluginLocalization.string("Compose"), style: .primary, size: .small) {
                 viewModel.openComposer(mode: .new)
             }
         }
@@ -134,7 +134,7 @@ public struct MailWorkspaceView: View {
                     .font(.appCaption)
                     .foregroundColor(theme.textPrimary)
                 Spacer()
-                AppButton("关闭", style: .secondary, size: .small) {
+                AppButton(pluginLocalization.string("Close"), style: .secondary, size: .small) {
                     viewModel.errorMessage = nil
                 }
             }
@@ -151,10 +151,10 @@ public struct MailWorkspaceView: View {
             Image(systemName: "envelope.badge")
                 .font(.system(size: 44))
                 .foregroundColor(theme.textTertiary)
-            Text("还没有邮件账户")
+            Text(pluginLocalization.string("No Mail Accounts Yet"))
                 .font(.appBody)
                 .foregroundColor(theme.textPrimary)
-            Text("请到「设置 → 邮件」添加 IMAP/SMTP 账户。")
+            Text(pluginLocalization.string("Go to Settings → Mail to add an IMAP/SMTP account."))
                 .font(.appCaption)
                 .foregroundColor(theme.textSecondary)
         }
@@ -171,7 +171,7 @@ public struct MailWorkspaceView: View {
             VStack {
                 ProgressView()
                     .controlSize(.small)
-                Text("正在加载正文…")
+                Text(pluginLocalization.string("Loading message body…"))
                     .font(.appCaption)
                     .foregroundColor(theme.textSecondary)
             }
@@ -181,7 +181,7 @@ public struct MailWorkspaceView: View {
                 Image(systemName: "text.alignleft")
                     .font(.system(size: 36))
                     .foregroundColor(theme.textTertiary)
-                Text("选择一封邮件查看内容")
+                Text(pluginLocalization.string("Select a message to read it"))
                     .font(.appBody)
                     .foregroundColor(theme.textSecondary)
             }

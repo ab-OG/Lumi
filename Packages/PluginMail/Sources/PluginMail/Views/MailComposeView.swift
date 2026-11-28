@@ -58,11 +58,11 @@ struct MailComposeView: View {
                 .foregroundColor(theme.textPrimary)
             Spacer()
             if let savedAt = viewModel.draftSavedAt {
-                Text("草稿已保存 \(savedAt.formatted(date: .omitted, time: .shortened))")
+                Text(String(format: pluginLocalization.string("Draft saved %@"), savedAt.formatted(date: .omitted, time: .shortened)))
                     .font(.appCaption)
                     .foregroundColor(theme.textTertiary)
             }
-            AppButton("关闭", style: .secondary, size: .small) {
+            AppButton(pluginLocalization.string("Close"), style: .secondary, size: .small) {
                 onClose()
             }
         }
@@ -72,9 +72,9 @@ struct MailComposeView: View {
 
     private var title: String {
         switch viewModel.mode {
-        case .new: return "写邮件"
-        case .reply: return "回复"
-        case .forward: return "转发"
+        case .new: return pluginLocalization.string("Compose")
+        case .reply: return pluginLocalization.string("Reply")
+        case .forward: return pluginLocalization.string("Forward")
         }
     }
 
@@ -83,9 +83,9 @@ struct MailComposeView: View {
     private var form: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 10) {
-                fieldRow("收件人", text: $viewModel.to, placeholder: "name@example.com, name2@example.com")
-                fieldRow("抄送", text: $viewModel.cc, placeholder: "（可选）")
-                fieldRow("主题", text: $viewModel.subject, placeholder: "（可选）")
+                fieldRow(pluginLocalization.string("To"), text: $viewModel.to, placeholder: "name@example.com, name2@example.com")
+                fieldRow(pluginLocalization.string("Cc"), text: $viewModel.cc, placeholder: pluginLocalization.string("(optional)"))
+                fieldRow(pluginLocalization.string("Subject"), text: $viewModel.subject, placeholder: pluginLocalization.string("(optional)"))
                 Divider()
                 TextEditor(text: $viewModel.body)
                     .font(.appBody)
@@ -133,7 +133,7 @@ struct MailComposeView: View {
                 .font(.appCaption)
                 .foregroundColor(theme.textTertiary)
             if viewModel.attachments.isEmpty {
-                Text("拖入附件到窗口，或点击添加")
+                Text(pluginLocalization.string("Drag attachments into the window to attach them."))
                     .font(.appCaption)
                     .foregroundColor(theme.textTertiary)
             } else {
@@ -159,7 +159,7 @@ struct MailComposeView: View {
             }
             Spacer()
             if !viewModel.attachments.isEmpty {
-                Text("\(viewModel.attachments.count) 个附件")
+                Text(String(format: pluginLocalization.count("%lld attachment", "%lld attachments", for: viewModel.attachments.count), Int64(viewModel.attachments.count)))
                     .font(.appCaption)
                     .foregroundColor(theme.textTertiary)
             }
@@ -185,11 +185,11 @@ struct MailComposeView: View {
             }
             HStack(spacing: 8) {
                 Spacer()
-                AppButton("取消", style: .secondary, fillsWidth: true) {
+                AppButton(pluginLocalization.string("Cancel"), style: .secondary, fillsWidth: true) {
                     onClose()
                 }
                 AppButton(
-                    viewModel.phase == .sending ? "发送中…" : "发送",
+                    viewModel.phase == .sending ? pluginLocalization.string("Sending…") : pluginLocalization.string("Send"),
                     style: .primary,
                     fillsWidth: true
                 ) {

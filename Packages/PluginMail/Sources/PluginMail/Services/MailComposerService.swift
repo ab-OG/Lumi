@@ -33,7 +33,7 @@ public actor MailComposerService {
         } catch let error as MailError {
             throw error
         } catch {
-            throw MailError.protocolError("发送失败：\(error.localizedDescription)")
+            throw MailError.protocolError(String(format: pluginLocalization.string("Failed to send: %@"), error.localizedDescription))
         }
 
         // 归档到已发送：失败降级（不阻断成功态，仅日志记录）。

@@ -34,7 +34,9 @@ public final class MailPlugin: SuperPlugin, SuperLog {
     public let metadata = PluginMetadata(
         id: "com.coffic.lumi.plugin.mail",
         name: pluginLocalization.string("Mail"),
-        description: "IMAP/SMTP 邮件客户端：多账户、三栏工作区、撰写发送与 Agent 工具。",
+        description: pluginLocalization.string(
+            "IMAP/SMTP mail client: multiple accounts, three-pane workspace, composing, and Agent tools."
+        ),
         category: .system,
         stage: .preview,
         policy: .disabledByDefault

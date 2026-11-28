@@ -50,7 +50,7 @@ public struct MailListView: View {
                 VStack(spacing: 8) {
                     ProgressView()
                         .controlSize(.small)
-                    Text("正在同步…")
+                    Text(pluginLocalization.string("Syncing…"))
                         .font(.appCaption)
                         .foregroundColor(theme.textSecondary)
                 }
@@ -60,7 +60,7 @@ public struct MailListView: View {
                     Image(systemName: searchQuery.isEmpty ? "tray" : "magnifyingglass")
                         .font(.system(size: 30))
                         .foregroundColor(theme.textTertiary)
-                    Text(searchQuery.isEmpty ? "没有邮件" : "没有匹配「\(searchQuery)」的结果")
+                    Text(searchQuery.isEmpty ? pluginLocalization.string("No Mail") : String(format: pluginLocalization.string("No results for “%@”"), searchQuery))
                         .font(.appBody)
                         .foregroundColor(theme.textSecondary)
                 }
@@ -96,7 +96,7 @@ public struct MailListView: View {
             Image(systemName: "magnifyingglass")
                 .font(.appCaption)
                 .foregroundColor(theme.textTertiary)
-            TextField("搜索邮件", text: $searchQuery)
+            TextField(pluginLocalization.string("Search mail"), text: $searchQuery)
                 .textFieldStyle(.plain)
                 .font(.appBody)
             if !searchQuery.isEmpty {
@@ -134,7 +134,7 @@ public struct MailListView: View {
                         .font(.appCaption)
                         .foregroundColor(theme.textTertiary)
                 }
-                Text(message.subject.isEmpty ? "（无主题）" : message.subject)
+                Text(message.subject.isEmpty ? pluginLocalization.string("(No Subject)") : message.subject)
                     .font(.appBody)
                     .fontWeight(message.isRead ? .regular : .bold)
                     .foregroundColor(theme.textPrimary)
@@ -163,7 +163,7 @@ public struct MailListView: View {
         if let name = message.fromDisplayName, !name.isEmpty {
             return name
         }
-        return message.fromEmail.isEmpty ? "未知发件人" : message.fromEmail
+        return message.fromEmail.isEmpty ? pluginLocalization.string("Unknown Sender") : message.fromEmail
     }
 
     private func relativeDate(_ date: Date) -> String {

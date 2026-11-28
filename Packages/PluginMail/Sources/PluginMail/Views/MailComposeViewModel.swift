@@ -165,7 +165,7 @@ final class MailComposeViewModel: ObservableObject {
         guard phase != .sending else { return }
         let recipients = parseAddresses(to)
         guard !recipients.isEmpty else {
-            phase = .failed("收件人不能为空。")
+            phase = .failed(pluginLocalization.string("Recipients cannot be empty."))
             return
         }
         phase = .sending
